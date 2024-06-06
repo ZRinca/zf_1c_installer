@@ -1,18 +1,43 @@
 import customtkinter as ctk
+import tkinter as tk
+from itertools import cycle
 from tkinter import filedialog
+from search_1c import find_display_names
 
-programs = {
-    '1С:Предприятие 8 (учебная версия) (8.3.21.1393)': 'C:\\Program Files (x86)\\1cv8t\\8.3.21.1393\\',
-    '1C:Enterprise 8 (training version) (8.3.22.1709)': 'C:\\Program Files (x86)\\1cv8t\\8.3.22.1709\\',
-    '1C:Предприятие 8.2 (8.2.19.130)': 'C:\\Program Files (x86)\\1cv82\\8.2.19.130\\',
-    '1С:Предприятие 8 (x86-64) (8.3.22.1750)': 'C:\\Program Files\\1cv8\\8.3.22.1750\\'
-}
+find_1c = find_display_names(r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")  # Дополнительно получаем install_locations
+find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")
+programs = find_1c.copy()
+programs.update(find_1c_2)
 
 
 def select_txt_file():
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
     if file_path:
         file_path_label.set(file_path)
+
+
+class LoadingIndicator(ctk.CTkCanvas):
+    def __init__(self, master, size=100, speed=10, *args, **kwargs):
+        super().__init__(master, width=size, height=size, bg="#F8F8F8", highlightthickness=0, *args, **kwargs)
+        self.size = size
+        self.speed = speed
+
+        # Create the inner arc (part of the circle)
+        self.inner_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC, outline="#EDF8F3", width=5)
+
+        # Create the outer arc (part of the circle)
+        self.outer_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC, outline="#88DE71", width=5)
+
+        # List of angles for the arc start position with smaller steps
+        self.angles = cycle(range(0, 360, 5))
+        self.animate()
+
+    def animate(self):
+        # Update the start angle of the arcs
+        angle = next(self.angles)
+        self.itemconfig(self.inner_arc, start=angle)
+        self.itemconfig(self.outer_arc, start=angle)  # Sync the outer arc with the inner arc
+        self.after(self.speed, self.animate)
 
 
 class InstallerWindow:
@@ -73,17 +98,31 @@ class FindFileWindow(InstallerWindow):
         button_select.pack(side="right")
 
 
-class LoginPassword(InstallerWindow):
+class LoginPasswordWindow(InstallerWindow):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.req_1c_login_password = False
 
     def draw(self):
-        super().draw()
-        login_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), placeholder_text="Логин",
-                                   placeholder_text_color="grey")
-        login_entry.pack(padx=24, pady=(24, 0), fill='x')
+        if self.req_1c_login_password:
+            super().draw()
+            login_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), placeholder_text="Логин",
+                                       placeholder_text_color="grey")
+            login_entry.pack(padx=24, pady=(24, 0), fill='x')
 
-        password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
-                                      placeholder_text_color="grey")
-        password_entry.pack(padx=24, pady=(13, 24), fill='x')
+            password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
+                                          placeholder_text_color="grey")
+            password_entry.pack(padx=24, pady=(13, 24), fill='x')
+        else:
+            for widget in self.main_frame.winfo_children():
+                widget.destroy()
+
+            label1 = ctk.CTkLabel(self.main_frame, text=self.title, font=("Rubik Light", 12), anchor='w',
+                                  text_color="#6EC756", justify='left', wraplength=self.main_frame.winfo_width() - 48)
+            label1.pack(side="left", anchor="sw", padx=24, pady=24)
+
+            loading = LoadingIndicator(self.main_frame, size=110, speed=10)
+            loading.place(relx=0.5, rely=0.5, anchor="center")
 
 # class Find1cList(InstallerWindow):
 #
@@ -92,31 +131,3 @@ class LoginPassword(InstallerWindow):
 #         combobox = ctk.CTkComboBox(self.main_frame, variable=selected_program, values=list(programs.keys()),
 #                                    font=("Rubik Light", 12), border_color='#B3B7B1', button_color="#B3B7B1")
 #         combobox.pack(padx=24, pady=24, fill='x')
-
-# def create_main_window():
-#     global main_frame, selected_program, file_path_label
-#
-#     root = ctk.CTk()
-#     window_width = 522
-#     window_height = 329
-#
-#     # Определение размеров экрана
-#     screen_width = root.winfo_screenwidth()
-#     screen_height = root.winfo_screenheight()
-#
-#     # Вычисление координат верхнего левого угла для центрирования окна
-#     position_top = int(screen_height / 2 - window_height / 2)
-#     position_right = int(screen_width / 2 - window_width / 2)
-#
-#     root.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
-#     root.title("Setup ZF")
-#     root.configure(bg="#F8F8F8")
-#
-#     main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
-#     main_frame.pack(fill='both', expand=True)
-#
-#     selected_program = ctk.StringVar()
-#
-#     open_first_frame()
-#
-#     root.mainloop()
