@@ -6,7 +6,6 @@ import os
 def inst_apache(bit):
     target_dir = 'C:\\Apache24'
     source_dir = None
-
     if bit == 32:
         source_dir = r'Apache/Apache_32/Apache24'
     if bit == 64:

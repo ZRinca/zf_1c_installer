@@ -1,21 +1,25 @@
 from window_creator import *
+from exe_bit_extractor import exe_bit
+from installing_apache import inst_apache
+
+selected_value = None
 
 
 def open_first_frame():
     hello_window = InstallerWindow(main_frame, "Приветствую",
                                    "При нажатии на кнопку «Далее» вы принимаете условия лицензионного соглашения."
-                                   "Это \nозначает, ""что вы соглашаетесь с правилами использования программного "
+                                   "Это \нозначает, что вы соглашаетесь с правилами использования программного "
                                    "обеспечения или"
-                                   "\nдругого продукта, предоставляемого вам.", None, open_txt_page)
+                                   "\ндругого продукта, предоставляемого вам.", None, open_txt_page)
     hello_window.draw()
 
 
 def open_txt_page():
     txt_key_window = FindFileWindow(main_frame, "Дайте мне txt", "Пожалуйста, вставьте сюда ваш уникальный ключ в "
                                                                  "формате TXT."
-                                                                 "Ключ можно найти в вашем \nличном кабинете. После того как вы вставите ключ, "
+                                                                 "Ключ можно найти в вашем \нличном кабинете. После того как вы вставите ключ, "
                                                                  "нажмите кнопку „Выбрать файл“ для "
-                                                                 "\nзавершения процесса установки", open_first_frame,
+                                                                 "\нзавершения процесса установки", open_first_frame,
                                     open_third_frame)
 
     txt_key_window.draw()
@@ -36,17 +40,38 @@ def open_third_frame():
 
 
 def open_fourth_frame():
+    global selected_value
+    selected_value = selected_program.get()
     registration_window = LoginPasswordWindow(main_frame, "Введите логин и пароль от вашей 1С.",
                                               "1С, которую вы выбрали, требует"
                                               "авторизации. Пожалуйста, "
                                               "введите логин и пароль.",
-                                              open_third_frame, show_selection)
+                                              open_third_frame, None)
     registration_window.draw()
+    loading = LoadingIndicator(main_frame, size=110, speed=10,
+                               label_text="Загрузка данных...")
+    loading.place(relx=0.5, rely=0.5, anchor="center")
 
+    destroy_window(main_frame)
+    print(programs[selected_value])
 
-def show_selection():
-    selection = selected_program.get()
-    print(f"Вы выбрали: {selection}")
+    loading = LoadingIndicator(main_frame, size=110, speed=10,
+                               label_text="Узнаём какая битность у 1с")
+    loading.place(relx=0.5, rely=0.5, anchor="center")
+    destroy_window(main_frame)
+
+    bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8t.exe')
+    inst_apache(bit)
+
+    loading = LoadingIndicator(main_frame, size=110, speed=10,
+                               label_text="Устанавливаем Apache")
+    loading.place(relx=0.5, rely=0.5, anchor="center")
+
+    destroy_window(main_frame)
+    loading = LoadingIndicator(main_frame, size=110, speed=10,
+                               label_text="Apache установлен")
+    loading.place(relx=0.5, rely=0.5, anchor="center")
+    # inst_apache(bit)
 
 
 def create_main_window():

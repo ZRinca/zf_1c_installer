@@ -4,10 +4,12 @@ from itertools import cycle
 from tkinter import filedialog
 from search_1c import find_display_names
 
-find_1c = find_display_names(r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")  # Дополнительно получаем install_locations
+find_1c = find_display_names(
+    r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")  # Дополнительно получаем install_locations
 find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")
 programs = find_1c.copy()
 programs.update(find_1c_2)
+
 
 
 def select_txt_file():
@@ -17,26 +19,35 @@ def select_txt_file():
 
 
 class LoadingIndicator(ctk.CTkCanvas):
-    def __init__(self, master, size=100, speed=10, *args, **kwargs):
+    def __init__(self, master, size=100, speed=10, label_text="", *args, **kwargs):
+
         super().__init__(master, width=size, height=size, bg="#F8F8F8", highlightthickness=0, *args, **kwargs)
+
         self.size = size
         self.speed = speed
+        self.label_text = label_text
 
-        # Create the inner arc (part of the circle)
-        self.inner_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC, outline="#EDF8F3", width=5)
+        self.inner_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC,
+                                         outline="#EDF8F3", width=5)
 
-        # Create the outer arc (part of the circle)
-        self.outer_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC, outline="#88DE71", width=5)
+        self.outer_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC,
+                                         outline="#88DE71", width=5)
 
-        # List of angles for the arc start position with smaller steps
         self.angles = cycle(range(0, 360, 5))
+
+        self.label = ctk.CTkLabel(master, text=self.label_text, font=("Rubik Light", 12), text_color="#6EC756")
+        self.label.pack(side="left", anchor="sw", padx=24, pady=24)
+
         self.animate()
 
+    def set_label_text(self, new_text):
+        self.label_text = new_text
+        self.label.configure(text=new_text)
+
     def animate(self):
-        # Update the start angle of the arcs
         angle = next(self.angles)
         self.itemconfig(self.inner_arc, start=angle)
-        self.itemconfig(self.outer_arc, start=angle)  # Sync the outer arc with the inner arc
+        self.itemconfig(self.outer_arc, start=angle)
         self.after(self.speed, self.animate)
 
 
@@ -113,16 +124,25 @@ class LoginPasswordWindow(InstallerWindow):
             password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
                                           placeholder_text_color="grey")
             password_entry.pack(padx=24, pady=(13, 24), fill='x')
-        else:
-            for widget in self.main_frame.winfo_children():
-                widget.destroy()
 
-            label1 = ctk.CTkLabel(self.main_frame, text=self.title, font=("Rubik Light", 12), anchor='w',
-                                  text_color="#6EC756", justify='left', wraplength=self.main_frame.winfo_width() - 48)
-            label1.pack(side="left", anchor="sw", padx=24, pady=24)
+            # label1 = ctk.CTkLabel(self.main_frame, text=self.title, font=("Rubik Light", 12), anchor='w',
+            #                       text_color="#6EC756", justify='left', wraplength=self.main_frame.winfo_width() - 48)
+            # label1.pack(side="left", anchor="sw", padx=24, pady=24)
 
-            loading = LoadingIndicator(self.main_frame, size=110, speed=10)
-            loading.place(relx=0.5, rely=0.5, anchor="center")
+
+def destroy_window(main_frame):
+    for widget in main_frame.winfo_children():
+        widget.destroy()
+
+# class LoadingWindow(InstallerWindow):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.text_title = None
+#
+#     def draw(self):
+#         label1 = ctk.CTkLabel(self.main_frame, text=self.text_title, font=("Rubik Light", 12), anchor='w',
+#                               text_color="#6EC756", justify='left', wraplength=self.main_frame.winfo_width() - 48)
+#         label1.pack(side="left", anchor="sw", padx=24, pady=24)
 
 # class Find1cList(InstallerWindow):
 #
