@@ -5,14 +5,28 @@ from tkinter import filedialog
 from search_1c import find_display_names
 
 find_1c = find_display_names(
-    r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")  # Дополнительно получаем install_locations
+    r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")
 find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")
 programs = find_1c.copy()
 programs.update(find_1c_2)
 
+file_path = None  # Переменная для хранения пути к выбранному файлу
+
+
+def show_error_window(message):
+    error_window = ctk.CTkToplevel()
+    error_window.title("Ошибка")
+    error_window.geometry("300x150")
+
+    label = ctk.CTkLabel(error_window, text=message, text_color="red", font=("Arial", 14))
+    label.pack(pady=20)
+
+    button = ctk.CTkButton(error_window, text="Закрыть", command=error_window.destroy)
+    button.pack(pady=24, padx=24)
 
 
 def select_txt_file():
+    global file_path
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
     if file_path:
         file_path_label.set(file_path)
@@ -20,7 +34,6 @@ def select_txt_file():
 
 class LoadingIndicator(ctk.CTkCanvas):
     def __init__(self, master, size=100, speed=10, label_text="", *args, **kwargs):
-
         super().__init__(master, width=size, height=size, bg="#F8F8F8", highlightthickness=0, *args, **kwargs)
 
         self.size = size
@@ -106,7 +119,20 @@ class FindFileWindow(InstallerWindow):
 
         button_select = ctk.CTkButton(frame_file_selection, text="Выбрать файл", command=select_txt_file, width=120,
                                       height=30, fg_color="#B3B7B1", hover_color="#8c9289")
+
         button_select.pack(side="right")
+
+        button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.check_file_and_proceed, width=80, height=30,
+                                    fg_color="#6EC756", hover_color="#4EB932")
+        button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
+
+    def check_file_and_proceed(self):
+        global file_path
+        if not file_path:
+            print("Файл не выбран. Пожалуйста, выберите файл.")
+            show_error_window("Файл не выбран. Пожалуйста, выберите файл.")
+        else:
+            self.open_window_next()
 
 
 class LoginPasswordWindow(InstallerWindow):
@@ -125,29 +151,20 @@ class LoginPasswordWindow(InstallerWindow):
                                           placeholder_text_color="grey")
             password_entry.pack(padx=24, pady=(13, 24), fill='x')
 
-            # label1 = ctk.CTkLabel(self.main_frame, text=self.title, font=("Rubik Light", 12), anchor='w',
-            #                       text_color="#6EC756", justify='left', wraplength=self.main_frame.winfo_width() - 48)
-            # label1.pack(side="left", anchor="sw", padx=24, pady=24)
-
 
 def destroy_window(main_frame):
     for widget in main_frame.winfo_children():
         widget.destroy()
 
-# class LoadingWindow(InstallerWindow):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.text_title = None
-#
-#     def draw(self):
-#         label1 = ctk.CTkLabel(self.main_frame, text=self.text_title, font=("Rubik Light", 12), anchor='w',
-#                               text_color="#6EC756", justify='left', wraplength=self.main_frame.winfo_width() - 48)
-#         label1.pack(side="left", anchor="sw", padx=24, pady=24)
+# Пример использования классов
+if __name__ == "__main__":
+    root = ctk.CTk()
+    main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
+    main_frame.pack(fill='both', expand=True)
 
-# class Find1cList(InstallerWindow):
-#
-#     def draw(self):
-#         super().draw()
-#         combobox = ctk.CTkComboBox(self.main_frame, variable=selected_program, values=list(programs.keys()),
-#                                    font=("Rubik Light", 12), border_color='#B3B7B1', button_color="#B3B7B1")
-#         combobox.pack(padx=24, pady=24, fill='x')
+    # Пример инициализации окна
+    find_file_window = FindFileWindow(main_frame, "Дайте мне txt", "Пожалуйста, вставьте сюда ваш уникальный ключ в формате TXT.",
+                                      None, lambda: print("Следующее окно"))
+    find_file_window.draw()
+
+    root.mainloop()

@@ -32,7 +32,6 @@ def exe_bit(path_to_the_exe):
                 elif machine == IMAGE_FILE_MACHINE_AARCH64:
                     return 64
                 else:
-                    #return f'Unknown architecture {machine}'
                     return f'Unknown architecture'
     except FileNotFoundError:
         return "Мы не смогли найти 1с"
