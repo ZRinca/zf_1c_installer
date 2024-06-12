@@ -10,19 +10,33 @@ find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Unins
 programs = find_1c.copy()
 programs.update(find_1c_2)
 
-file_path = None  # Переменная для хранения пути к выбранному файлу
+file_path = None
 
 
 def show_error_window(message):
     error_window = ctk.CTkToplevel()
     error_window.title("Ошибка")
-    error_window.geometry("300x150")
+    error_window.geometry("200x150")
+    error_window.configure(bg="#F8F8F8")
 
-    label = ctk.CTkLabel(error_window, text=message, text_color="red", font=("Arial", 14))
-    label.pack(pady=20)
+    window_width = 200
+    window_height = 130
+    screen_width = error_window.winfo_screenwidth()
+    screen_height = error_window.winfo_screenheight()
 
-    button = ctk.CTkButton(error_window, text="Закрыть", command=error_window.destroy)
-    button.pack(pady=24, padx=24)
+    x = (screen_width // 2) - (window_width // 2)
+    y = (screen_height // 2) - (window_height // 2)
+
+    error_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+
+    error_window.attributes("-topmost", True)
+
+    label = ctk.CTkLabel(error_window, text=message, font=("Arial", 12))
+    label.pack(pady=(24, 0))
+
+    button = ctk.CTkButton(error_window, text="Закрыть", command=error_window.destroy, fg_color="#6EC756",
+                           hover_color="#4EB932")
+    button.pack(pady=(24, 24))
 
 
 def select_txt_file():
@@ -97,10 +111,11 @@ class InstallerWindow:
                                         height=30,
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_back.place(relx=1.0, rely=1.0, anchor='se', x=-24 - 80 - 13, y=-24)
-
-        button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.open_window_next, width=80, height=30,
-                                    fg_color="#6EC756", hover_color="#4EB932")
-        button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
+        if self.open_window_next:
+            button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.open_window_next, width=80,
+                                        height=30,
+                                        fg_color="#6EC756", hover_color="#4EB932")
+            button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
 
 class FindFileWindow(InstallerWindow):
@@ -122,15 +137,15 @@ class FindFileWindow(InstallerWindow):
 
         button_select.pack(side="right")
 
-        button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.check_file_and_proceed, width=80, height=30,
+        button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.check_file_and_proceed, width=80,
+                                    height=30,
                                     fg_color="#6EC756", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
     def check_file_and_proceed(self):
         global file_path
         if not file_path:
-            print("Файл не выбран. Пожалуйста, выберите файл.")
-            show_error_window("Файл не выбран. Пожалуйста, выберите файл.")
+            show_error_window("Файл не выбран. \nПожалуйста, выберите файл.")
         else:
             self.open_window_next()
 
@@ -152,18 +167,32 @@ class LoginPasswordWindow(InstallerWindow):
             password_entry.pack(padx=24, pady=(13, 24), fill='x')
 
 
+class FinalWindow(InstallerWindow):
+
+    def __init__(self, main_frame, title, description, open_window_back, open_window_next, root):
+        super().__init__(main_frame, title, description, open_window_back, open_window_next)
+        self.root = root
+
+    def draw(self):
+        super().draw()
+        button = ctk.CTkButton(self.root, text="Готово", width=80,
+                               height=30,
+                               fg_color="#6EC756", hover_color="#4EB932", command=self.root.destroy)
+        button.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
+
+
 def destroy_window(main_frame):
     for widget in main_frame.winfo_children():
         widget.destroy()
 
-# Пример использования классов
+
 if __name__ == "__main__":
     root = ctk.CTk()
     main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
     main_frame.pack(fill='both', expand=True)
 
-    # Пример инициализации окна
-    find_file_window = FindFileWindow(main_frame, "Дайте мне txt", "Пожалуйста, вставьте сюда ваш уникальный ключ в формате TXT.",
+    find_file_window = FindFileWindow(main_frame, "Дайте мне txt",
+                                      "Пожалуйста, вставьте сюда ваш уникальный ключ в формате TXT.",
                                       None, lambda: print("Следующее окно"))
     find_file_window.draw()
 

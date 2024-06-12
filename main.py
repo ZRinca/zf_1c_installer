@@ -73,9 +73,14 @@ def open_fourth_frame():
     loading = LoadingIndicator(main_frame, label_text="Apache установлен")
     loading.place(relx=0.5, rely=0.5, anchor="center")
 
+    destroy_window(main_frame)
+    Final = FinalWindow(main_frame, "Установка завершена", "Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!", None, None, root)
+    Final.draw()
+    # root.destroy()
+
 
 def create_main_window():
-    global main_frame, selected_program, file_path_label
+    global main_frame, selected_program, file_path_label, root
 
     root = ctk.CTk()
     window_width = 522
