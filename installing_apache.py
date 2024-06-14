@@ -3,7 +3,7 @@ import shutil
 import os
 
 
-def inst_apache(bit):
+def inst_apache(bit, found_1c, found_base):
     target_dir = 'C:\\Apache24'
     source_dir = None
     if bit == 32:
@@ -11,7 +11,7 @@ def inst_apache(bit):
     if bit == 64:
         source_dir = r'Apache/Apache_64/Apache24'
     print(copy_file(source_dir, target_dir))
-    run_as_admin()
+    run_as_admin(found_1c, found_base)
     return "Apache установлен"
 
 

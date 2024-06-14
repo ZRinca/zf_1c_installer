@@ -61,13 +61,14 @@ def open_fourth_frame():
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
 
-    bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8t.exe')
+    bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
     # inst_apache(bit)
+    print(bit)
 
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем Apache")
     loading.place(relx=0.5, rely=0.5, anchor="center")
 
-    inst_apache(bit)
+    inst_apache(bit, f'{programs[selected_value]}\\bin', 'C://bases//buh')
 
     destroy_window(main_frame)
     loading = LoadingIndicator(main_frame, label_text="Apache установлен")

@@ -17,9 +17,10 @@ def input_cmd(commands):
         ctypes.windll.shell32.ShellExecuteW(None, "runas", "cmd.exe", "/K " + full_command, None, 1)
 
 
-def run_as_admin():
+def run_as_admin(found_1c, found_base):
     try:
         input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
+        input_cmd([f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" -connstr "File=\\"{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf"'])
 
         return "Служба Apache успешно установлена и запущена."
     except subprocess.CalledProcessError as e:
