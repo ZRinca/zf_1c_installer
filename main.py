@@ -1,6 +1,7 @@
 from window_creator import *
 from exe_bit_extractor import exe_bit
 from installing_apache import inst_apache
+from command_line_and_permissions import find_1c_base_list
 
 selected_value = None
 
@@ -67,8 +68,7 @@ def open_fourth_frame():
 
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем Apache")
     loading.place(relx=0.5, rely=0.5, anchor="center")
-
-    inst_apache(bit, f'{programs[selected_value]}\\bin', 'C://bases//buh')
+    inst_apache(bit, f'{programs[selected_value]}\\bin', find_1c_base_list()[0])
 
     destroy_window(main_frame)
     loading = LoadingIndicator(main_frame, label_text="Apache установлен")
