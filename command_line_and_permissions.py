@@ -22,8 +22,15 @@ def input_cmd(commands):
 def run_as_admin(found_1c, found_base):
     try:
         input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
-        print(f'AAAAAA{found_base}')
-        input_cmd([f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" -connstr "File=\\"{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf"'])
+        if len(found_base) >= 2:
+            for i in found_base:
+                input_cmd([f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                           f'-connstr "File=\\"{i}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                           f'Apache2.4 && net start Apache2.4'])
+        else:
+            input_cmd([f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                       f'-connstr "File=\\"{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                       f'Apache2.4 && net start Apache2.4'])
         return "Служба Apache успешно установлена и запущена."
     except subprocess.CalledProcessError as e:
         return f"Произошла ошибка при установке или запуске службы Apache: {e}"
@@ -54,10 +61,8 @@ def find_1c_base_list():
     links = extract_links(content)
 
     if links:
-        print("Found links:")
         for link in links:
-            print(f"- {link}")
-            return links
+            return link
     else:
         print("No links found.")
 
