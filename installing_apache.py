@@ -3,14 +3,15 @@ import shutil
 import os
 
 
-def inst_apache(bit, found_1c, found_base):
+def inst_apache_and_exp(bit, found_1c, found_base):
     target_dir = 'C:\\Apache24'
     source_dir = None
     if bit == 32:
         source_dir = r'Apache/Apache_32/Apache24'
     if bit == 64:
         source_dir = r'Apache/Apache_64/Apache24'
-    print(copy_file(source_dir, target_dir))
+    copy_file(source_dir, target_dir)
+    copy_file('expansion', "C:\\Apache24\\Api")
     run_as_admin(found_1c, found_base)
     return "Apache установлен"
 
