@@ -29,8 +29,8 @@ def run_as_admin(found_1c, found_base):
 
         # Затем выполняем публикацию веб-сервиса и перезапуск Apache
         publish_command = (f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
-                           f'-connstr "File=\\"{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
-                           f'Apache2.4 && net start Apache2.4')
+                            f'-connstr "File="{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                            f'Apache2.4 && net start Apache2.4')
         input_cmd([publish_command])
 
         return "Служба Apache успешно установлена и запущена."
