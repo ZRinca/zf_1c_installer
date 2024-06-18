@@ -22,16 +22,16 @@ def input_cmd(commands):
 def run_as_admin(found_1c, found_base):
     try:
         # Выполняем сначала загрузку конфигурации 1С
-        input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
+        # input_cmd([f'cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4'])
 
-        load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{found_base}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI2.3.cfe" -Extension "API"'
+        load_cfg_command = (f'cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4 && cd {found_1c} && 1cv8 DESIGNER /F"{found_base}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI2.3.cfe" -Extension "API"'
+                            f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                            f'-connstr "File="{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                            f'Apache2.4 && net start Apache2.4')
         input_cmd([load_cfg_command])
 
         # Затем выполняем публикацию веб-сервиса и перезапуск Apache
-        publish_command = (f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
-                            f'-connstr "File="{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
-                            f'Apache2.4 && net start Apache2.4')
-        input_cmd([publish_command])
+
 
         return "Служба Apache успешно установлена и запущена."
     except subprocess.CalledProcessError as e:
