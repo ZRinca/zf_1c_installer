@@ -34,7 +34,7 @@ def open_third_frame():
     find_1c_window.draw()
     selected_program.set('')
     combobox = ctk.CTkComboBox(main_frame, variable=selected_program, values=list(programs.keys()),
-                               font=("Rubik Light", 12), border_color='#B3B7B1', button_color="#B3B7B1")
+                               font=("Rubik Light", 12),state="readonly", border_color='#B3B7B1', button_color="#B3B7B1")
     combobox.pack(padx=24, pady=24, fill='x')
 
 
