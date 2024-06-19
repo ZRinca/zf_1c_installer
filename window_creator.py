@@ -12,8 +12,15 @@ programs.update(find_1c_2)
 
 file_path = None
 
+error_window = None
+
 
 def show_error_window(message):
+    global error_window
+
+    if error_window is not None and error_window.winfo_exists():
+        return
+
     error_window = ctk.CTkToplevel()
     error_window.title("Ошибка")
     error_window.geometry("200x150")
@@ -28,15 +35,21 @@ def show_error_window(message):
     y = (screen_height // 2) - (window_height // 2)
 
     error_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-
     error_window.attributes("-topmost", True)
 
     label = ctk.CTkLabel(error_window, text=message, font=("Arial", 12))
     label.pack(pady=(24, 0))
 
-    button = ctk.CTkButton(error_window, text="Закрыть", command=error_window.destroy, fg_color="#6EC756",
+    button = ctk.CTkButton(error_window, text="Закрыть", command=close_error_window, fg_color="#6EC756",
                            hover_color="#4EB932")
     button.pack(pady=(24, 24))
+
+
+def close_error_window():
+    global error_window
+    if error_window is not None:
+        error_window.destroy()
+        error_window = None
 
 
 def select_txt_file():
