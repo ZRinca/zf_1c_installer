@@ -12,7 +12,7 @@ programs.update(find_1c_2)
 
 file_path = None
 error_window = None
-file_path_label = None
+
 
 def show_error_window(message):
     global error_window
@@ -56,6 +56,8 @@ def select_txt_file():
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
     if file_path:
         file_path_label.set(file_path)
+    else:
+        file_path_label.set("")
 
 
 class LoadingIndicator(ctk.CTkCanvas):

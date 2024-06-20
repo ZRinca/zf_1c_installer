@@ -87,6 +87,7 @@ def create_main_window():
     global main_frame, selected_program, file_path_label, root
 
     root = ctk.CTk()
+    root.iconbitmap('ico/free-icon-easy-installation-5025723.ico')
     window_width = 522
     window_height = 329
 
