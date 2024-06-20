@@ -24,14 +24,15 @@ def run_as_admin(found_1c, found_base):
         # Выполняем сначала загрузку конфигурации 1С
         input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
 
-        load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{found_base}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI2.3.cfe" -Extension "InterfaceAPI"'
-        input_cmd([load_cfg_command])
+        for link in found_base:
+            load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI2.3.cfe" -Extension "InterfaceAPI"'
+            input_cmd([load_cfg_command])
 
-        # Затем выполняем публикацию веб-сервиса и перезапуск Apache
-        publish_command = (f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
-                           f'-connstr "File="{found_base}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
-                           f'Apache2.4 && net start Apache2.4')
-        input_cmd([publish_command])
+            # Затем выполняем публикацию веб-сервиса и перезапуск Apache
+            publish_command = (f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                               f'-connstr "File="{link}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                               f'Apache2.4 && net start Apache2.4')
+            input_cmd([publish_command])
 
         return "Служба Apache успешно установлена и запущена."
     except subprocess.CalledProcessError as e:
@@ -53,6 +54,7 @@ def read_file_content(file_path):
 
 def find_1c_base_list():
     file_path = r"C:\Users\admin\AppData\Roaming\1C\1CEStart\ibases.v8i"
+    links_base = []
 
     if not os.path.exists(file_path):
         print(f"File {file_path} not found.")
@@ -63,6 +65,7 @@ def find_1c_base_list():
 
     if links:
         for link in links:
-            return link
+            links_base.append(link)
+        return links_base
     else:
         print("No links found.")
