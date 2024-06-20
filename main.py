@@ -49,7 +49,6 @@ def open_fourth_frame():
     if not selected_value:
         show_error_window("Не выбрана версия 1С.")
         return
-    print(selected_value)
 
     registration_window = LoginPasswordWindow(main_frame, "Введите логин и пароль от вашей 1С.",
                                               "1С, которую вы выбрали, требует"
@@ -91,7 +90,7 @@ def create_main_window():
 
     # Получаем путь к исполняемому файлу
     exe_path = os.path.dirname(os.path.abspath(__file__))
-    icon_path = os.path.join(exe_path, 'ico', 'free-icon-easy-installation-5025723.ico')
+    icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
 
     # Устанавливаем иконку
     root.iconbitmap(icon_path)
@@ -107,7 +106,7 @@ def create_main_window():
     position_right = int(screen_width / 2 - window_width / 2)
 
     root.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
-    root.title("Setup ZF")
+    root.title("Setup ZF-Connector")
     root.configure(bg="#F8F8F8")
 
     main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
