@@ -11,9 +11,8 @@ programs = find_1c.copy()
 programs.update(find_1c_2)
 
 file_path = None
-
 error_window = None
-
+file_path_label = None
 
 def show_error_window(message):
     global error_window
@@ -101,7 +100,6 @@ class InstallerWindow:
         self.open_window_next = open_window_next
 
     def draw(self):
-
         for widget in self.main_frame.winfo_children():
             widget.destroy()
 
@@ -136,7 +134,8 @@ class FindFileWindow(InstallerWindow):
     def draw(self):
         super().draw()
         global file_path_label
-        file_path_label = ctk.StringVar(value="")
+
+        file_path_label = ctk.StringVar(value=file_path)
 
         frame_file_selection = ctk.CTkFrame(self.main_frame, fg_color="transparent")
         frame_file_selection.pack(padx=24, pady=(24, 0), fill='x')  # 24 пикселя ниже label2
