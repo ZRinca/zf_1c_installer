@@ -2,6 +2,7 @@ from window_creator import *
 from exe_bit_extractor import exe_bit
 from installing_apache import inst_apache_and_exp
 from command_line_and_permissions import find_1c_base_list
+import os  # Импортируем модуль os для работы с файловой системой
 
 selected_value = None
 
@@ -87,7 +88,14 @@ def create_main_window():
     global main_frame, selected_program, file_path_label, root
 
     root = ctk.CTk()
-    root.iconbitmap('ico/free-icon-easy-installation-5025723.ico')
+
+    # Получаем путь к исполняемому файлу
+    exe_path = os.path.dirname(os.path.abspath(__file__))
+    icon_path = os.path.join(exe_path, 'ico', 'free-icon-easy-installation-5025723.ico')
+
+    # Устанавливаем иконку
+    root.iconbitmap(icon_path)
+
     window_width = 522
     window_height = 329
 
