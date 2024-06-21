@@ -2,7 +2,7 @@ from window_creator import *
 from exe_bit_extractor import exe_bit
 from installing_apache import inst_apache_and_exp
 from command_line_and_permissions import find_1c_base_list
-import os  # Импортируем модуль os для работы с файловой системой
+import os
 
 selected_value = None
 

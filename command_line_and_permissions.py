@@ -21,17 +21,16 @@ def input_cmd(commands):
 
 def run_as_admin(found_1c, found_base):
     try:
-        # Выполняем сначала загрузку конфигурации 1С
         input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
 
         for link in found_base:
-            load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI2.3.cfe" -Extension "InterfaceAPI"'
+            load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI.cfe" -Extension "InterfaceAPI"'
             input_cmd([load_cfg_command])
 
-            # Затем выполняем публикацию веб-сервиса и перезапуск Apache
-            publish_command = (f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
-                               f'-connstr "File="{link}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
-                               f'Apache2.4 && net start Apache2.4')
+            publish_command = (
+                f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                f'-connstr "File="{link}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                f'Apache2.4 && net start Apache2.4')
             input_cmd([publish_command])
 
         return "Служба Apache успешно установлена и запущена."
@@ -53,7 +52,10 @@ def read_file_content(file_path):
 
 
 def find_1c_base_list():
-    file_path = r"C:\Users\admin\AppData\Roaming\1C\1CEStart\ibases.v8i"
+    appdata_path = os.getenv('APPDATA')
+
+    file_path = os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i')
+
     links_base = []
 
     if not os.path.exists(file_path):
@@ -69,3 +71,12 @@ def find_1c_base_list():
         return links_base
     else:
         print("No links found.")
+
+
+bases = find_1c_base_list()
+if bases:
+    print("Найденные базы 1С:")
+    for base in bases:
+        print(base)
+else:
+    print("Базы 1С не найдены.")
