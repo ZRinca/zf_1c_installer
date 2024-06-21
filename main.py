@@ -39,6 +39,9 @@ def open_third_frame():
                                button_color="#B3B7B1")
     combobox.pack(padx=24, pady=24, fill='x')
 
+    if not list(programs.keys()):
+        show_error_window('Не найдено ни одной 1с')
+
     if selected_value:
         selected_program.set(selected_value)
 
@@ -88,11 +91,9 @@ def create_main_window():
 
     root = ctk.CTk()
 
-    # Получаем путь к исполняемому файлу
     exe_path = os.path.dirname(os.path.abspath(__file__))
     icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
 
-    # Устанавливаем иконку
     root.iconbitmap(icon_path)
 
     window_width = 522
@@ -101,7 +102,6 @@ def create_main_window():
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
-    # Вычисление координат верхнего левого угла для центрирования окна
     position_top = int(screen_height / 2 - window_height / 2)
     position_right = int(screen_width / 2 - window_width / 2)
 

@@ -3,6 +3,7 @@ import tkinter as tk
 from itertools import cycle
 from tkinter import filedialog
 from search_1c import find_display_names
+import os
 
 find_1c = find_display_names(
     r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")
@@ -20,27 +21,29 @@ def show_error_window(message):
     if error_window is not None and error_window.winfo_exists():
         return
 
-    error_window = ctk.CTkToplevel()
-    error_window.title("Ошибка")
-    error_window.geometry("200x150")
-    error_window.configure(bg="#F8F8F8")
+    exe_path = os.path.dirname(os.path.abspath(__file__))
+    icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
 
-    window_width = 200
-    window_height = 130
+    error_window = tk.Toplevel()  # Используем tk.Toplevel() вместо ctk.CTkToplevel()
+    error_window.title("Ошибка")
+    error_window.configure(bg="#F8F8F8")
+    error_window.iconbitmap(icon_path)  # Установите иконку для окна
+
+    window_width = 270
+    window_height = 160
     screen_width = error_window.winfo_screenwidth()
     screen_height = error_window.winfo_screenheight()
 
-    x = (screen_width // 2) - (window_width // 2)
-    y = (screen_height // 2) - (window_height // 2)
+    position_top = int(screen_height / 2 - window_height / 2)
+    position_right = int(screen_width / 2 - window_width / 2)
 
-    error_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    error_window.attributes("-topmost", True)
+    error_window.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
 
     label = ctk.CTkLabel(error_window, text=message, font=("Arial", 12))
     label.pack(pady=(24, 0))
 
     button = ctk.CTkButton(error_window, text="Закрыть", command=close_error_window, fg_color="#6EC756",
-                           hover_color="#4EB932")
+                           hover_color="#4EB932", width=80, height=30)
     button.pack(pady=(24, 24))
 
 
@@ -202,12 +205,4 @@ def destroy_window(main_frame):
 
 if __name__ == "__main__":
     root = ctk.CTk()
-    main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
-    main_frame.pack(fill='both', expand=True)
-
-    find_file_window = FindFileWindow(main_frame, "Дайте мне txt",
-                                      "Пожалуйста, вставьте сюда ваш уникальный ключ в формате TXT.",
-                                      None, lambda: print("Следующее окно"))
-    find_file_window.draw()
-
     root.mainloop()
