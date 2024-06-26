@@ -2,6 +2,8 @@ import os
 import re
 import subprocess
 import ctypes
+import time
+from agent_mode import enter_commands_agent_mod
 
 
 def is_admin():
@@ -24,14 +26,25 @@ def run_as_admin(found_1c, found_base):
         input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
 
         for link in found_base:
-            load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI.cfe" -Extension "InterfaceAPI"'
-            input_cmd([load_cfg_command])
+            # load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI.cfe" -Extension "InterfaceAPI"'
+            # input_cmd([load_cfg_command])
 
             publish_command = (
                 f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
                 f'-connstr "File="{link}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
                 f'Apache2.4 && net start Apache2.4')
             input_cmd([publish_command])
+
+            agent_1c_start = (
+                r'cd C:\Program Files\1cv8\common && 1cestart.exe DESIGNER '
+                r'/AgentMode /AgentBaseDir "C:\Apache24\Api" '
+                r'/IBName "Информационная база #1" '
+                r'/AgentSSHHostKeyAuto /Visible'
+            )
+
+            input_cmd([agent_1c_start])
+            time.sleep(15)
+            enter_commands_agent_mod("admin", "")
 
         return "Служба Apache успешно установлена и запущена."
     except subprocess.CalledProcessError as e:
