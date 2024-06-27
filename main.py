@@ -1,3 +1,4 @@
+import threading
 from window_creator import *
 from exe_bit_extractor import exe_bit
 from installing_apache import inst_apache_and_exp
@@ -46,6 +47,11 @@ def open_third_frame():
         selected_program.set(selected_value)
 
 
+def execute_in_thread(target, *args):
+    thread = threading.Thread(target=target, args=args)
+    thread.start()
+
+
 def open_fourth_frame():
     global selected_value
     selected_value = selected_program.get()
@@ -64,26 +70,28 @@ def open_fourth_frame():
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
 
+    execute_in_thread(process_installation)
+
+
+def process_installation():
     loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
 
     bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
-    # inst_apache(bit)
 
-    loading = LoadingIndicator(main_frame, label_text="Устанавливаем Apache")
+    loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', find_1c_base_list())
 
     destroy_window(main_frame)
-    loading = LoadingIndicator(main_frame, label_text="Apache установлен")
+    loading = LoadingIndicator(main_frame, label_text="утилиты установлены")
     loading.place(relx=0.5, rely=0.5, anchor="center")
 
     destroy_window(main_frame)
     Final = FinalWindow(main_frame, "Установка завершена",
                         "Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!", None, None, root)
     Final.draw()
-    # root.destroy()
 
 
 def create_main_window():
