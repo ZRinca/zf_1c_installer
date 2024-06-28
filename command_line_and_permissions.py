@@ -25,26 +25,25 @@ def run_as_admin(found_1c, found_base):
     try:
         input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
 
-        for link in found_base:
-            # load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI.cfe" -Extension "InterfaceAPI"'
-            # input_cmd([load_cfg_command])
+        # load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI.cfe" -Extension "InterfaceAPI"'
+        # input_cmd([load_cfg_command])
 
-            publish_command = (
-                f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
-                f'-connstr "File="{link}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
-                f'Apache2.4 && net start Apache2.4')
-            input_cmd([publish_command])
+        publish_command = (
+            f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+            f'-connstr "File="{found_base[list(found_base.keys())[0]]}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+            f'Apache2.4 && net start Apache2.4')
+        input_cmd([publish_command])
 
-            agent_1c_start = (
-                r'cd C:\Program Files\1cv8\common && 1cestart.exe DESIGNER '
-                r'/AgentMode /AgentBaseDir "C:\Apache24\Api" '
-                r'/IBName "Информационная база #1" '
-                r'/AgentSSHHostKeyAuto /Visible'
-            )
+        agent_1c_start = (
+            f'cd {found_1c} && cd ../../common && 1cestart.exe DESIGNER '
+            f'/AgentMode /AgentBaseDir "C:\\Apache24\\Api" '
+            f'/IBName "{list(found_base.keys())[0]}" '
+            f'/AgentSSHHostKeyAuto /Visible'
+        )
 
-            input_cmd([agent_1c_start])
-            time.sleep(15)
-            enter_commands_agent_mod("admin", "")
+        input_cmd([agent_1c_start])
+        time.sleep(15)
+        enter_commands_agent_mod("admin", "")
 
         return "Служба Apache успешно установлена и запущена."
     except subprocess.CalledProcessError as e:
@@ -53,43 +52,42 @@ def run_as_admin(found_1c, found_base):
         return f"Произошла неожиданная ошибка: {e}"
 
 
-def extract_links(file_content):
-    """Extracts all database paths from the given content."""
-    return re.findall(r'Connect=File="(.+?)";', file_content)
-
+def extract_bases(file_content):
+    """
+    Extracts all database entries (keys and paths) from the given content.
+    Returns a dictionary with keys as base names and values as paths.
+    """
+    pattern = re.compile(r'\[([^\]]+)\]\s+Connect=File="(.+?)";')
+    matches = pattern.findall(file_content)
+    return {key: value for key, value in matches}
 
 def read_file_content(file_path):
     """Reads and returns the content of the specified file."""
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
-
 def find_1c_base_list():
     appdata_path = os.getenv('APPDATA')
 
     file_path = os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i')
 
-    links_base = []
-
     if not os.path.exists(file_path):
         print(f"File {file_path} not found.")
-        return
+        return {}
 
     content = read_file_content(file_path)
-    links = extract_links(content)
+    bases = extract_bases(content)
 
-    if links:
-        for link in links:
-            links_base.append(link)
-        return links_base
+    if bases:
+        return bases
     else:
-        print("No links found.")
-
+        print("No bases found.")
+        return {}
 
 bases = find_1c_base_list()
 if bases:
     print("Найденные базы 1С:")
-    for base in bases:
-        print(base)
+    for base, path in bases.items():
+        print(f"{base}: {path}")
 else:
     print("Базы 1С не найдены.")

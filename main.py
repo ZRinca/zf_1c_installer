@@ -6,6 +6,7 @@ from command_line_and_permissions import find_1c_base_list
 import os
 
 selected_value = None
+selected_db = None
 
 
 def open_first_frame():
@@ -33,7 +34,7 @@ def open_third_frame():
                                                                           "несколько установленных 1С."
                                                                           "В списке ниже указаны все\nустановленные "
                                                                           "версии 1С.", open_txt_page,
-                                     open_fourth_frame)
+                                     Open_list_of_databases)
     find_1c_window.draw()
     combobox = ctk.CTkComboBox(main_frame, variable=selected_program, values=list(programs.keys()),
                                font=("Rubik Light", 12), state="readonly", border_color='#B3B7B1',
@@ -43,9 +44,29 @@ def open_third_frame():
     if not list(programs.keys()):
         show_error_window('Не найдено ни одной 1с')
 
+    # print(list(programs.keys()))
+
     if selected_value:
         selected_program.set(selected_value)
 
+
+def Open_list_of_databases():
+    global selected_db
+    global databases
+
+    databases = find_1c_base_list()
+    find_1c_window = InstallerWindow(main_frame, "Выберите базу из списка", "Программа нашла на вашем устройстве "
+                                                                          "несколько установленных баз."
+                                                                          "В списке ниже указаны все\nустановленные "
+                                                                          "базы 1С.", open_third_frame,
+                                     open_fourth_frame)
+    find_1c_window.draw()
+    database_combobox = ctk.CTkComboBox(main_frame, variable=selected_bd_programm, values=list(databases.keys()), font=("Rubik Light", 12),
+                                        state="readonly", border_color='#B3B7B1', button_color="#B3B7B1")
+    database_combobox.pack(padx=24, pady=24, fill='x')
+    if selected_db:
+        selected_bd_programm.set(selected_db)
+    # print(f'{databases[selected_program.get()]}AAAAAAAAAAAAAAAAAAAA')
 
 def execute_in_thread(target, *args):
     thread = threading.Thread(target=target, args=args)
@@ -82,7 +103,7 @@ def process_installation():
 
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
     loading.place(relx=0.5, rely=0.5, anchor="center")
-    inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', find_1c_base_list())
+    inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases)
 
     destroy_window(main_frame)
     loading = LoadingIndicator(main_frame, label_text="утилиты установлены")
@@ -95,7 +116,7 @@ def process_installation():
 
 
 def create_main_window():
-    global main_frame, selected_program, file_path_label, root
+    global main_frame, selected_program, selected_bd_programm,file_path_label, root
 
     root = ctk.CTk()
 
@@ -121,6 +142,7 @@ def create_main_window():
     main_frame.pack(fill='both', expand=True)
 
     selected_program = ctk.StringVar()
+    selected_bd_programm = ctk.StringVar()
 
     open_first_frame()
 
