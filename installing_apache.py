@@ -3,7 +3,7 @@ import shutil
 import os
 
 
-def inst_apache_and_exp(bit, found_1c, found_base):
+def inst_apache_and_exp(bit, found_1c, found_base, login, password):
     target_dir = 'C:\\Apache24'
     print(target_dir)
     source_dir = None
@@ -13,7 +13,7 @@ def inst_apache_and_exp(bit, found_1c, found_base):
         source_dir = r'Apache/Apache_64/Apache24'
     copy_file(source_dir, target_dir)
     copy_file('expansion', "C:\\Apache24\\Api")
-    run_as_admin(found_1c, found_base)
+    run_as_admin(found_1c, found_base, login, password)
     return "Apache установлен"
 
 

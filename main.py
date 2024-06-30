@@ -7,6 +7,8 @@ import os
 
 selected_value = None
 selected_db = None
+login = None
+password = None
 
 
 def open_first_frame():
@@ -44,8 +46,6 @@ def open_third_frame():
     if not list(programs.keys()):
         show_error_window('Не найдено ни одной 1с')
 
-    # print(list(programs.keys()))
-
     if selected_value:
         selected_program.set(selected_value)
 
@@ -53,39 +53,60 @@ def open_third_frame():
 def Open_list_of_databases():
     global selected_db
     global databases
-
-    databases = find_1c_base_list()
-    find_1c_window = InstallerWindow(main_frame, "Выберите базу из списка", "Программа нашла на вашем устройстве "
-                                                                          "несколько установленных баз."
-                                                                          "В списке ниже указаны все\nустановленные "
-                                                                          "базы 1С.", open_third_frame,
-                                     open_fourth_frame)
-    find_1c_window.draw()
-    database_combobox = ctk.CTkComboBox(main_frame, variable=selected_bd_programm, values=list(databases.keys()), font=("Rubik Light", 12),
-                                        state="readonly", border_color='#B3B7B1', button_color="#B3B7B1")
-    database_combobox.pack(padx=24, pady=24, fill='x')
-    if selected_db:
-        selected_bd_programm.set(selected_db)
-    # print(f'{databases[selected_program.get()]}AAAAAAAAAAAAAAAAAAAA')
-
-def execute_in_thread(target, *args):
-    thread = threading.Thread(target=target, args=args)
-    thread.start()
-
-
-def open_fourth_frame():
     global selected_value
     selected_value = selected_program.get()
     if not selected_value:
         show_error_window("Не выбрана версия 1С.")
         return
 
+    databases = find_1c_base_list()
+    find_1c_window = InstallerWindow(main_frame, "Выберите базу из списка", "Программа нашла на вашем устройстве "
+                                                                            "несколько установленных баз."
+                                                                            "В списке ниже указаны все\nустановленные "
+                                                                            "базы 1С.", open_third_frame,
+                                     login_and_password)
+    find_1c_window.draw()
+    database_combobox = ctk.CTkComboBox(main_frame, variable=selected_bd_programm, values=list(databases.keys()),
+                                        font=("Rubik Light", 12),
+                                        state="readonly", border_color='#B3B7B1', button_color="#B3B7B1")
+    database_combobox.pack(padx=24, pady=24, fill='x')
+    if selected_db:
+        selected_bd_programm.set(selected_db)
+
+
+def execute_in_thread(target, *args):
+    thread = threading.Thread(target=target, args=args)
+    thread.start()
+
+
+def login_and_password():
+    global login_entry, password_entry
     registration_window = LoginPasswordWindow(main_frame, "Введите логин и пароль от вашей 1С.",
                                               "1С, которую вы выбрали, требует"
                                               "авторизации. \nПожалуйста, "
                                               "введите логин и пароль.",
-                                              open_third_frame, None)
+                                              open_third_frame, open_fourth_frame)
     registration_window.draw()
+
+    login_entry = ctk.CTkEntry(main_frame, font=("Arial", 14), placeholder_text="Логин",
+                               placeholder_text_color="grey")
+    login_entry.pack(padx=24, pady=(24, 0), fill='x')
+
+    password_entry = ctk.CTkEntry(main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
+                                  placeholder_text_color="grey")
+    password_entry.pack(padx=24, pady=(13, 24), fill='x')
+
+
+def open_fourth_frame():
+    global login, password, selected_value
+
+    login = login_entry.get()
+    password = password_entry.get()
+
+    selected_value = selected_program.get()
+    if not selected_value:
+        show_error_window("Не выбрана версия 1С.")
+        return
 
     loading = LoadingIndicator(main_frame, label_text="Загрузка данных...")
     loading.place(relx=0.5, rely=0.5, anchor="center")
@@ -95,6 +116,7 @@ def open_fourth_frame():
 
 
 def process_installation():
+
     loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
@@ -103,7 +125,7 @@ def process_installation():
 
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
     loading.place(relx=0.5, rely=0.5, anchor="center")
-    inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases)
+    inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
 
     destroy_window(main_frame)
     loading = LoadingIndicator(main_frame, label_text="утилиты установлены")
@@ -116,7 +138,7 @@ def process_installation():
 
 
 def create_main_window():
-    global main_frame, selected_program, selected_bd_programm,file_path_label, root
+    global main_frame, selected_program, selected_bd_programm, file_path_label, root
 
     root = ctk.CTk()
 

@@ -13,6 +13,8 @@ programs.update(find_1c_2)
 
 file_path = None
 error_window = None
+login = ''
+password = ''
 
 
 def show_error_window(message):
@@ -168,20 +170,28 @@ class FindFileWindow(InstallerWindow):
 
 
 class LoginPasswordWindow(InstallerWindow):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.req_1c_login_password = False
+        self.req_1c_login_password = True
+        self.login_entry = None
+        self.password_entry = None
 
     def draw(self):
-        if self.req_1c_login_password:
-            super().draw()
-            login_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), placeholder_text="Логин",
-                                       placeholder_text_color="grey")
-            login_entry.pack(padx=24, pady=(24, 0), fill='x')
+        super().draw()
 
-            password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
-                                          placeholder_text_color="grey")
-            password_entry.pack(padx=24, pady=(13, 24), fill='x')
+        # self.login_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), placeholder_text="Логин",
+        #                                 placeholder_text_color="grey")
+        # self.login_entry.pack(padx=24, pady=(24, 0), fill='x')
+        #
+        # self.password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
+        #                                    placeholder_text_color="grey")
+        # self.password_entry.pack(padx=24, pady=(13, 24), fill='x')
+
+    def check_credentials_and_proceed(self):
+        global login, password
+        login = self.login_entry.get()
+        password = self.password_entry.get()
 
 
 class FinalWindow(InstallerWindow):
