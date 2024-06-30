@@ -1,6 +1,7 @@
 import threading
 from window_creator import *
 from exe_bit_extractor import exe_bit
+from find_status_code import checking_code_status
 from installing_apache import inst_apache_and_exp
 from command_line_and_permissions import find_1c_base_list
 import os
@@ -120,7 +121,8 @@ def process_installation():
     loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
-
+    if checking_code_status() == 200:
+        print("Соединение есть")
     bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
 
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
