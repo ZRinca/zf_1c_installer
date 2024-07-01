@@ -126,15 +126,15 @@ def process_installation():
     loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
-    if checking_code_status() == 200:
-        print("Соединение есть")
+    # if checking_code_status() == 200:
+    #     print("Соединение есть")
     bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
 
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
     copy_file('zf_1c_connect_client', 'C:\\zf_connector')
-    move_and_rename_deskey_file("source_key.dskey", "C:\zf_connector")
+    move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
     zf_plug()
 
     destroy_window(main_frame)

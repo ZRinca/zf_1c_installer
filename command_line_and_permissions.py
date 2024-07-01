@@ -28,20 +28,37 @@ def run_as_admin(found_1c, found_base, login, password):
         # load_cfg_command = f'cd {found_1c} && 1cv8 DESIGNER /F"{link}" /LoadCfg "C:\\Apache24\\Api\\InterfaceAPI.cfe" -Extension "InterfaceAPI"'
         # input_cmd([load_cfg_command])
 
-        publish_command = (
-            f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
-            f'-connstr "File="{found_base[list(found_base.keys())[0]]}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
-            f'Apache2.4 && net start Apache2.4')
-        input_cmd([publish_command])
+        if "Webinstt" in os.listdir(found_1c):
+            publish_command = (
+                f'cd {found_1c} && webinstt -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                f'-connstr "File="{found_base[list(found_base.keys())[0]]}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                f'Apache2.4 && net start Apache2.4')
+            input_cmd([publish_command])
 
-        agent_1c_start = (
-            f'cd {found_1c} && cd ../../common && 1cestart.exe DESIGNER '
-            f'/AgentMode /AgentBaseDir "C:\\Apache24\\Api" '
-            f'/IBName "{list(found_base.keys())[0]}" '
-            f'/AgentSSHHostKeyAuto /Visible'
-        )
+            agent_1c_start = (
+                f'cd {found_1c} && cd ../../common && 1cestartt.exe DESIGNER '
+                f'/AgentMode /AgentBaseDir "C:\\Apache24\\Api" '
+                f'/IBName "{list(found_base.keys())[0]}" '
+                f'/AgentSSHHostKeyAuto /Visible'
+            )
 
-        input_cmd([agent_1c_start])
+            input_cmd([agent_1c_start])
+        else:
+            print("Полноценная")
+            publish_command = (
+                f'cd {found_1c} && webinst -publish -apache24 -wsdir Base -dir "c:\\apache\\htdocs\\Base" '
+                f'-connstr "File="{found_base[list(found_base.keys())[0]]}";" -confpath "C:\\Apache24\\conf\\httpd.conf" && net stop '
+                f'Apache2.4 && net start Apache2.4')
+            input_cmd([publish_command])
+
+            agent_1c_start = (
+                f'cd {found_1c} && cd ../../common && 1cestart.exe DESIGNER '
+                f'/AgentMode /AgentBaseDir "C:\\Apache24\\Api" '
+                f'/IBName "{list(found_base.keys())[0]}" '
+                f'/AgentSSHHostKeyAuto /Visible'
+            )
+
+            input_cmd([agent_1c_start])
         time.sleep(15)
         enter_commands_agent_mod(login, password)
 
