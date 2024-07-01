@@ -61,10 +61,12 @@ def extract_bases(file_content):
     matches = pattern.findall(file_content)
     return {key: value for key, value in matches}
 
+
 def read_file_content(file_path):
     """Reads and returns the content of the specified file."""
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
+
 
 def find_1c_base_list():
     appdata_path = os.getenv('APPDATA')

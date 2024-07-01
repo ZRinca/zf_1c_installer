@@ -1,0 +1,6 @@
+{
+    "ws_server_url": "https://app.zerofactor.ru/ws",
+    "data_server_url": "http://localhost/Base",
+    "sqlite_file_path": "sqlite:///db.sqlite3",
+    "auth_key_file_path": "./source_key.dskey"
+}

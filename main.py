@@ -1,16 +1,16 @@
-import threading
+from the_zf_plug import zf_plug, json_settings
 from window_creator import *
 from exe_bit_extractor import exe_bit
 from examination import checking_code_status, check_file_availability
-from installing_apache import inst_apache_and_exp
+from installing_apache_and_file import inst_apache_and_exp
 from command_line_and_permissions import find_1c_base_list
+import threading
 import os
 
 selected_value = None
 selected_db = None
 login = None
 password = None
-
 
 def open_first_frame():
     hello_window = InstallerWindow(main_frame, "Приветствую",
@@ -121,7 +121,7 @@ def open_fourth_frame():
 
 
 def process_installation():
-
+    json_settings()
     loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     destroy_window(main_frame)
@@ -132,6 +132,8 @@ def process_installation():
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
+
+    zf_plug()
 
     destroy_window(main_frame)
 
