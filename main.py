@@ -158,6 +158,8 @@ def create_main_window():
     window_width = 522
     window_height = 329
 
+    root.attributes("-topmost", True)
+
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 
