@@ -1,7 +1,7 @@
 import threading
 from window_creator import *
 from exe_bit_extractor import exe_bit
-from find_status_code import checking_code_status
+from examination import checking_code_status, check_file_availability
 from installing_apache import inst_apache_and_exp
 from command_line_and_permissions import find_1c_base_list
 import os
@@ -44,6 +44,7 @@ def open_third_frame():
                                button_color="#B3B7B1")
     combobox.pack(padx=24, pady=24, fill='x')
 
+
     if not list(programs.keys()):
         show_error_window('Не найдено ни одной 1с')
 
@@ -56,6 +57,9 @@ def Open_list_of_databases():
     global databases
     global selected_value
     selected_value = selected_program.get()
+    if not check_file_availability(f"{programs[selected_value]}\\bin\\webinst.exe"):
+        show_error_window("Ваша 1с не может опубликоваться")
+        return
     if not selected_value:
         show_error_window("Не выбрана версия 1С.")
         return
@@ -130,8 +134,6 @@ def process_installation():
     inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
 
     destroy_window(main_frame)
-    loading = LoadingIndicator(main_frame, label_text="утилиты установлены")
-    loading.place(relx=0.5, rely=0.5, anchor="center")
 
     destroy_window(main_frame)
     Final = FinalWindow(main_frame, "Установка завершена",
