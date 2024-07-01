@@ -2,6 +2,7 @@ import customtkinter as ctk
 import tkinter as tk
 from itertools import cycle
 from tkinter import filedialog
+
 from search_1c import find_display_names
 import os
 
@@ -58,7 +59,7 @@ def close_error_window():
 
 def select_txt_file():
     global file_path
-    file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
+    file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.dskey")])
     if file_path:
         file_path_label.set(file_path)
     else:

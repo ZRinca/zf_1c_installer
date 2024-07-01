@@ -27,8 +27,6 @@ def json_settings():
 
 
 def zf_plug():
-    # json_settings()
-    copy_file('zf_1c_connect_client', 'C:\\zf_connector')
 
     # Команда для выполнения
     # Команда для выполнения

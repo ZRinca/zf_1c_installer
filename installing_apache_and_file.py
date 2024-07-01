@@ -1,4 +1,5 @@
 from command_line_and_permissions import run_as_admin
+import window_creator
 import shutil
 import os
 
@@ -28,3 +29,25 @@ def copy_file(source_dir, target_dir):
             return f"Целевая директория {target_dir} уже существует."
         except Exception as e:
             return f"Произошла ошибка: {e}"
+
+
+def move_and_rename_deskey_file(new_filename, destination_folder):
+    try:
+        # Проверяем, что исходный файл существует
+        if not os.path.isfile(window_creator.file_path):
+            print(f"Файл '{window_creator.file_path}' не найден.")
+            return
+
+        # Проверяем, что целевая папка существует
+        if not os.path.isdir(destination_folder):
+            print(f"Папка '{destination_folder}' не существует.")
+            return
+
+        # Создаем путь для нового файла
+        new_file_path = os.path.join(destination_folder, new_filename)
+
+        # Перемещаем файл в новую папку и переименовываем
+        shutil.move(window_creator.file_path, new_file_path)
+        print(f"Файл успешно перемещен и переименован в '{new_file_path}'.")
+    except Exception as e:
+        print(f"Ошибка при перемещении файла: {e}")

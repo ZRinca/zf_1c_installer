@@ -2,7 +2,7 @@ from the_zf_plug import zf_plug, json_settings
 from window_creator import *
 from exe_bit_extractor import exe_bit
 from examination import checking_code_status, check_file_availability
-from installing_apache_and_file import inst_apache_and_exp
+from installing_apache_and_file import inst_apache_and_exp, move_and_rename_deskey_file, copy_file
 from command_line_and_permissions import find_1c_base_list
 import threading
 import os
@@ -11,6 +11,7 @@ selected_value = None
 selected_db = None
 login = None
 password = None
+
 
 def open_first_frame():
     hello_window = InstallerWindow(main_frame, "Приветствую",
@@ -132,7 +133,8 @@ def process_installation():
     loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
     loading.place(relx=0.5, rely=0.5, anchor="center")
     inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
-
+    copy_file('zf_1c_connect_client', 'C:\\zf_connector')
+    move_and_rename_deskey_file("source_key.dskey", "C:\zf_connector")
     zf_plug()
 
     destroy_window(main_frame)
