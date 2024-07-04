@@ -13,7 +13,7 @@ def inst_apache_and_exp(bit, found_1c, found_base, login, password):
     if bit == 64:
         source_dir = r'Apache/Apache_64/Apache24'
     copy_file(source_dir, target_dir)
-    copy_file('expansion', "C:\\Apache24\\Api")
+    copy_file('extension', "C:\\Apache24\\Api")
     run_as_admin(found_1c, found_base, login, password)
     return "Apache установлен"
 

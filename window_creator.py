@@ -40,6 +40,8 @@ def show_error_window(message):
     position_top = int(screen_height / 2 - window_height / 2)
     position_right = int(screen_width / 2 - window_width / 2)
 
+    # error_window.attributes("-topmost", True)
+
     error_window.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
 
     label = ctk.CTkLabel(error_window, text=message, font=("Arial", 12))

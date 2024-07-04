@@ -57,8 +57,13 @@ def Open_list_of_databases():
     global selected_db
     global databases
     global selected_value
+    global num
     selected_value = selected_program.get()
-    if not check_file_availability(f"{programs[selected_value]}\\bin\\webinst.exe"):
+    if check_file_availability(f"{programs[selected_value]}\\bin\\webinst.exe"):
+        num = True
+    if check_file_availability(f"{programs[selected_value]}\\bin\\webinstt.exe"):
+        num = True
+    if not num:
         show_error_window("Ваша 1с не может опубликоваться")
         return
     if not selected_value:
@@ -158,7 +163,7 @@ def create_main_window():
     window_width = 522
     window_height = 329
 
-    root.attributes("-topmost", True)
+    # root.attributes("-topmost", True)
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()

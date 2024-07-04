@@ -7,7 +7,7 @@ def json_settings():
 
     json_file = "zf_1c_connect_client/settings.json"
 
-    new_data_server_url = "http://localhost/Base"
+    new_data_server_url = "http://localhost/Base/"
 
     try:
         with open(json_file, 'r', encoding='utf-8') as file:
