@@ -28,9 +28,5 @@ def json_settings():
 
 def zf_plug():
 
-    # Команда для выполнения
-    # Команда для выполнения
     command = 'cd C:\\zf_connector && aiohttp_client_test.exe'
-
-    # Запуск командной строки и выполнение команды
     subprocess.run(['cmd', '/c', 'start', 'cmd', '/k', command])

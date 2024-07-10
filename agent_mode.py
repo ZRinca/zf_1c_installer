@@ -19,7 +19,8 @@ def await_exec(ff):
 
 
 def enter_commands_agent_mod(user, password):
-    ff = subprocess.Popen('plink.exe -ssh -l admin -pw "" -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
+
+    ff = subprocess.Popen(f'plink.exe -ssh -l {user} -pw "{password}" -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
                           shell=False,
                           stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 

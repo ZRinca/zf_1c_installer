@@ -57,7 +57,7 @@ def Open_list_of_databases():
     global selected_db
     global databases
     global selected_value
-    global num
+    num = False
     selected_value = selected_program.get()
     if check_file_availability(f"{programs[selected_value]}\\bin\\webinst.exe"):
         num = True
@@ -127,27 +127,27 @@ def open_fourth_frame():
 
 
 def process_installation():
-    json_settings()
-    loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
-    loading.place(relx=0.5, rely=0.5, anchor="center")
-    destroy_window(main_frame)
-    # if checking_code_status() == 200:
-    #     print("Соединение есть")
-    bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
+        json_settings()
+        loading = LoadingIndicator(main_frame, label_text="Узнаём какая битность у 1с")
+        loading.place(relx=0.5, rely=0.5, anchor="center")
+        destroy_window(main_frame)
+        # if checking_code_status() == 200:
+        #     print("Соединение есть")
+        bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
 
-    loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
-    loading.place(relx=0.5, rely=0.5, anchor="center")
-    inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
-    copy_file('zf_1c_connect_client', 'C:\\zf_connector')
-    move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
-    zf_plug()
+        loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
+        loading.place(relx=0.5, rely=0.5, anchor="center")
+        inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
+        copy_file('zf_1c_connect_client', 'C:\\zf_connector')
+        move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
+        zf_plug()
 
-    destroy_window(main_frame)
+        destroy_window(main_frame)
 
-    destroy_window(main_frame)
-    Final = FinalWindow(main_frame, "Установка завершена",
-                        "Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!", None, None, root)
-    Final.draw()
+        destroy_window(main_frame)
+        Final = FinalWindow(main_frame, "Установка завершена",
+                            "Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!", None, None, root)
+        Final.draw()
 
 
 def create_main_window():
