@@ -46,7 +46,7 @@ def run_as_admin(found_1c, found_base, login, password):
         print(sub_run(r'net start Apache2.4'))
 
         webinst_command = [
-            f"{found_1c}\webinst",
+            f"{found_1c}\\webinst",
             "-publish",
             "-apache24",
             "-wsdir", "Base",
