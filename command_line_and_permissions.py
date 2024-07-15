@@ -30,6 +30,7 @@ def run_as_admin(found_1c, found_base, login, password):
     try:
 
         def sub_run(commands):
+            print(commands)
             p = subprocess.run(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                encoding='CP866')
             if p.stderr == '':
@@ -54,7 +55,7 @@ def run_as_admin(found_1c, found_base, login, password):
             f"-connstr", f'File="{found_base[list(found_base.keys())[0]]}";',
             "-confpath", r"C:\Apache24\conf\httpd.conf"
         ]
-
+        print(f"AAAAAAAAAAAA{webinst_command}")
         print(sub_run(webinst_command))
 
         designer_command = [

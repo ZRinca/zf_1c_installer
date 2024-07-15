@@ -1,6 +1,7 @@
 from the_zf_plug import zf_plug, json_settings
 from window_creator import *
 from exe_bit_extractor import exe_bit
+from line_changer import insert_a_line
 from examination import checking_code_status, check_file_availability
 from installing_apache_and_file import inst_apache_and_exp, move_and_rename_deskey_file, copy_file
 from command_line_and_permissions import find_1c_base_list
@@ -141,9 +142,7 @@ def process_installation():
         copy_file('zf_1c_connect_client', 'C:\\zf_connector')
         move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
         zf_plug()
-
-        destroy_window(main_frame)
-
+        insert_a_line()
         destroy_window(main_frame)
         Final = FinalWindow(main_frame, "Установка завершена",
                             "Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!", None, None, root)
