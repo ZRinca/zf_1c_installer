@@ -1,5 +1,7 @@
+import os
 import subprocess
 from io import StringIO
+from pathlib import Path
 
 
 def await_exec(ff):
@@ -19,6 +21,12 @@ def await_exec(ff):
 
 
 def enter_commands_agent_mod(user, password):
+
+    print(os.getcwd())
+    cur_path = Path(os.getcwd()) / "PLINK.EXE"
+    ff = subprocess.Popen(f'cmd /k "echo y | {cur_path} 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    ff.stdout.read(1)
+    ff.kill()
 
     ff = subprocess.Popen(f'plink.exe -ssh -l {user} -pw "{password}" -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
                           shell=False,
