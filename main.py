@@ -97,7 +97,7 @@ def login_and_password():
                                               "1С, которую вы выбрали, требует"
                                               "авторизации. \nПожалуйста, "
                                               "введите логин и пароль.",
-                                              open_third_frame, open_fourth_frame)
+                                              Open_list_of_databases, open_fourth_frame)
     registration_window.draw()
 
     login_entry = ctk.CTkEntry(main_frame, font=("Arial", 14), placeholder_text="Логин",
