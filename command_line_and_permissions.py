@@ -26,20 +26,20 @@ def input_cmd(commands):
         print("Run commands exception", e)
 
 
+def sub_run(commands):
+    print(commands)
+    p = subprocess.run(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                       encoding='CP866')
+    if p.stderr == '':
+        return p.stdout
+    if p.stdout == '':
+        return p.stderr
+    else:
+        return 'output is empty !'
+
+
 def run_as_admin(found_1c, found_base, login, password):
     try:
-
-        def sub_run(commands):
-            print(commands)
-            p = subprocess.run(commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                               encoding='CP866')
-            if p.stderr == '':
-                return p.stdout
-            if p.stdout == '':
-                return p.stderr
-            else:
-                return 'output is empty !'
-
         # Примеры команд
 
         print(sub_run(r'C:\Apache24\bin\httpd.exe -k install'))

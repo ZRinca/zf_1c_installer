@@ -1,3 +1,4 @@
+from added_to_the_task_scheduler import added_task
 from the_zf_plug import zf_plug, json_settings
 from window_creator import *
 from exe_bit_extractor import exe_bit
@@ -144,6 +145,7 @@ def process_installation():
         zf_plug()
         insert_a_line()
         destroy_window(main_frame)
+        added_task()
         Final = FinalWindow(main_frame, "Установка завершена",
                             "Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!", None, None, root)
         Final.draw()
