@@ -135,7 +135,10 @@ def process_installation():
         destroy_window(main_frame)
         # if checking_code_status() == 200:
         #     print("Соединение есть")
-        bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
+        if "1cv8t" in programs[selected_value]:
+            bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8t.exe')
+        else:
+            bit = exe_bit(f'{programs[selected_value]}\\bin\\1cv8.exe')
 
         loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
         loading.place(relx=0.5, rely=0.5, anchor="center")
