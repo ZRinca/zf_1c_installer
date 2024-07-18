@@ -40,14 +40,35 @@ def sub_run(commands):
 
 def run_as_admin(found_1c, found_base, login, password):
     try:
+        print(sub_run(r'C:\Apache24\bin\httpd.exe -k install'))
+        print(sub_run(r'net stop Apache2.4'))
+        print(sub_run(r'net start Apache2.4'))
         # Примеры команд
         if "1cv8t" in found_1c:
-            print(f"{found_1c}")
-        else:
-            print(sub_run(r'C:\Apache24\bin\httpd.exe -k install'))
-            print(sub_run(r'net stop Apache2.4'))
-            print(sub_run(r'net start Apache2.4'))
+            webinst_command = [
+                f"{found_1c}\\webinstt",
+                "-publish",
+                "-apache24",
+                "-wsdir", "Base",
+                "-dir", r"c:\apache\htdocs\Base",
+                f"-connstr", f'File="{found_base[list(found_base.keys())[0]]}";',
+                "-confpath", r"C:\Apache24\conf\httpd.conf"
+            ]
+            print(sub_run(webinst_command))
+            print(f"AAAAAAAAAAAAA{found_base[list(found_base.keys())[0]]}")
 
+            designer_command = [
+                r"C:\Program Files\1cv8\common\1cestartt.exe",
+                "DESIGNER",
+                "/AgentMode",
+                "/AgentBaseDir", r"C:\Apache24\Api",
+                "/IBName", list(found_base.keys())[0],
+                "/AgentSSHHostKeyAuto",
+                "/Visible"
+            ]
+
+            print(sub_run(designer_command))
+        else:
             webinst_command = [
                 f"{found_1c}\\webinst",
                 "-publish",
@@ -72,8 +93,8 @@ def run_as_admin(found_1c, found_base, login, password):
 
             print(sub_run(designer_command))
 
-            print(sub_run(r'net stop Apache2.4'))
-            print(sub_run(r'net start Apache2.4'))
+        print(sub_run(r'net stop Apache2.4'))
+        print(sub_run(r'net start Apache2.4'))
 
         # input_cmd(["cd C:\\Apache24\\bin && httpd.exe -k install && net start Apache2.4"])
 
