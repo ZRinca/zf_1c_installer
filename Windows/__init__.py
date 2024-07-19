@@ -1,6 +1,7 @@
 from . import (
     HelloWindow,
     SelectInstallerModeWindow,
-    CustomiserWindow
+    CustomiserWindow,
+    ConfigurationInstallerWindow,
 )
 from . import GoodByeWindow

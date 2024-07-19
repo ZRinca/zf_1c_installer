@@ -14,8 +14,12 @@ class CustomiserWindow(InstallerWindow):
         super().draw()
 
         def checkbox_event():
-            print("checkbox toggled, current value:", check_var.get())
+            print(check_var.get())
+            self.global_config['install_1c_extension'] = check_var.get() == "on"
 
         check_var = ctk.StringVar(value="on")
-        checkbox = ctk.CTkCheckBox(self.main_frame, text="CTkCheckBox", command=checkbox_event,
-                                             variable=check_var, onvalue="on", offvalue="off")
+        self.global_config['install_1c_extension'] = True
+        checkbox = ctk.CTkCheckBox(self.main_frame, text="Установка Расширения", command=checkbox_event,
+                                             variable=check_var, onvalue="on", offvalue="off", checkbox_width=20,
+                                   checkbox_height=20)
+        checkbox.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-100)
