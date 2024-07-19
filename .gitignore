@@ -1,48 +1,17 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual environment
+db.sqlite3
+.idea/
+*.pyc
+/media
+cache/
+one_c_xml_packer/
+old_db.sqlite3
+user_data/
+last_db.json
 env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Distribution / packaging
-build/
-dist/
-downloads/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-
-# System files
-*.swp
-*.swo
+.devcontainer/
+.vscode/
+*.rdb
+dev_settings.json
+nginx_conf/letsencrypt/
+Apache/
+zf_1c_connect_client/
