@@ -18,6 +18,8 @@ class InstallerWindowBase(type):
 class InstallerWindow(metaclass=InstallerWindowBase):
     header_text = None
     body_text = None
+    draw_next_button = True
+    draw_back_button = True
 
     def __init__(self, main_frame, global_config, prev_window_getter, next_window_getter):
         self.global_config = global_config
@@ -25,8 +27,15 @@ class InstallerWindow(metaclass=InstallerWindowBase):
         self.prev_window_getter = prev_window_getter
         self.next_window_getter = next_window_getter
 
-    def open_window(self, new_win):
-        open_window(self.main_frame, self.global_config, new_win)
+    @classmethod
+    def can_draw(cls, global_config):
+        return True
+
+    def open_next_window(self):
+        open_window(self.main_frame, self.global_config, self.next_window_getter(self))
+
+    def open_prev_window(self):
+        open_window(self.main_frame, self.global_config, self.prev_window_getter(self))
 
     def draw(self):
         for widget in self.main_frame.winfo_children():
@@ -50,41 +59,45 @@ class InstallerWindow(metaclass=InstallerWindowBase):
 
         prev_win = self.prev_window_getter(self)
 
-        if prev_win is not None:
-            button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_window(prev_win), width=80,
+        if prev_win is not None and self.draw_back_button:
+            button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_prev_window(), width=80,
                                         height=30,
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_back.place(relx=1.0, rely=1.0, anchor='se', x=-24 - 80 - 13, y=-24)
 
         next_win = self.next_window_getter(self)
 
-        if next_win is not None:
-            button_next = ctk.CTkButton(self.main_frame, text="Далее", command=lambda: self.open_window(next_win), width=80,
+        if next_win is not None and self.draw_next_button:
+            button_next = ctk.CTkButton(self.main_frame, text="Далее", command=lambda: self.open_next_window(), width=80,
                                         height=30,
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
 
 def get_prev_window(cur_win):
-    if cur_win.index < 1:
-        return None
-
+    back_index = cur_win.index - 1
+    while back_index > -1:
+        if ALL_WINDOWS[back_index].can_draw(cur_win.global_config):
+            return ALL_WINDOWS[back_index]
+        back_index -= 1
     return ALL_WINDOWS[cur_win.index - 1]
 
 
 def get_next_window(cur_win):
-    if cur_win.index >= len(ALL_WINDOWS) - 1:
-        return None
-
-    return ALL_WINDOWS[cur_win.index + 1]
+    next_index = cur_win.index + 1
+    while next_index < len(ALL_WINDOWS):
+        if ALL_WINDOWS[next_index].can_draw(cur_win.global_config):
+            return ALL_WINDOWS[next_index]
+        next_index += 1
+    return None
 
 
 def open_window(main_frame, global_config, new_win):
     for widget in main_frame.winfo_children():
         widget.destroy()
 
-    first_win = new_win(main_frame, global_config, get_prev_window, get_next_window)
-    first_win.draw()
+    win_instance = new_win(main_frame, global_config, get_prev_window, get_next_window)
+    win_instance.draw()
 
 
 def run_design(global_config):

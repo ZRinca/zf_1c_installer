@@ -55,7 +55,7 @@ def run_as_admin(found_1c, found_base, login, password):
                 "-confpath", r"C:\Apache24\conf\httpd.conf"
             ]
             print(sub_run(webinst_command))
-            print(f"AAAAAAAAAAAAA{found_base[list(found_base.keys())[0]]}")
+            # print(f"{found_base[list(found_base.keys())[0]]}")
 
             designer_command = [
                 r"C:\Program Files\1cv8\common\1cestartt.exe",
@@ -79,7 +79,7 @@ def run_as_admin(found_1c, found_base, login, password):
                 "-confpath", r"C:\Apache24\conf\httpd.conf"
             ]
             print(sub_run(webinst_command))
-            print(f"AAAAAAAAAAAAA{found_base[list(found_base.keys())[0]]}")
+            # print(f"{found_base[list(found_base.keys())[0]]}")
 
             designer_command = [
                 r"C:\Program Files\1cv8\common\1cestart.exe",

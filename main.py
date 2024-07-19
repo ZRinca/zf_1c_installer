@@ -1,7 +1,8 @@
 import Windows  # Просто нужен тут!
+from design_core import run_design, ALL_WINDOWS
+print(ALL_WINDOWS)
 
 from added_to_the_task_scheduler import added_task
-from design_core import run_design
 from the_zf_plug import zf_plug, json_settings
 from window_creator import *
 from exe_bit_extractor import exe_bit
@@ -28,8 +29,8 @@ def open_first_frame():
 
 
 def open_txt_page():
-    txt_key_window = FindFileWindow(main_frame, "Дайте мне txt", "Пожалуйста, вставьте сюда ваш уникальный ключ в "
-                                                                 "формате TXT."
+    txt_key_window = FindFileWindow(main_frame, "Дайте мне ключ", "Пожалуйста, вставьте сюда ваш уникальный ключ в "
+                                                                 "формате dskey."
                                                                  "Ключ можно найти в вашем \nличном кабинете. После того как вы вставите ключ, "
                                                                  "нажмите кнопку „Выбрать файл“ для "
                                                                  "\nзавершения процесса установки", open_first_frame,
@@ -199,5 +200,5 @@ GLOBAL_CONFIG = {
 
 
 if __name__ == "__main__":
-    # run_design(GLOBAL_CONFIG)
-    create_main_window()
+    run_design(GLOBAL_CONFIG)
+    # create_main_window()
