@@ -1,4 +1,7 @@
+import Windows  # Просто нужен тут!
+
 from added_to_the_task_scheduler import added_task
+from design_core import run_design
 from the_zf_plug import zf_plug, json_settings
 from window_creator import *
 from exe_bit_extractor import exe_bit
@@ -190,5 +193,11 @@ def create_main_window():
     root.mainloop()
 
 
+GLOBAL_CONFIG = {
+    'test': 'kek'
+}
+
+
 if __name__ == "__main__":
+    # run_design(GLOBAL_CONFIG)
     create_main_window()
