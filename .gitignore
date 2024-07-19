@@ -15,3 +15,6 @@ dev_settings.json
 nginx_conf/letsencrypt/
 Apache/
 zf_1c_connect_client/
+*.spec
+build/
+dist/
