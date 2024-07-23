@@ -21,6 +21,12 @@ class KSelection(InstallerWindow):
                  "кабинете. После того как вы вставите ключ, нажмите кнопку „Выбрать файл“ для завершения процесса "
                  "установки")
 
+    @classmethod
+    def can_draw(cls, global_config):
+        keys_to_check = ['install_zf', 'check_functionality']
+        all_false = not all(not global_config[key] for key in keys_to_check)
+        return all_false
+
     def draw(self):
         super().draw()
         global file_path_label

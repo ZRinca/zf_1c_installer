@@ -7,6 +7,12 @@ class OneCSelection(InstallerWindow):
     body_text = ("Программа нашла на вашем устройстве несколько установленных 1С.В списке ниже указаны все "
                  "установленные версии 1С.")
 
+    @classmethod
+    def can_draw(cls, global_config):
+        keys_to_check = ['install_1c_extension', 'publish_1c', 'connect_database', 'check_functionality']
+        all_false = not all(not global_config[key] for key in keys_to_check)
+        return all_false
+
     def draw(self):
         super().draw()
         database_combobox = ctk.CTkComboBox(self.main_frame, variable=None, values=None,

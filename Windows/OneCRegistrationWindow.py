@@ -4,7 +4,13 @@ import customtkinter as ctk
 
 class RegistrationsOneC(InstallerWindow):
     header_text = 'Введите логин и пароль от вашей 1С.'
-    body_text = "1С, которую вы выбрали, требует авторизации. Пожалуйста,введите логин и пароль."
+    body_text = '1С, которую вы выбрали, требует авторизации. Пожалуйста,введите логин и пароль.'
+
+    @classmethod
+    def can_draw(cls, global_config):
+        keys_to_check = ['publish_1c', 'check_functionality', 'install_1c_extension']
+        all_false = not all(not global_config[key] for key in keys_to_check)
+        return all_false
 
     def draw(self):
         super().draw()
