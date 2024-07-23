@@ -5,6 +5,7 @@ import customtkinter as ctk
 file_path = ""  # Объявляем глобальную переменную file_path
 file_path_label = None
 
+
 def select_txt_file():
     global file_path
     file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.dskey")])
@@ -13,8 +14,8 @@ def select_txt_file():
     else:
         file_path_label.set("")
 
-class KSelection(InstallerWindow):
 
+class KSelection(InstallerWindow):
     header_text = "Выберите ваш персональный ключ"
     body_text = ("Пожалуйста, вставьте сюда ваш уникальный ключ в формате dskey.Ключ можно найти в вашем \nличном "
                  "кабинете. После того как вы вставите ключ, нажмите кнопку „Выбрать файл“ для завершения процесса "
@@ -45,5 +46,6 @@ class KSelection(InstallerWindow):
         global file_path
         if not file_path:
             print("Файл не выбран. \nПожалуйста, выберите файл.")
+            print(self.global_config)
         else:
             self.open_next_window()
