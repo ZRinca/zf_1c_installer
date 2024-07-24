@@ -20,6 +20,7 @@ class KSelection(InstallerWindow):
     body_text = ("Пожалуйста, вставьте сюда ваш уникальный ключ в формате dskey.Ключ можно найти в вашем \nличном "
                  "кабинете. После того как вы вставите ключ, нажмите кнопку „Выбрать файл“ для завершения процесса "
                  "установки")
+    draw_next_button = False
 
     @classmethod
     def can_draw(cls, global_config):
@@ -34,7 +35,7 @@ class KSelection(InstallerWindow):
         file_path_label = ctk.StringVar(value=file_path)
 
         frame_file_selection = ctk.CTkFrame(self.main_frame, fg_color="transparent")
-        frame_file_selection.pack(padx=24, pady=(24, 0), fill='x')  # 24 пикселя ниже label2
+        frame_file_selection.pack(padx=24, pady=(24, 0), fill='x')
 
         entry_file_path = ctk.CTkEntry(frame_file_selection, textvariable=file_path_label, font=("Rubik Light", 12),
                                        border_color="grey", state="readonly")
@@ -54,4 +55,6 @@ class KSelection(InstallerWindow):
             print("Файл не выбран. \nПожалуйста, выберите файл.")
             print(self.global_config)
         else:
+            self.global_config['link_key'] = file_path
+            print(self.global_config)
             self.open_next_window()

@@ -6,8 +6,7 @@ from tkinter import filedialog
 from search_1c import find_display_names
 import os
 
-find_1c = find_display_names(
-    r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")
+find_1c = find_display_names(r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")
 find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")
 programs = find_1c.copy()
 programs.update(find_1c_2)
