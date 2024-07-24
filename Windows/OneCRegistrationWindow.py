@@ -15,10 +15,21 @@ class RegistrationsOneC(InstallerWindow):
     def draw(self):
         super().draw()
 
-        login_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), placeholder_text="Логин",
-                                   placeholder_text_color="grey")
-        login_entry.pack(padx=24, pady=(24, 0), fill='x')
+        self.login_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), placeholder_text="Логин", placeholder_text_color="grey")
+        self.login_entry.pack(padx=24, pady=(24, 0), fill='x')
 
-        password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль",
-                                      placeholder_text_color="grey")
-        password_entry.pack(padx=24, pady=(13, 24), fill='x')
+        self.password_entry = ctk.CTkEntry(self.main_frame, font=("Arial", 14), show='*', placeholder_text="Пароль", placeholder_text_color="grey")
+        self.password_entry.pack(padx=24, pady=(13, 24), fill='x')
+
+        self.login_entry.bind("<KeyRelease>", self.update_login)
+        self.password_entry.bind("<KeyRelease>", self.update_password)
+
+    def update_login(self):
+        login = self.login_entry.get()
+        self.global_config['LOGIN'] = login
+        print(f"Updated LOGIN: {self.global_config['LOGIN']}")
+
+    def update_password(self):
+        password = self.password_entry.get()
+        self.global_config['PASSWORD'] = password
+        print(f"Updated PASSWORD: {self.global_config['PASSWORD']}")
