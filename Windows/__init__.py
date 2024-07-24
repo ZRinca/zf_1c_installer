@@ -7,5 +7,6 @@ from . import (
     DatabaseSelectionWindow,
     OneCRegistrationWindow,
     KeySelection,
+    InstallationWindow,
 )
 from . import GoodByeWindow

@@ -40,7 +40,6 @@ class OneCSelection(InstallerWindow):
     def send_to_chat(self):
         selected_value = self.database_combobox.get()
         self.global_config['One_C_the_user'] = selected_value
-        print(self.global_config)
 
     def on_next_button_click(self):
         self.send_to_chat()
