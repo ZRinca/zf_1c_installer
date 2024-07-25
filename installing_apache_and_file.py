@@ -4,9 +4,8 @@ import shutil
 import os
 
 
-def inst_apache_and_exp(bit, found_1c, found_base, login, password):
+def copy_apache_and_exp(bit):
     target_dir = 'C:\\Apache24'
-    print(target_dir)
     source_dir = None
     if bit == 32:
         source_dir = r'Apache/Apache_32/Apache24'
@@ -14,8 +13,7 @@ def inst_apache_and_exp(bit, found_1c, found_base, login, password):
         source_dir = r'Apache/Apache_64/Apache24'
     copy_file(source_dir, target_dir)
     copy_file('extension', "C:\\Apache24\\Api")
-    run_as_admin(found_1c, found_base, login, password)
-    return "Apache установлен"
+    return
 
 
 def copy_file(source_dir, target_dir):

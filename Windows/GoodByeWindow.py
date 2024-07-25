@@ -8,4 +8,4 @@ class GoodByeWindow(InstallerWindow):
     body_text = 'Установка завершена, и Zero Factor установлен. Спасибо, что выбрали нас!'
 
     draw_next_button = False
-    # draw_back_button = False
+    draw_back_button = False

@@ -3,12 +3,12 @@ from . import (
     SelectInstallerModeWindow,
     CustomiserWindow,
     OneCSelectionWindow,
-    DatabaseSelectionWindow,
+    DataBaseSelectionWindow,
     OneCRegistrationWindow,
     ConfigurationInstallerWindow,
     ApacheInstallWindow,
-    # OneCPublishWindow,
-    # InstallZFConnector,
+    InstallZFConnector,
+    OneCPublishWindow,
     KeySelection,
     # ConfigurateConnect
     # CheckSystemWindow

@@ -8,7 +8,7 @@ from window_creator import *
 from exe_bit_extractor import exe_bit
 from line_changer import insert_a_line
 from examination import checking_code_status, check_file_availability
-from installing_apache_and_file import inst_apache_and_exp, move_and_rename_deskey_file, copy_file
+from installing_apache_and_file import copy_apache_and_exp, move_and_rename_deskey_file, copy_file
 from command_line_and_permissions import find_1c_base_list
 import threading
 import os
@@ -146,7 +146,7 @@ def process_installation():
 
         loading = LoadingIndicator(main_frame, label_text="Устанавливаем утилиты")
         loading.place(relx=0.5, rely=0.5, anchor="center")
-        inst_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
+        copy_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
         copy_file('zf_1c_connect_client', 'C:\\zf_connector')
         move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
         zf_plug()
