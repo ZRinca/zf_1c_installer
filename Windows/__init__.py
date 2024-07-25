@@ -6,12 +6,12 @@ from . import (
     DatabaseSelectionWindow,
     OneCRegistrationWindow,
     ConfigurationInstallerWindow,
-    # ApacheInstallWindow,
+    ApacheInstallWindow,
     # OneCPublishWindow,
     # InstallZFConnector,
     KeySelection,
     # ConfigurateConnect
     # CheckSystemWindow
-    InstallationWindow,  # TODO Убрать его
+    # InstallationWindow,  # TODO Убрать его
 )
 from . import GoodByeWindow

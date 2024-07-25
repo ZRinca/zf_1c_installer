@@ -1,5 +1,4 @@
 from design_core import InstallerWindow
-import customtkinter as ctk
 
 
 class ConfigurationInstallerWindow(InstallerWindow):

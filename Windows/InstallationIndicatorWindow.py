@@ -43,17 +43,17 @@ class LoadingIndicator(ctk.CTkCanvas):
         self.animate()
 
 
-class Install(InstallerWindow):
-    draw_back_button = False
-    draw_next_button = False
-    header_text = None
-    body_text = None
-
-    def draw(self):
-        super().draw()
-
-        self.loading_indicator = LoadingIndicator(self.main_frame, size=100, speed=50, label_text="Loading Apache...")
-        self.loading_indicator.set_parent(self.main_frame)
+# class Install(InstallerWindow):
+#     draw_back_button = True
+#     draw_next_button = True
+#     header_text = None
+#     body_text = None
+#
+#     def draw(self):
+#         super().draw()
+#
+#         self.loading_indicator = LoadingIndicator(self.main_frame, size=100, speed=50, label_text="Loading Apache...")
+#         self.loading_indicator.set_parent(self.main_frame)
 
         # if self.header_text is not None:
         #     label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=("Rubik Light", 12), anchor='w',
