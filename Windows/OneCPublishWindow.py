@@ -27,7 +27,6 @@ class PublishOneC(InstallerWindow):
         one_c = self.global_config['One_C']
 
         def loading_task():
-            self.open_next_window()
 
             if "1cv8t" in one_c[one_c_user]:
                 webinst_command = [
@@ -53,6 +52,7 @@ class PublishOneC(InstallerWindow):
                 print(sub_run(webinst_command))
             print(sub_run(r'net stop Apache2.4'))
             print(sub_run(r'net start Apache2.4'))
+            self.open_next_window()
 
         loading_thread = threading.Thread(target=loading_task)
         loading_thread.start()

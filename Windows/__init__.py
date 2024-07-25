@@ -9,6 +9,7 @@ from . import (
     ApacheInstallWindow,
     InstallZFConnector,
     OneCPublishWindow,
+    InstallExtension,
     KeySelection,
     # ConfigurateConnect
     # CheckSystemWindow
