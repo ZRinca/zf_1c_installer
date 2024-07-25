@@ -57,17 +57,17 @@ class InstallerWindow(metaclass=InstallerWindowBase):
                                   wraplength=self.main_frame.winfo_width() - 48)
             label2.pack(padx=24, pady=(24, 0), fill='x')
 
-        prev_win = self.prev_window_getter(self)
+        prev_win = self.prev_window_getter(self) if self.draw_back_button else None
 
-        if prev_win is not None and self.draw_back_button:
+        if prev_win is not None:
             button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_prev_window(), width=80,
                                         height=30,
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_back.place(relx=1.0, rely=1.0, anchor='se', x=-24 - 80 - 13, y=-24)
 
-        next_win = self.next_window_getter(self)
+        next_win = self.next_window_getter(self) if self.draw_next_button else None
 
-        if next_win is not None and self.draw_next_button:
+        if next_win is not None:
             button_next = ctk.CTkButton(self.main_frame, text="Далее", command=lambda: self.open_next_window(), width=80,
                                         height=30,
                                         fg_color="#6EC756", hover_color="#4EB932")

@@ -9,7 +9,7 @@ class RegistrationsOneC(InstallerWindow):
     @classmethod
     def can_draw(cls, global_config):
         keys_to_check = ['publish_1c', 'check_functionality', 'install_1c_extension']
-        all_false = not all(not global_config[key] for key in keys_to_check)
+        all_false = not all(not global_config.get(key, True) for key in keys_to_check)
         return all_false
 
     def draw(self):

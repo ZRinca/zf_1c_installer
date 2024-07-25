@@ -2,11 +2,16 @@ from . import (
     HelloWindow,
     SelectInstallerModeWindow,
     CustomiserWindow,
-    ConfigurationInstallerWindow,
     OneCSelectionWindow,
     DatabaseSelectionWindow,
     OneCRegistrationWindow,
+    ConfigurationInstallerWindow,
+    # ApacheInstallWindow,
+    # OneCPublishWindow,
+    # InstallZFConnector,
     KeySelection,
-    InstallationWindow,
+    # ConfigurateConnect
+    # CheckSystemWindow
+    InstallationWindow,  # TODO Убрать его
 )
 from . import GoodByeWindow

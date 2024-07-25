@@ -34,37 +34,39 @@ class LoadingIndicator(ctk.CTkCanvas):
         self.after(self.speed, self.animate)
 
     def set_parent(self, parent):
+        self.pack(expand=True, pady=(50, 20))
+
+        # Создаем метку внутри родительского виджета и размещаем ее внизу слева
         self.label = ctk.CTkLabel(parent, text=self.label_text, font=("Rubik Light", 12), text_color="#6EC756")
-        self.label.pack(side="left", anchor="sw", padx=24, pady=24)
-        self.pack()
+        self.label.pack(side="bottom", anchor="w", padx=24, pady=(0, 24))
+
         self.animate()
 
-# Класс установки, наследующий от InstallerWindow
+
 class Install(InstallerWindow):
+    draw_back_button = False
+    draw_next_button = False
     header_text = None
     body_text = None
 
     def draw(self):
         super().draw()
 
-        # Создаем и размещаем LoadingIndicator внутри main_frame
-        self.loading_indicator = LoadingIndicator(self.main_frame, size=100, speed=50, label_text="Loading...")
-        self.loading_indicator.set_parent(self.main_frame)  # Передаем main_frame как родитель
-        self.loading_indicator.pack(expand=True)
+        self.loading_indicator = LoadingIndicator(self.main_frame, size=100, speed=50, label_text="Loading Apache...")
+        self.loading_indicator.set_parent(self.main_frame)
 
-        # Добавляем заголовок и тело текста
-        if self.header_text is not None:
-            label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=("Rubik Light", 12), anchor='w',
-                                  text_color="#6EC756",
-                                  justify='left', wraplength=self.main_frame.winfo_width() - 48)
-            label1.pack(padx=24, pady=(24, 0), fill='x')
-
-            line = ctk.CTkFrame(self.main_frame, height=2, fg_color="#6EC756")
-            line.pack(padx=24, pady=(24, 0), fill='x')
-
-        if self.body_text is not None:
-            label2 = ctk.CTkLabel(self.main_frame,
-                                  text=self.body_text,
-                                  font=("Rubik Light", 10), anchor='w', justify='left',
-                                  wraplength=self.main_frame.winfo_width() - 48)
-            label2.pack(padx=24, pady=(24, 0), fill='x')
+        # if self.header_text is not None:
+        #     label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=("Rubik Light", 12), anchor='w',
+        #                           text_color="#6EC756",
+        #                           justify='left', wraplength=self.main_frame.winfo_width() - 48)
+        #     label1.pack(padx=24, pady=(24, 0), fill='x')
+        #
+        #     line = ctk.CTkFrame(self.main_frame, height=2, fg_color="#6EC756")
+        #     line.pack(padx=24, pady=(24, 0), fill='x')
+        #
+        # if self.body_text is not None:
+        #     label2 = ctk.CTkLabel(self.main_frame,
+        #                           text=self.body_text,
+        #                           font=("Rubik Light", 10), anchor='w', justify='left',
+        #                           wraplength=self.main_frame.winfo_width() - 48)
+        #     label2.pack(padx=24, pady=(24, 0), fill='x')
