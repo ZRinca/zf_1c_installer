@@ -1,7 +1,6 @@
+from search_1c import find_display_names
 from design_core import InstallerWindow
 import customtkinter as ctk
-
-from search_1c import find_display_names
 
 
 class OneCSelection(InstallerWindow):

@@ -1,11 +1,11 @@
-import threading
-from design_core import InstallerWindow
 from Windows.InstallationIndicatorWindow import LoadingIndicator
+from added_to_the_task_scheduler import added_task
 from installing_apache_and_file import copy_file
+from design_core import InstallerWindow
+import threading
 
 
 class InstallZF(InstallerWindow):
-
     draw_back_button = False
     draw_next_button = False
     header_text = None
@@ -26,6 +26,7 @@ class InstallZF(InstallerWindow):
 
         def loading_task():
             copy_file('zf_1c_connect_client', 'C:\\zf_connector')
+            added_task()
             self.open_next_window()
 
         loading_thread = threading.Thread(target=loading_task)

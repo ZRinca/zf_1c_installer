@@ -1,5 +1,5 @@
-from tkinter import filedialog
 from design_core import InstallerWindow
+from tkinter import filedialog
 import customtkinter as ctk
 
 file_path = ""  # Объявляем глобальную переменную file_path

@@ -1,8 +1,8 @@
-import threading
-from design_core import InstallerWindow
-from command_line_and_permissions import sub_run
 from Windows.InstallationIndicatorWindow import LoadingIndicator
+from command_line_and_permissions import sub_run
+from design_core import InstallerWindow
 from line_changer import insert_a_line
+import threading
 
 
 class PublishOneC(InstallerWindow):
@@ -27,6 +27,9 @@ class PublishOneC(InstallerWindow):
         one_c_user = self.global_config['One_C_the_user']
         one_c = self.global_config['One_C']
 
+        base_user = self.global_config['base_the_One_C']
+        base = self.global_config['base']
+
         def loading_task():
 
             if "1cv8t" in one_c[one_c_user]:
@@ -36,7 +39,7 @@ class PublishOneC(InstallerWindow):
                     "-apache24",
                     "-wsdir", "Base",
                     "-dir", r"c:\apache\htdocs\Base",
-                    f"-connstr", f'File="{self.global_config['base_the_One_C']}";',
+                    f"-connstr", f'File="{base[base_user]}";',
                     "-confpath", r"C:\Apache24\conf\httpd.conf"
                 ]
                 print(sub_run(webinst_command))
@@ -47,7 +50,7 @@ class PublishOneC(InstallerWindow):
                     "-apache24",
                     "-wsdir", "Base",
                     "-dir", r"c:\apache\htdocs\Base",
-                    f"-connstr", f'File="{self.global_config['base_the_One_C']}";',
+                    f"-connstr", f'File="{base[base_user]}";',
                     "-confpath", r"C:\Apache24\conf\httpd.conf"
                 ]
                 print(webinst_command)

@@ -3,7 +3,7 @@ from . import (
     SelectInstallerModeWindow,
     CustomiserWindow,
     OneCSelectionWindow,
-    DataBaseSelectionWindow,
+    DatabaseSelectionWindow,
     OneCRegistrationWindow,
     ConfigurationInstallerWindow,
     ApacheInstallWindow,
@@ -13,6 +13,5 @@ from . import (
     KeySelection,
     # ConfigurateConnect
     # CheckSystemWindow
-    # InstallationWindow,  # TODO Убрать его
 )
 from . import GoodByeWindow
