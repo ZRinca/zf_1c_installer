@@ -2,6 +2,7 @@ import threading
 from design_core import InstallerWindow
 from command_line_and_permissions import sub_run
 from Windows.InstallationIndicatorWindow import LoadingIndicator
+from line_changer import insert_a_line
 
 
 class PublishOneC(InstallerWindow):
@@ -35,7 +36,7 @@ class PublishOneC(InstallerWindow):
                     "-apache24",
                     "-wsdir", "Base",
                     "-dir", r"c:\apache\htdocs\Base",
-                    f"-connstr", f'File="{self.global_config['base_the_One_C']}"',
+                    f"-connstr", f'File="{self.global_config['base_the_One_C']}";',
                     "-confpath", r"C:\Apache24\conf\httpd.conf"
                 ]
                 print(sub_run(webinst_command))
@@ -46,12 +47,17 @@ class PublishOneC(InstallerWindow):
                     "-apache24",
                     "-wsdir", "Base",
                     "-dir", r"c:\apache\htdocs\Base",
-                    f"-connstr", f'File="{self.global_config['base_the_One_C']}"',
+                    f"-connstr", f'File="{self.global_config['base_the_One_C']}";',
                     "-confpath", r"C:\Apache24\conf\httpd.conf"
                 ]
+                print(webinst_command)
                 print(sub_run(webinst_command))
+
+            insert_a_line()
+
             print(sub_run(r'net stop Apache2.4'))
             print(sub_run(r'net start Apache2.4'))
+
             self.open_next_window()
 
         loading_thread = threading.Thread(target=loading_task)
