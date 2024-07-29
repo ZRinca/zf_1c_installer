@@ -32,26 +32,17 @@ def enter_commands_agent_mod(user, password):
                           shell=False,
                           stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
-    print(await_exec(ff))
+    commands = [
+        "common connect-ib\n",
+        "config load-cfg --file=../InterfaceAPI.cfe --extension=IAPI\n",
+        "config extensions properties set --extension=IAPI --safe-mode=no --unsafe-action-protection=no\n",
+        "config update-db-cfg --extension=IAPI\n"
+    ]
 
-    ff.stdin.write("common connect-ib\n")
-    ff.stdin.flush()
-
-    print(await_exec(ff))
-
-    ff.stdin.write("config load-cfg --file=../InterfaceAPI.cfe --extension=IAPI\n")
-    ff.stdin.flush()
-
-    print(await_exec(ff))
-
-    ff.stdin.write("config extensions properties set --extension=IAPI --safe-mode=no --unsafe-action-protection=no\n")
-    ff.stdin.flush()
+    for command in commands:
+        print(await_exec(ff))
+        ff.stdin.write(command)
+        ff.stdin.flush()
 
     print(await_exec(ff))
-
-    ff.stdin.write("config update-db-cfg --extension=IAPI\n")
-    ff.stdin.flush()
-
-    print(await_exec(ff))
-
     ff.kill()

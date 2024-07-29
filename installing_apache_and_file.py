@@ -1,5 +1,3 @@
-from command_line_and_permissions import run_as_admin
-import window_creator
 import shutil
 import os
 
