@@ -148,7 +148,7 @@ def process_installation():
         loading.place(relx=0.5, rely=0.5, anchor="center")
         copy_apache_and_exp(bit, f'{programs[selected_value]}\\bin', databases, login, password)
         copy_file('zf_1c_connect_client', 'C:\\zf_connector')
-        move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
+        move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector", None)
         zf_plug()
         insert_a_line()
         destroy_window(main_frame)

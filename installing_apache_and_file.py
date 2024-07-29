@@ -29,11 +29,11 @@ def copy_file(source_dir, target_dir):
             return f"Произошла ошибка: {e}"
 
 
-def move_and_rename_deskey_file(new_filename, destination_folder):
+def move_and_rename_deskey_file(src_file_path, new_filename, destination_folder):
     try:
         # Проверяем, что исходный файл существует
-        if not os.path.isfile(window_creator.file_path):
-            print(f"Файл '{window_creator.file_path}' не найден.")
+        if not os.path.isfile(src_file_path):
+            print(f"Файл '{src_file_path}' не найден.")
             return
 
         # Проверяем, что целевая папка существует
@@ -45,7 +45,7 @@ def move_and_rename_deskey_file(new_filename, destination_folder):
         new_file_path = os.path.join(destination_folder, new_filename)
 
         # Перемещаем файл в новую папку и переименовываем
-        shutil.move(window_creator.file_path, new_file_path)
+        shutil.move(src_file_path, new_file_path)
         print(f"Файл успешно перемещен и переименован в '{new_file_path}'.")
     except Exception as e:
         print(f"Ошибка при перемещении файла: {e}")

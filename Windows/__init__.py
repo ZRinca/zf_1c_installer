@@ -11,6 +11,7 @@ from . import (
     OneCPublishWindow,
     InstallExtension,
     KeySelection,
+    InstallingKeyWindow,
     # ConfigurateConnect
     # CheckSystemWindow
 )
