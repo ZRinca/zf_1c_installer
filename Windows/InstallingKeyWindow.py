@@ -1,11 +1,7 @@
-import os
-import shutil
-
+from installing_apache_and_file import move_and_rename_deskey_file
 from Windows.InstallationIndicatorWindow import LoadingIndicator
 from design_core import InstallerWindow
 import threading
-
-from installing_apache_and_file import move_and_rename_deskey_file
 
 
 class InstallingKey(InstallerWindow):
@@ -27,11 +23,7 @@ class InstallingKey(InstallerWindow):
         self.loading_indicator.set_parent(self.main_frame)
 
         def loading_task():
-
-            # shutil.copy2(self.global_config['link_key'], 'C:\\zf_connector')
-            # os.rename(f'C:/zf_connector{self.global_config['link_key']}', 'source_key.dskey')
             move_and_rename_deskey_file(self.global_config['link_key'], 'source_key.dskey', 'C:\\zf_connector')
-            # move_and_rename_deskey_file("source_key.dskey", "C:\\zf_connector")
             self.open_next_window()
 
         loading_thread = threading.Thread(target=loading_task)

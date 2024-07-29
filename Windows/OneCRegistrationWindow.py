@@ -29,9 +29,7 @@ class RegistrationsOneC(InstallerWindow):
     def update_login(self):
         login = self.login_entry.get()
         self.global_config['LOGIN'] = login
-        print(f"Updated LOGIN: {self.global_config['LOGIN']}")
 
     def update_password(self):
         password = self.password_entry.get()
         self.global_config['PASSWORD'] = password
-        print(f"Updated PASSWORD: {self.global_config['PASSWORD']}")
