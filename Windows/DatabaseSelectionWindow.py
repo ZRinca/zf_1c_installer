@@ -1,4 +1,4 @@
-from command_line_and_permissions import find_1c_base_list
+from logic.command_line_and_permissions import find_1c_base_list
 from design_core import InstallerWindow
 import customtkinter as ctk
 

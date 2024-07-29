@@ -2,7 +2,6 @@ import os
 import re
 import subprocess
 import ctypes
-from agent_mode import enter_commands_agent_mod
 
 
 def is_admin():

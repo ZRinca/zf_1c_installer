@@ -1,4 +1,4 @@
-from command_line_and_permissions import sub_run
+from logic.command_line_and_permissions import sub_run
 
 
 def added_task():

@@ -1,6 +1,6 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from agent_mode import enter_commands_agent_mod
-from command_line_and_permissions import sub_run
+from logic.agent_mode import enter_commands_agent_mod
+from logic.command_line_and_permissions import sub_run
 from design_core import InstallerWindow
 import threading
 

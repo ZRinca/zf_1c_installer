@@ -1,11 +1,10 @@
-from installing_apache_and_file import copy_file
 import json
 import subprocess
 
 
 def json_settings():
 
-    json_file = "zf_1c_connect_client/settings.json"
+    json_file = "../zf_1c_connect_client/settings.json"
 
     new_data_server_url = "http://localhost/Base/"
 

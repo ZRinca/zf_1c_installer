@@ -1,4 +1,3 @@
-from window_creator import show_error_window
 import requests
 import os
 

@@ -1,8 +1,8 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from installing_apache_and_file import copy_apache_and_exp
-from command_line_and_permissions import sub_run
+from logic.installing_apache_and_file import copy_apache_and_exp
+from logic.command_line_and_permissions import sub_run
 from design_core import InstallerWindow
-from exe_bit_extractor import exe_bit
+from logic.exe_bit_extractor import exe_bit
 import threading
 
 

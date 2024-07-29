@@ -1,4 +1,4 @@
-from search_1c import find_display_names
+from logic.search_1c import find_display_names
 from design_core import InstallerWindow
 import customtkinter as ctk
 

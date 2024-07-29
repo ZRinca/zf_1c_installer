@@ -1,6 +1,6 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from added_to_the_task_scheduler import added_task
-from installing_apache_and_file import copy_file
+from logic.added_to_the_task_scheduler import added_task
+from logic.installing_apache_and_file import copy_file
 from design_core import InstallerWindow
 import threading
 

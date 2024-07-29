@@ -1,7 +1,7 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from command_line_and_permissions import sub_run
+from logic.command_line_and_permissions import sub_run
 from design_core import InstallerWindow
-from line_changer import insert_a_line
+from logic.line_changer import insert_a_line
 import threading
 
 
