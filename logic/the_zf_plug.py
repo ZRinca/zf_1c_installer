@@ -1,5 +1,6 @@
 import json
 import subprocess
+from settings import the_path_to_zf
 
 
 def json_settings():
@@ -27,5 +28,5 @@ def json_settings():
 
 def zf_plug():
 
-    command = 'cd C:\\zf_connector && zf_connector.exe'
+    command = f'cd {the_path_to_zf} && zf_connector.exe'
     subprocess.run(['cmd', '/c', 'start', 'cmd', '/k', command])

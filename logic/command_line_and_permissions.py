@@ -1,7 +1,7 @@
 import os
 import re
-import subprocess
 import ctypes
+import subprocess
 
 
 def is_admin():

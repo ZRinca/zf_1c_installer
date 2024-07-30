@@ -1,16 +1,16 @@
+from settings import the_path_to_Apache
 import shutil
 import os
 
 
 def copy_apache_and_exp(bit):
-    target_dir = 'C:\\Apache24'
     source_dir = None
     if bit == 32:
-        source_dir = r'../Apache/Apache_32/Apache24'
+        source_dir = r'Apache/Apache_32/Apache24'
     if bit == 64:
-        source_dir = r'../Apache/Apache_64/Apache24'
-    copy_file(source_dir, target_dir)
-    copy_file('../extension', "C:\\Apache24\\Api")
+        source_dir = r'Apache/Apache_64/Apache24'
+    copy_file(source_dir, the_path_to_Apache)
+    copy_file('extension', f"{the_path_to_Apache}\\Api")
     return
 
 

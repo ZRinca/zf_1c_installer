@@ -1,6 +1,7 @@
 from logic.installing_apache_and_file import move_and_rename_deskey_file
 from Windows.InstallationIndicatorWindow import LoadingIndicator
 from design_core import InstallerWindow
+from settings import the_path_to_zf
 import threading
 
 
@@ -23,7 +24,7 @@ class InstallingKey(InstallerWindow):
         self.loading_indicator.set_parent(self.main_frame)
 
         def loading_task():
-            move_and_rename_deskey_file(self.global_config['link_key'], 'source_key.dskey', 'C:\\zf_connector')
+            move_and_rename_deskey_file(self.global_config['link_key'], 'source_key.dskey', the_path_to_zf)
             self.open_next_window()
 
         loading_thread = threading.Thread(target=loading_task)

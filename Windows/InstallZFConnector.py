@@ -2,6 +2,7 @@ from Windows.InstallationIndicatorWindow import LoadingIndicator
 from logic.command_line_and_permissions import sub_run
 from logic.installing_apache_and_file import copy_file
 from design_core import InstallerWindow
+from settings import the_path_to_zf
 import threading
 
 
@@ -25,7 +26,7 @@ class InstallZF(InstallerWindow):
         self.loading_indicator.set_parent(self.main_frame)
 
         def loading_task():
-            copy_file('zf_1c_connect_client', 'C:\\zf_connector')
+            copy_file('zf_1c_connect_client', the_path_to_zf)
             sub_run(['SCHTASKS', '/Create', '/TN', 'zf_connector', '/XML', r'C:\Apache24\Api\ZFConnector_settings.xml'])
             self.open_next_window()
 

@@ -126,9 +126,6 @@ def run_design(global_config):
     main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
     main_frame.pack(fill='both', expand=True)
 
-    # selected_program = ctk.StringVar()
-    # selected_bd_programm = ctk.StringVar()
-
     open_window(main_frame, global_config, ALL_WINDOWS[0])
 
     root.mainloop()
