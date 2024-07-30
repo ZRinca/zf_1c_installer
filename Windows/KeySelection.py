@@ -2,6 +2,8 @@ from design_core import InstallerWindow
 from tkinter import filedialog
 import customtkinter as ctk
 
+from logic.command_line_and_permissions import sub_run
+
 file_path = ""  # Объявляем глобальную переменную file_path
 file_path_label = None
 
@@ -57,4 +59,5 @@ class KSelection(InstallerWindow):
         else:
             self.global_config['link_key'] = file_path
             print(self.global_config)
+            sub_run(r'SCHTASKS /Run /TN \ZeroFactor\ZFConnector')
             self.open_next_window()

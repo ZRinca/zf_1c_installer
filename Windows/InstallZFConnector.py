@@ -25,13 +25,9 @@ class InstallZF(InstallerWindow):
                                                   label_text="Loading ZF...")
         self.loading_indicator.set_parent(self.main_frame)
 
-        # SCHTASKS / Create / TN \ZeroFactor\ZFConnector / XMLscheduler_settings.xml
-        #
-        # SCHTASKS / Run / TN \ZeroFactor\ZFConnector
         def loading_task():
             copy_file('zf_1c_connect_client', the_path_to_zf)
             sub_run(r'SCHTASKS /Create /TN \ZeroFactor\ZFConnector /XML C:\Apache24\Api\ZFConnector_settings.xml')
-            sub_run(r'SCHTASKS /Run /TN \ZeroFactor\ZFConnector')
             self.open_next_window()
 
         loading_thread = threading.Thread(target=loading_task)
