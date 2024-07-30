@@ -4,7 +4,7 @@ from . import (
     CustomiserWindow,
     OneCSelectionWindow,
     DatabaseSelectionWindow,
-    OneCRegistrationWindow,
+    OneCAuthorizationWindow,
     ConfigurationInstallerWindow,
     ApacheInstallWindow,
     InstallZFConnector,
