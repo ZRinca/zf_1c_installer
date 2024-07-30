@@ -16,11 +16,6 @@ def replace_line_in_file(input_file, output_file, old_line_pattern, new_line):
         print(f'Ошибка при чтении или записи файла: {e}')
 
 
-# folder = 'folder'
-# input_file_name = 'без_галочек.vrd'
-# output_file_name = 'новый_файл.vrd'
-# input_file_path = os.path.join(folder, input_file_name)
-# output_file_path = os.path.join(folder, output_file_name)
 def replace_line():
     input_file_name = r'C:\apache\htdocs\Base\default.vrd'
     output_file_name = r'C:\apache\htdocs\Base\default.vrd'
@@ -41,7 +36,6 @@ def insert_new_line_in_file(input_file, output_file, insert_after_pattern, new_l
         with open(input_file, 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # Используем re.DOTALL, чтобы обрабатывать многострочные строки
         pattern = re.compile(f'({insert_after_pattern})', re.DOTALL)
         content_new = pattern.sub(rf'\1\n{new_line}', content)
 
