@@ -14,7 +14,7 @@ class InstallZF(InstallerWindow):
 
     @classmethod
     def can_draw(cls, global_config):
-        keys_to_check = ['install_apache', 'install_zf']
+        keys_to_check = ['install_zf']
         all_false = not all(not global_config.get(key, True) for key in keys_to_check)
         return all_false
 
