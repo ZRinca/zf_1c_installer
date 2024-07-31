@@ -5,7 +5,6 @@ from . import (
     OneCSelectionWindow,
     DatabaseSelectionWindow,
     OneCAuthorizationWindow,
-    ConfigurationInstallerWindow,
     ApacheInstallWindow,
     InstallZFConnector,
     OneCPublishWindow,
