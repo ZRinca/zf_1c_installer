@@ -1,4 +1,5 @@
 from logic.command_line_and_permissions import find_1c_base_list
+from Windows.window_error import show_error_window
 from design_core import InstallerWindow
 import customtkinter as ctk
 
@@ -29,11 +30,13 @@ class DataBaseSelection(InstallerWindow):
                                     fg_color="#6EC756", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
-    def send_to_chat(self):
+    def write_value(self):
         selected_value = self.database_combobox.get()
         self.global_config['base_the_One_C'] = selected_value
-        print(self.global_config)
 
     def on_next_button_click(self):
-        self.send_to_chat()
-        self.open_next_window()
+        if self.database_combobox.get() == '':
+            show_error_window("Выберите 1с!")
+        else:
+            self.write_value()
+            self.open_next_window()

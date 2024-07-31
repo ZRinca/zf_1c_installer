@@ -20,7 +20,7 @@ def show_error_window(message):
     error_window = tk.Toplevel()
     error_window.title("Ошибка")
     error_window.configure(bg="#F8F8F8")
-    error_window.iconbitmap(icon_path)
+    error_window.iconbitmap(r'ico/ZF_green.ico')
 
     window_width = 270
     window_height = 160

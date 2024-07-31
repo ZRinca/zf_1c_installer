@@ -1,3 +1,4 @@
+from Windows.window_error import show_error_window
 from logic.search_1c import find_display_names
 from design_core import InstallerWindow
 import customtkinter as ctk
@@ -37,10 +38,13 @@ class OneCSelection(InstallerWindow):
                                     fg_color="#6EC756", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
-    def send_to_chat(self):
+    def write_value(self):
         selected_value = self.database_combobox.get()
         self.global_config['One_C_the_user'] = selected_value
 
     def on_next_button_click(self):
-        self.send_to_chat()
-        self.open_next_window()
+        if self.database_combobox.get() == '':
+            show_error_window("Выберите базу!")
+        else:
+            self.write_value()
+            self.open_next_window()

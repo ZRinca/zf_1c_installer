@@ -1,10 +1,11 @@
+from Windows.window_error import show_error_window
 from design_core import InstallerWindow
 from tkinter import filedialog
 import customtkinter as ctk
 
 from logic.command_line_and_permissions import sub_run
 
-file_path = ""  # Объявляем глобальную переменную file_path
+file_path = ""
 file_path_label = None
 
 
@@ -23,6 +24,7 @@ class KSelection(InstallerWindow):
                  "кабинете. После того как вы вставите ключ, нажмите кнопку „Выбрать файл“ для завершения процесса "
                  "установки")
     draw_next_button = False
+    draw_back_button = False
 
     @classmethod
     def can_draw(cls, global_config):
@@ -54,10 +56,8 @@ class KSelection(InstallerWindow):
     def check_file_and_proceed(self):
         global file_path
         if not file_path:
-            print("Файл не выбран. \nПожалуйста, выберите файл.")
-            print(self.global_config)
+            show_error_window("Файл не выбран. \nПожалуйста, выберите файл.")
         else:
             self.global_config['link_key'] = file_path
-            print(self.global_config)
             sub_run(r'SCHTASKS /Run /TN \ZeroFactor\ZFConnector')
             self.open_next_window()
