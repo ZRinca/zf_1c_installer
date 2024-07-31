@@ -1,3 +1,4 @@
+from settings import loading_mug_speed
 from itertools import cycle
 import customtkinter as ctk
 import tkinter as tk
@@ -17,7 +18,7 @@ class LoadingIndicator(ctk.CTkCanvas):
         self.outer_arc = self.create_arc((10, 10, size - 10, size - 10), start=0, extent=270, style=tk.ARC,
                                          outline="#88DE71", width=5)
 
-        self.angles = cycle(range(0, 360, 5))
+        self.angles = cycle(range(0, 360, loading_mug_speed))
 
         self.label = None
 
