@@ -1,4 +1,7 @@
+import ctypes
+
 import customtkinter as ctk
+import tkinter.messagebox as messagebox
 import os
 
 
@@ -100,13 +103,19 @@ def open_window(main_frame, global_config, new_win):
     win_instance.draw()
 
 
+def check_for_admin(root):
+    if not ctypes.windll.shell32.IsUserAnAdmin():
+        messagebox.showwarning("Предупреждение", "Запустите установщик от имени администратора!")
+        root.destroy()
+
+
 def run_design(global_config):
     root = ctk.CTk()
-
     exe_path = os.path.dirname(os.path.abspath(__file__))
     icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
 
     root.iconbitmap(icon_path)
+    check_for_admin(root)
 
     window_width = 522
     window_height = 329

@@ -23,6 +23,7 @@ class Extension(InstallerWindow):
                                                   label_text="Loading Extension...")
         self.loading_indicator.set_parent(self.main_frame)
 
+
         def loading_task():
 
             one_c_user = self.global_config['One_C_the_user']

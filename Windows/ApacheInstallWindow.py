@@ -1,8 +1,8 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
 from logic.installing_apache_and_file import copy_apache_and_exp
 from logic.command_line_and_permissions import sub_run
-from design_core import InstallerWindow
 from logic.exe_bit_extractor import exe_bit
+from design_core import InstallerWindow
 import threading
 
 
@@ -43,4 +43,3 @@ class ApacheInstall(InstallerWindow):
 
         loading_thread = threading.Thread(target=loading_task)
         loading_thread.start()
-
