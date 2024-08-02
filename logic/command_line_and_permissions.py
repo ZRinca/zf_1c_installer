@@ -42,7 +42,7 @@ def extract_bases(file_content):
     Extracts all database entries (keys and paths) from the given content.
     Returns a dictionary with keys as base names and values as paths.
     """
-    pattern = re.compile(r'\[([^\]]+)\]\s+Connect=File="(.+?)";')
+    pattern = re.compile(r'\[([^\]]+)\]\s+Connect=(.*)')
     matches = pattern.findall(file_content)
     return {key: value for key, value in matches}
 

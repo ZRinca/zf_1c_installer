@@ -39,7 +39,7 @@ class PublishOneC(InstallerWindow):
                     "-apache24",
                     "-wsdir", "Base",
                     "-dir", r"c:\apache\htdocs\Base",
-                    f"-connstr", f'File="{base[base_user]}";',
+                    f"-connstr", base[base_user],
                     "-confpath", r"C:\Apache24\conf\httpd.conf"
                 ]
                 print(sub_run(webinst_command))
@@ -50,7 +50,7 @@ class PublishOneC(InstallerWindow):
                     "-apache24",
                     "-wsdir", "Base",
                     "-dir", r"c:\apache\htdocs\Base",
-                    f"-connstr", f'File="{base[base_user]}";',
+                    f"-connstr", base[base_user],
                     "-confpath", r"C:\Apache24\conf\httpd.conf"
                 ]
                 print(webinst_command)
