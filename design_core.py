@@ -1,4 +1,5 @@
 import ctypes
+from threading import Thread
 
 import customtkinter as ctk
 import tkinter.messagebox as messagebox
@@ -23,12 +24,28 @@ class InstallerWindow(metaclass=InstallerWindowBase):
     body_text = None
     draw_next_button = True
     draw_back_button = True
+    technical_function = None
 
     def __init__(self, main_frame, global_config, prev_window_getter, next_window_getter):
         self.global_config = global_config
         self.main_frame = main_frame
         self.prev_window_getter = prev_window_getter
         self.next_window_getter = next_window_getter
+
+    def run_tech_task(self, wait=True):
+        if self.technical_function is None:
+            return None
+        result = [None]
+
+        def _thread_wrapper(gc, res_arr):
+            res_arr[0] = self.technical_function(gc)
+
+        cur_thread = Thread(target=_thread_wrapper, args=(self.global_config, result,))
+        cur_thread.start()
+        if wait:
+            cur_thread.join()
+        return result[0]
+
 
     @classmethod
     def can_draw(cls, global_config):
