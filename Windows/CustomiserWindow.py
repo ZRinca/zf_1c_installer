@@ -35,13 +35,11 @@ class CustomiserWindow(InstallerWindow):
             'check_functionality': "Проверка работоспособности"
         }
 
-        # Цветовая настройка флажков
         checkbox_style = {
             "fg_color": "#6EC756",  # Цвет флажка
             "hover_color": "#4EB932"  # Цвет при наведении мыши
         }
 
-        # Размещение флажков
         y_offset = 0
         for key, text in checkboxes.items():
             checkbox = ctk.CTkCheckBox(
@@ -56,6 +54,5 @@ class CustomiserWindow(InstallerWindow):
             checkbox.place(relx=0.05, rely=0.32 + y_offset / 100, anchor='nw')
             y_offset += 7
 
-        # Сохранение начальных значений в global_config
         for key, var in check_vars.items():
             self.global_config[key] = var.get() == "on"

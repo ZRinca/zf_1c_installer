@@ -6,7 +6,9 @@ import customtkinter as ctk
 
 class DataBaseSelection(InstallerWindow):
     header_text = "Выберите базу из списка"
-    body_text = "Программа нашла на вашем устройстве несколько установленных баз.В списке ниже указаны все\nустановленныебазы 1С."
+    body_text = ("Программа нашла на вашем устройстве несколько установленных баз.В списке ниже указаны "
+                 "все\nустановленныебазы 1С.")
+    draw_next_button = False
 
     @classmethod
     def can_draw(cls, global_config):

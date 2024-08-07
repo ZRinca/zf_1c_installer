@@ -36,7 +36,6 @@ class LoadingIndicator(ctk.CTkCanvas):
     def set_parent(self, parent):
         self.pack(expand=True, pady=(50, 20))
 
-        # Создаем метку внутри родительского виджета и размещаем ее внизу слева
         self.label = ctk.CTkLabel(parent, text=self.label_text, font=("Rubik Light", 12), text_color="#6EC756")
         self.label.pack(side="bottom", anchor="w", padx=24, pady=(0, 24))
 

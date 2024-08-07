@@ -38,17 +38,12 @@ def sub_run(commands):
 
 
 def extract_bases(file_content):
-    """
-    Extracts all database entries (keys and paths) from the given content.
-    Returns a dictionary with keys as base names and values as paths.
-    """
     pattern = re.compile(r'\[([^\]]+)\]\s+Connect=(.*)')
     matches = pattern.findall(file_content)
     return {key: value for key, value in matches}
 
 
 def read_file_content(file_path):
-    """Reads and returns the content of the specified file."""
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
