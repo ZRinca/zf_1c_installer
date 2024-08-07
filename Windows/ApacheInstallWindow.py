@@ -22,4 +22,3 @@ class ApacheInstall(InstallerWindow):
                                                   label_text="Loading Apache...")
         self.loading_indicator.set_parent(self.main_frame)
         self.run_tech_task(False)
-        

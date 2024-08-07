@@ -1,6 +1,18 @@
-from logic.installing_apache_and_file import copy_apache_and_exp
 from logic.command_line_and_permissions import sub_run
+from logic.installing_file import copy_file
 from logic.exe_bit_extractor import exe_bit
+from settings import the_path_to_Apache
+
+
+def copy_apache_and_exp(bit):
+    source_dir = None
+    if bit == 32:
+        source_dir = r'Apache/Apache_32/Apache24'
+    if bit == 64:
+        source_dir = r'Apache/Apache_64/Apache24'
+    copy_file(source_dir, the_path_to_Apache)
+    copy_file('extension', f"{the_path_to_Apache}\\Api")
+    return
 
 
 def install_apache(caller_window, global_config):

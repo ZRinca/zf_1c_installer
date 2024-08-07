@@ -1,6 +1,6 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
 from logic.command_line_and_permissions import sub_run
-from logic.installing_apache_and_file import copy_file
+from logic.installing_file import copy_file
 from design_core import InstallerWindow
 from settings import the_path_to_zf
 import threading

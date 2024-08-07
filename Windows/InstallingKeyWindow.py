@@ -1,4 +1,4 @@
-from logic.installing_apache_and_file import move_and_rename_deskey_file
+from logic.installing_file import move_and_rename_deskey_file
 from Windows.InstallationIndicatorWindow import LoadingIndicator
 from design_core import InstallerWindow
 from settings import the_path_to_zf
