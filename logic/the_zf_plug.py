@@ -1,6 +1,8 @@
 import json
 import subprocess
 from settings import the_path_to_zf
+from logic.installing_file import copy_file
+from logic.command_line_and_permissions import sub_run
 
 
 def json_settings():
@@ -27,6 +29,11 @@ def json_settings():
 
 
 def zf_plug():
-
     command = f'cd {the_path_to_zf} && zf_connector.exe'
     subprocess.run(['cmd', '/c', 'start', 'cmd', '/k', command])
+
+
+def install_zf(caller_window, global_config):
+    copy_file('zf_1c_connect_client', the_path_to_zf)
+    sub_run(r'SCHTASKS /Create /TN \ZeroFactor\ZFConnector /XML C:\Apache24\Api\ZFConnector_settings.xml')
+    caller_window.open_next_window()
