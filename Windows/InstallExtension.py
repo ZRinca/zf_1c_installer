@@ -1,10 +1,6 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from logic.agent_mode import enter_commands_agent_mod
-from logic.command_line_and_permissions import sub_run
+from logic.techical_agent_mode import install_extension
 from design_core import InstallerWindow
-import threading
-
-from logic.techical_functions import install_extension
 
 
 class Extension(InstallerWindow):

@@ -9,9 +9,6 @@ from pathlib import Path
 from Windows.window_error import show_error_window
 
 
-# from Windows.window_error import show_error_window
-
-
 def await_exec(ff, bool_tr, result_queue):
     collected_string = StringIO()
 
