@@ -1,5 +1,5 @@
 from Windows.window_error import show_error_window
-from logic.search_1c import find_display_names
+from logic.logic_function import find_full_1c
 from design_core import InstallerWindow
 import customtkinter as ctk
 
@@ -20,11 +20,7 @@ class OneCSelection(InstallerWindow):
     def draw(self):
         super().draw()
 
-        find_1c = find_display_names(r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")
-        find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")
-
-        found_all_One_C = find_1c.copy()
-        found_all_One_C.update(find_1c_2)
+        found_all_One_C = find_full_1c()
 
         self.global_config['One_C'] = found_all_One_C
 
