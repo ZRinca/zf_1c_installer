@@ -1,5 +1,5 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from logic.techical_agent_mode import install_extension
+from logic.logic_function import install_extension
 from design_core import InstallerWindow
 
 
