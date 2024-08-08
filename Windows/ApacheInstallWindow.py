@@ -4,11 +4,11 @@ from design_core import InstallerWindow
 
 
 class ApacheInstall(InstallerWindow):
+    technical_function = install_apache
     draw_back_button = False
     draw_next_button = False
     header_text = None
     body_text = None
-    technical_function = install_apache
 
     @classmethod
     def can_draw(cls, global_config):

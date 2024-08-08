@@ -1,11 +1,10 @@
-from logic.installing_file import move_and_rename_deskey_file
 from Windows.InstallationIndicatorWindow import LoadingIndicator
 from design_core import InstallerWindow
-from settings import the_path_to_zf
-import threading
+from logic.logic_function import loading_task
 
 
 class InstallingKey(InstallerWindow):
+    technical_function = loading_task
     draw_back_button = False
     draw_next_button = False
     header_text = None
@@ -22,10 +21,4 @@ class InstallingKey(InstallerWindow):
 
         self.loading_indicator = LoadingIndicator(self.main_frame, size=100, speed=50, label_text='Loading Key...')
         self.loading_indicator.set_parent(self.main_frame)
-
-        def loading_task():
-            move_and_rename_deskey_file(self.global_config['link_key'], 'source_key.dskey', the_path_to_zf)
-            self.open_next_window()
-
-        loading_thread = threading.Thread(target=loading_task)
-        loading_thread.start()
+        self.run_tech_task(False)

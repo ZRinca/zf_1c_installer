@@ -1,9 +1,10 @@
 from logic.command_line_and_permissions import read_file_content, extract_bases
+from logic.installing_file import move_and_rename_deskey_file
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
 from logic.apache_install import copy_apache_and_exp
-from logic.line_changer import insert_a_line
 from logic.search_1c import find_display_names
+from logic.line_changer import insert_a_line
 from logic.installing_file import copy_file
 from logic.exe_bit_extractor import exe_bit
 from settings import the_path_to_zf
@@ -139,4 +140,9 @@ def install_extension(caller_window, global_config):
         print(sub_run(designer_command))
     enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
 
+    caller_window.open_next_window()
+
+
+def loading_task(caller_window, global_config):
+    move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', the_path_to_zf)
     caller_window.open_next_window()
