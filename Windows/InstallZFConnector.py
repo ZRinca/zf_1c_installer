@@ -1,5 +1,5 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from logic.the_zf_plug import install_zf
+from logic.logic_function import install_zf
 from design_core import InstallerWindow
 
 

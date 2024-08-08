@@ -1,5 +1,5 @@
-from logic.command_line_and_permissions import find_1c_base_list
 from Windows.window_error import show_error_window
+from logic.logic_function import find_1c_base_list
 from design_core import InstallerWindow
 import customtkinter as ctk
 

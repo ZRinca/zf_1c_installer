@@ -1,4 +1,3 @@
-import os
 import re
 import ctypes
 import subprocess
@@ -46,31 +45,3 @@ def extract_bases(file_content):
 def read_file_content(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
-
-
-def find_1c_base_list():
-    appdata_path = os.getenv('APPDATA')
-
-    file_path = os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i')
-
-    if not os.path.exists(file_path):
-        print(f"File {file_path} not found.")
-        return {}
-
-    content = read_file_content(file_path)
-    bases = extract_bases(content)
-
-    if bases:
-        return bases
-    else:
-        print("No bases found.")
-        return {}
-
-
-bases = find_1c_base_list()
-if bases:
-    print("Найденные базы 1С:")
-    for base, path in bases.items():
-        print(f"{base}: {path}")
-else:
-    print("Базы 1С не найдены.")

@@ -1,5 +1,5 @@
 from Windows.InstallationIndicatorWindow import LoadingIndicator
-from logic.apache_install import install_apache
+from logic.logic_function import install_apache
 from design_core import InstallerWindow
 
 

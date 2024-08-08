@@ -23,8 +23,7 @@ def find_display_names(reg_path):
                 install_location, _ = winreg.QueryValueEx(subkey, "InstallLocation")
 
                 if os.path.exists(f'{install_location}\\bin\\1cv8.exe') or os.path.exists(f'{install_location}\\bin\\1cv8t.exe'):
-                    if re.search(r"\b1cv8", install_location):
-                        write[display_name] = install_location
+                    write[display_name] = install_location
                 winreg.CloseKey(subkey)
             except WindowsError:
                 continue
