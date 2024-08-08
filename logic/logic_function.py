@@ -1,6 +1,7 @@
 from logic.command_line_and_permissions import read_file_content, extract_bases
 from logic.command_line_and_permissions import sub_run
 from logic.apache_install import copy_apache_and_exp
+from logic.line_changer import insert_a_line
 from logic.search_1c import find_display_names
 from logic.installing_file import copy_file
 from logic.exe_bit_extractor import exe_bit
@@ -68,3 +69,40 @@ def install_zf(caller_window, global_config):
 
 
 def publish_one_c(caller_window, global_config):
+
+    one_c_user = global_config['One_C_the_user']
+    one_c = global_config['One_C']
+
+    base_user = global_config['base_the_One_C']
+    base = global_config['base']
+
+    if "1cv8t" in one_c[one_c_user]:
+        webinst_command = [
+            f"{one_c[one_c_user]}\\bin\\webinstt",
+            "-publish",
+            "-apache24",
+            "-wsdir", "Base",
+            "-dir", r"c:\apache\htdocs\Base",
+            f"-connstr", base[base_user],
+            "-confpath", r"C:\Apache24\conf\httpd.conf"
+        ]
+        print(sub_run(webinst_command))
+    else:
+        webinst_command = [
+            f"{one_c[one_c_user]}\\bin\\webinst",
+            "-publish",
+            "-apache24",
+            "-wsdir", "Base",
+            "-dir", r"c:\apache\htdocs\Base",
+            f"-connstr", base[base_user],
+            "-confpath", r"C:\Apache24\conf\httpd.conf"
+        ]
+        print(webinst_command)
+        print(sub_run(webinst_command))
+
+        insert_a_line()
+
+        print(sub_run(r'net stop Apache2.4'))
+        print(sub_run(r'net start Apache2.4'))
+
+        caller_window.open_next_window()
