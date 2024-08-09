@@ -107,7 +107,7 @@ def install_extension(caller_window, global_config):
 
     if "1cv8t" in one_c[one_c_user]:
         designer_command = [
-            r"C:\Program Files\1cv8\common\1cestartt.exe",
+            r"C:\Program Files (x86)\1cv8\common\1cestartt.exe",
             "DESIGNER",
             "/AgentMode",
             "/AgentBaseDir", r"C:\Apache24\Api",
