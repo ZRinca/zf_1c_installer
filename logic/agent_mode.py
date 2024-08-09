@@ -1,5 +1,4 @@
 import os
-import queue
 import threading
 import subprocess
 import time
@@ -9,49 +8,58 @@ from pathlib import Path
 from Windows.window_error import show_error_window
 
 
-def await_exec(ff, bool_tr, result_queue):
+def await_text(stream, find_string, result=None):
     collected_string = StringIO()
-
     build_string = ""
-    if bool_tr:
-        find_string = "\ndesigner>"
-    else:
-        find_string = "\nFATAL"
 
     while True:
-        if bool_tr:
-            char = ff.stdout.read(1)
-            # print('two', char)
-            if char == '':
-                return
-        else:
-            char = ff.stderr.read(1)
-            # print('one', str(char).encode('utf-8'))
-            if char == '':
-                return
+        char = stream.read(1)
+        if char == '':
+            return
         build_string += char
         if not find_string.startswith(build_string):
             build_string = char
         collected_string.write(char)
         if len(find_string) == len(build_string):
-            if build_string in '\nFATAL':
-                result_queue.put(True)
-                return
-            result_queue.put(collected_string.getvalue())
+            if result is not None:
+                result[0] = collected_string.getvalue()
             return
 
 
 def enter_commands_agent_mod(user, password):
 
-    print(os.getcwd())
-    cur_path = Path(os.getcwd()) / "PLINK.EXE"
-    ff = subprocess.Popen(f'cmd /k "echo y | {cur_path} 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-    ff.stdout.read(1)
-    ff.kill()
+    while True:
+        print(os.getcwd())
+        cur_path = Path(os.getcwd()) / "PLINK.EXE"
+        ff = subprocess.Popen(f'cmd /k "echo y | {cur_path} -ssh -P 1543 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        ff.stdout.read(1)
+        ff.kill()
 
-    ff = subprocess.Popen(f'plink.exe -ssh -l {user} -pw "{password}" -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
+        # no_error_text = ff.stdout.read()
+        error_text = ff.stderr.read()
+        print(error_text)
+        if not error_text.startswith(b'FATAL ERROR: Network error: Connection refused'):
+            break
+
+    ff = subprocess.Popen(f'plink.exe -ssh -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
                           shell=False,
                           stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    await_text(ff.stdout, 'login as:')
+
+    ff.stdin.write(str(user) + '\n')
+    ff.stdin.flush()
+
+    await_text(ff.stdout, 'password:')
+
+    ff.stdin.write(str(password) + '\n')
+    ff.stdin.flush()
+
+    a = ff.stderr.read(8)
+    if a.startswith('Access'):
+        show_error_window('Неправильный логин или пароль!')
+        ff.kill()
+        return True
 
     commands = [
         "common connect-ib\n",
@@ -59,40 +67,27 @@ def enter_commands_agent_mod(user, password):
         "config extensions properties set --extension=IAPI --safe-mode=no --unsafe-action-protection=no\n",
         "config update-db-cfg --extension=IAPI\n"
     ]
-    result_queue = queue.Queue()
+
     for command in commands:
-        result_queue_error = queue.Queue()
-        tread_1 = threading.Thread(target=await_exec, args=(ff, False, result_queue_error, ))
-        tread_2 = threading.Thread(target=await_exec, args=(ff, True, result_queue, ))
+        result_queue_error = [None]
+        result_queue = [None]
+
+        tread_1 = threading.Thread(target=await_text, args=(ff.stdout, '\ndesigner>', result_queue, ))
+        tread_2 = threading.Thread(target=await_text, args=(ff.stderr, '\nFATAL', result_queue_error, ))
         tread_1.start()
         tread_2.start()
-        error_msg = None
         while tread_2.is_alive() and tread_1.is_alive():
             time.sleep(1)
 
-        # if tread_1.isAlive():
-        #     tread_1.
-
-        try:
-            error_msg = result_queue_error.get_nowait()
-            if error_msg:
-                print('Произошла ошибка !')
-                show_error_window('Не установленно расширение')
-                break
-        except queue.Empty:
-            pass
-
-        try:
-            output_msg = result_queue.get_nowait()
-            print(output_msg)
-        except queue.Empty:
-            pass
+        error_msg = result_queue_error[0]
         if error_msg:
             ff.kill()
-            show_error_window('Не было установленно расширение')
-            return 'error'
+            print(f'Произошла ошибка! {error_msg}')
+            show_error_window('Не установленно расширение')
+            break
+        output_msg = result_queue[0]
+        print(output_msg)
         print('run_command', command)
         ff.stdin.write(command)
         ff.stdin.flush()
-    # print(await_exec(ff, False, result_queue))
     ff.kill()

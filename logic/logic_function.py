@@ -39,15 +39,6 @@ def find_1c_base_list():
         return {}
 
 
-bases = find_1c_base_list()
-if bases:
-    print("Найденные базы 1С:")
-    for base, path in bases.items():
-        print(f"{base}: {path}")
-else:
-    print("Базы 1С не найдены.")
-
-
 def install_apache(caller_window, global_config):
     one_c_user = global_config['One_C_the_user']
     one_c = global_config['One_C']
@@ -138,9 +129,11 @@ def install_extension(caller_window, global_config):
         ]
 
         print(sub_run(designer_command))
-    enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
-
-    caller_window.open_next_window()
+    to_back = enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
+    if to_back:
+        caller_window.open_prev_window()
+    else:
+        caller_window.open_next_window()
 
 
 def loading_task(caller_window, global_config):

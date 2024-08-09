@@ -34,6 +34,11 @@ class OneCSelection(InstallerWindow):
                                     fg_color="#6EC756", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
+        if found_all_One_C:
+            first_key = list(found_all_One_C.keys())[0]
+            self.database_combobox.set(first_key)
+            print('heyy')
+
     def write_value(self):
         selected_value = self.database_combobox.get()
         self.global_config['One_C_the_user'] = selected_value
