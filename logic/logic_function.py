@@ -8,6 +8,7 @@ from logic.search_1c import find_display_names
 from logic.line_changer import insert_a_line
 from logic.installing_file import copy_file
 from logic.exe_bit_extractor import exe_bit
+from logic.the_zf_plug import create_file_folder_zf, replace_text_in_xml
 from settings import the_path_to_zf
 import os
 
@@ -137,7 +138,21 @@ def publish_one_c(caller_window, global_config):
 
 def install_zf(caller_window, global_config):
     copy_file('zf_1c_connect_client', the_path_to_zf)
-    sub_run(r'SCHTASKS /Create /TN \ZeroFactor\ZFConnector /XML C:\Apache24\Api\ZFConnector_settings.xml')
+    path = create_file_folder_zf()
+
+    file_path = f'{path[0]}\\ZFConnector_settings.xml'
+    target_text = 'REPLACETEXT'
+    replacement_text = f'{path[0]}'
+
+    replace_text_in_xml(file_path, target_text, replacement_text)
+
+    file_path = f'{path[0]}\\ZFConnector_settings.xml'
+    target_text = 'REPLACETASKPLANNER'
+    replacement_text = f'Base_{path[1]}'
+
+    replace_text_in_xml(file_path, target_text, replacement_text)
+    sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {file_path}')
+
     caller_window.open_next_window()
 
 

@@ -33,9 +33,25 @@ def zf_plug():
     subprocess.run(['cmd', '/c', 'start', 'cmd', '/k', command])
 
 
+def replace_text_in_xml(file_path, target_text, replacement_text):
+    try:
+        with open(file_path, 'r', encoding='utf-16') as file:
+            content = file.read()
+
+        new_content = content.replace(target_text, replacement_text)
+
+        with open(file_path, 'w', encoding='utf-16') as file:
+            file.write(new_content)
+
+        print(f"Заменён текст '{target_text}' на '{replacement_text}' в файле {file_path}.")
+
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
+
+
 def create_file_folder_zf():
-    base_path = r"C:\zf_connector\base_"  # Используем сырую строку
-    source_dir = 'output'
+    base_path = r'C:\zf_connector\base_'
+    source_dir = r'output'
 
     i = 1
 
@@ -54,3 +70,5 @@ def create_file_folder_zf():
                     shutil.copy2(s, d)
             break
         i += 1
+    return path, i
+
