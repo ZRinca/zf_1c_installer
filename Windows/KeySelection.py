@@ -28,7 +28,7 @@ class KSelection(InstallerWindow):
 
     @classmethod
     def can_draw(cls, global_config):
-        keys_to_check = ['install_zf', 'check_functionality']
+        keys_to_check = ['connect_database']
         all_false = not all(not global_config.get(key, True) for key in keys_to_check)
         return all_false
 
@@ -59,5 +59,4 @@ class KSelection(InstallerWindow):
             show_error_window("Файл не выбран. \nПожалуйста, выберите файл.")
         else:
             self.global_config['link_key'] = file_path
-            sub_run(r'SCHTASKS /Run /TN \ZeroFactor\ZFConnector')
             self.open_next_window()

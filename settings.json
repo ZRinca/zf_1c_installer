@@ -1,1 +1,6 @@
-{"ws_server_url": "http://localhost:8080/ws", "data_server_url": "http://localhost:8090/", "sqlite_file_path": "sqlite:///db.sqlite3", "auth_key_file_path": "./source_key.dskey"}
+{
+    "ws_server_url": "https://app.zerofactor.ru",
+    "data_server_url": "http://localhost/Base/",
+    "sqlite_file_path": "sqlite:///db.sqlite3",
+    "auth_key_file_path": "./source_key.dskey"
+}

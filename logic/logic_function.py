@@ -146,16 +146,20 @@ def install_zf(caller_window, global_config):
 
     replace_text_in_xml(file_path, target_text, replacement_text)
 
-    file_path = f'{path[0]}\\ZFConnector_settings.xml'
     target_text = 'REPLACETASKPLANNER'
     replacement_text = f'Base_{path[1]}'
 
+    global_config['file_path_xml'] = file_path
+    global_config['name_base_zf'] = replacement_text
+    global_config['base_to_zf'] = 'C:\\zf_connector\\' + replacement_text
+
     replace_text_in_xml(file_path, target_text, replacement_text)
-    sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {file_path}')
 
     caller_window.open_next_window()
 
 
 def loading_task(caller_window, global_config):
-    move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', the_path_to_zf)
+    move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', global_config['base_to_zf'])
+    sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{global_config['name_base_zf']} /XML {global_config['file_path_xml']}')
+    sub_run(f'SCHTASKS /Run /TN \\ZeroFactor\\{global_config['name_base_zf']}')
     caller_window.open_next_window()
