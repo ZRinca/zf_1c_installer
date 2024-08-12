@@ -1,3 +1,4 @@
+from Windows.window_error import show_error_window
 from logic.command_line_and_permissions import read_file_content, extract_bases
 from logic.installing_file import move_and_rename_deskey_file
 from logic.command_line_and_permissions import sub_run
@@ -39,6 +40,41 @@ def find_1c_base_list():
         return {}
 
 
+def install_extension(caller_window, global_config):
+    one_c_user = global_config['One_C_the_user']
+    one_c = global_config['One_C']
+
+    if "1cv8t" in one_c[one_c_user]:
+        designer_command = [
+            r"C:\Program Files (x86)\1cv8\common\1cestartt.exe",
+            "DESIGNER",
+            "/AgentMode",
+            "/AgentBaseDir", r"C:\Apache24\Api",
+            "/IBName", global_config['base_the_One_C'],
+            "/AgentSSHHostKeyAuto",
+            "/Visible"
+        ]
+
+        print(sub_run(designer_command))
+    else:
+        designer_command = [
+            r"C:\Program Files\1cv8\common\1cestart.exe",
+            "DESIGNER",
+            "/AgentMode",
+            "/AgentBaseDir", r"C:\Apache24\Api",
+            "/IBName", global_config['base_the_One_C'],
+            "/AgentSSHHostKeyAuto",
+            "/Visible"
+        ]
+
+        print(sub_run(designer_command))
+    to_back = enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
+    if to_back:
+        caller_window.open_prev_window()
+    else:
+        caller_window.open_next_window()
+
+
 def install_apache(caller_window, global_config):
     one_c_user = global_config['One_C_the_user']
     one_c = global_config['One_C']
@@ -49,16 +85,14 @@ def install_apache(caller_window, global_config):
         bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8.exe')
     copy_apache_and_exp(bit)
 
-    print(sub_run(r'C:\Apache24\bin\httpd.exe -k install'))
-    print(sub_run(r'net stop Apache2.4'))
-    print(sub_run(r'net start Apache2.4'))
-    caller_window.open_next_window()
-
-
-def install_zf(caller_window, global_config):
-    copy_file('zf_1c_connect_client', the_path_to_zf)
-    sub_run(r'SCHTASKS /Create /TN \ZeroFactor\ZFConnector /XML C:\Apache24\Api\ZFConnector_settings.xml')
-    caller_window.open_next_window()
+    output = sub_run(r'C:\Apache24\bin\httpd.exe -k install')
+    if 'Service is already installed' in output:
+        show_error_window('Apache уже установлен!')
+        caller_window.open_next_window()
+    else:
+        print(sub_run(r'net stop Apache2.4'))
+        print(sub_run(r'net start Apache2.4'))
+        caller_window.open_next_window()
 
 
 def publish_one_c(caller_window, global_config):
@@ -101,39 +135,10 @@ def publish_one_c(caller_window, global_config):
         caller_window.open_next_window()
 
 
-def install_extension(caller_window, global_config):
-    one_c_user = global_config['One_C_the_user']
-    one_c = global_config['One_C']
-
-    if "1cv8t" in one_c[one_c_user]:
-        designer_command = [
-            r"C:\Program Files (x86)\1cv8\common\1cestartt.exe",
-            "DESIGNER",
-            "/AgentMode",
-            "/AgentBaseDir", r"C:\Apache24\Api",
-            "/IBName", global_config['base_the_One_C'],
-            "/AgentSSHHostKeyAuto",
-            "/Visible"
-        ]
-
-        print(sub_run(designer_command))
-    else:
-        designer_command = [
-            r"C:\Program Files\1cv8\common\1cestart.exe",
-            "DESIGNER",
-            "/AgentMode",
-            "/AgentBaseDir", r"C:\Apache24\Api",
-            "/IBName", global_config['base_the_One_C'],
-            "/AgentSSHHostKeyAuto",
-            "/Visible"
-        ]
-
-        print(sub_run(designer_command))
-    to_back = enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
-    if to_back:
-        caller_window.open_prev_window()
-    else:
-        caller_window.open_next_window()
+def install_zf(caller_window, global_config):
+    copy_file('zf_1c_connect_client', the_path_to_zf)
+    sub_run(r'SCHTASKS /Create /TN \ZeroFactor\ZFConnector /XML C:\Apache24\Api\ZFConnector_settings.xml')
+    caller_window.open_next_window()
 
 
 def loading_task(caller_window, global_config):
