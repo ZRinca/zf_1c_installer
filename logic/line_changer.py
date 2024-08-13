@@ -47,9 +47,7 @@ def insert_new_line_in_file(input_file, output_file, insert_after_pattern, new_l
         print(f'Ошибка при чтении или записи файла: {e}')
 
 
-def insert_a_line():
-    input_file_name = r'C:\apache\htdocs\Base\default.vrd'
-    output_file_name = r'C:\apache\htdocs\Base\default.vrd'
+def insert_a_line(line):
 
     insert_after_pattern = r'ib="File=&quot;C:\\bases\\buh&quot;;">'
     new_line = '''    <ws publishExtensionsByDefault="true">
@@ -231,4 +229,4 @@ def insert_a_line():
             poolTimeout="5"/>
     <analytics enable="true"/>'''
 
-    insert_new_line_in_file(input_file_name, output_file_name, insert_after_pattern, new_line)
+    insert_new_line_in_file(line, line, insert_after_pattern, new_line)

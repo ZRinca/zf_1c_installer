@@ -104,36 +104,37 @@ def publish_one_c(caller_window, global_config):
     base_user = global_config['base_the_One_C']
     base = global_config['base']
 
+    i = 1
+
     if "1cv8t" in one_c[one_c_user]:
-        webinst_command = [
-            f"{one_c[one_c_user]}\\bin\\webinstt",
-            "-publish",
-            "-apache24",
-            "-wsdir", "Base",
-            "-dir", r"c:\apache\htdocs\Base",
-            f"-connstr", base[base_user],
-            "-confpath", r"C:\Apache24\conf\httpd.conf"
-        ]
-        print(sub_run(webinst_command))
+        webinst_t = 'webinstt'
     else:
-        webinst_command = [
-            f"{one_c[one_c_user]}\\bin\\webinst",
-            "-publish",
-            "-apache24",
-            "-wsdir", "Base",
-            "-dir", r"c:\apache\htdocs\Base",
-            f"-connstr", base[base_user],
-            "-confpath", r"C:\Apache24\conf\httpd.conf"
-        ]
-        print(webinst_command)
-        print(sub_run(webinst_command))
+        webinst_t = 'webinst'
 
-        insert_a_line()
+    while True:
+        if not os.path.exists(f'C:\\apache\\htdocs\\Base_{i}'):
+            break
+        i += 1
 
-        print(sub_run(r'net stop Apache2.4'))
-        print(sub_run(r'net start Apache2.4'))
+    webinst_command = [
+        f'{one_c[one_c_user]}\\bin\\{webinst_t}',
+        '-publish',
+        '-apache24',
+        '-wsdir', f'Base_{i}',
+        '-dir', f'c:\\1c_web\\Base_{i}',
+        '-connstr', base[base_user],
+        '-confpath', r'C:\Apache24\conf\httpd.conf'
+    ]
 
-        caller_window.open_next_window()
+    print(webinst_command)
+    print(sub_run(webinst_command))
+
+    insert_a_line(f'c:\\1c_web\\Base_{i}\\default.vrd')
+
+    print(sub_run(r'net stop Apache2.4'))
+    print(sub_run(r'net start Apache2.4'))
+
+    caller_window.open_next_window()
 
 
 def install_zf(caller_window, global_config):
