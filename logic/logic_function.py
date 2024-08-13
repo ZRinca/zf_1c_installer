@@ -46,29 +46,20 @@ def install_extension(caller_window, global_config):
     one_c = global_config['One_C']
 
     if "1cv8t" in one_c[one_c_user]:
-        designer_command = [
-            r"C:\Program Files (x86)\1cv8\common\1cestartt.exe",
-            "DESIGNER",
-            "/AgentMode",
-            "/AgentBaseDir", r"C:\Apache24\Api",
-            "/IBName", global_config['base_the_One_C'],
-            "/AgentSSHHostKeyAuto",
-            "/Visible"
-        ]
-
-        print(sub_run(designer_command))
+        cestart_t = r'C:\Program Files (x86)\1cv8\common\1cestartt.exe',
     else:
-        designer_command = [
-            r"C:\Program Files\1cv8\common\1cestart.exe",
-            "DESIGNER",
-            "/AgentMode",
-            "/AgentBaseDir", r"C:\Apache24\Api",
-            "/IBName", global_config['base_the_One_C'],
-            "/AgentSSHHostKeyAuto",
-            "/Visible"
-        ]
+        cestart_t = r'C:\Program Files\1cv8\common\1cestart.exe'
 
-        print(sub_run(designer_command))
+    designer_command = [
+        cestart_t,
+        'DESIGNER',
+        '/AgentMode',
+        '/AgentBaseDir', r'C:\Apache24\Api',
+        '/IBName', global_config['base_the_One_C'],
+        '/AgentSSHHostKeyAuto',
+        # '/Visible'
+    ]
+    print(sub_run(designer_command))
     to_back = enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
     if to_back:
         caller_window.open_prev_window()
@@ -112,9 +103,10 @@ def publish_one_c(caller_window, global_config):
         webinst_t = 'webinst'
 
     while True:
-        if not os.path.exists(f'C:\\apache\\htdocs\\Base_{i}'):
+        if os.path.exists(f'C:\\1c_web\\Base_{i}'):
+            i += 1
+        else:
             break
-        i += 1
 
     webinst_command = [
         f'{one_c[one_c_user]}\\bin\\{webinst_t}',
