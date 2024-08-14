@@ -1,6 +1,7 @@
-import re
-import ctypes
 import subprocess
+import ctypes
+import json
+import re
 
 
 def is_admin():
@@ -45,3 +46,13 @@ def extract_bases(file_content):
 def read_file_content(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
+
+
+def write_read_json(link_file, key, value):
+    with open(link_file, 'r') as json_read:
+        json_r = json.load(json_read)
+
+    json_r[key] = value
+
+    with open(link_file, 'w') as json_write:
+        json.dump(json_r, json_write, indent=4)

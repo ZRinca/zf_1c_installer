@@ -1,5 +1,5 @@
 from Windows.window_error import show_error_window
-from logic.command_line_and_permissions import read_file_content, extract_bases
+from logic.command_line_and_permissions import read_file_content, extract_bases, write_read_json
 from logic.installing_file import move_and_rename_deskey_file
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
@@ -140,6 +140,8 @@ def loading_task(caller_window, global_config):
     file_path = f'{path[0]}\\ZFConnector_settings.xml'
     target_text = 'REPLACETEXT'
     replacement_text = f'{path[0]}'
+
+    write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost/Base_{path[1]}')
 
     replace_text_in_xml(file_path, target_text, replacement_text)
     replacement_text = f'Base_{path[1]}'

@@ -1,3 +1,4 @@
+from Windows.window_error import show_error_window
 import shutil
 import os
 
@@ -7,7 +8,8 @@ def copy_file(source_dir, target_dir):
         return f"Исходная директория {source_dir} не существует."
 
     if os.path.exists(target_dir):
-        return f"Целевая директория {target_dir} уже существует."
+        show_error_window(f'{source_dir} \n уже существует')
+        return
 
     try:
         shutil.copytree(source_dir, target_dir)
