@@ -3,7 +3,7 @@ from logic.command_line_and_permissions import read_file_content, extract_bases,
 from logic.installing_file import move_and_rename_deskey_file
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
-from logic.apache_install import copy_apache_and_exp
+from logic.apache_install import copy_apache_and_exp, find_publication_apache
 from logic.search_1c import find_display_names
 from logic.line_changer import insert_a_line
 from logic.installing_file import copy_file
@@ -135,22 +135,15 @@ def install_zf(caller_window, global_config):
 
 
 def loading_task(caller_window, global_config):
-    if os.path.exists('C:\\Apache24\\conf\\httpd.conf'):
-        show_error_window('apache не установлен')
-        caller_window.open_next_window()
+    link_url = find_publication_apache(global_config)
 
     path = create_file_folder_zf()
 
-    file_path = f'{path[0]}\\ZFConnector_settings.xml'
-    target_text = 'REPLACETEXT'
-    replacement_text = f'{path[0]}'
-
-    write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost/Base_{path[1]}')
-
-    replace_text_in_xml(file_path, target_text, replacement_text)
+    write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost/{link_url}')
+    replace_text_in_xml(f'{path[0]}\\ZFConnector_settings.xml', 'REPLACETEXT', f'{path[0]}')
     replacement_text = f'Base_{path[1]}'
 
     move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', 'C:\\zf_connector\\' + replacement_text)
-    sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {file_path}')
+    sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {f'{path[0]}\\ZFConnector_settings.xml'}')
     sub_run(f'SCHTASKS /Run /TN \\ZeroFactor\\{replacement_text}')
     caller_window.open_next_window()

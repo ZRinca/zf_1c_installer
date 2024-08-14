@@ -12,7 +12,7 @@ class DataBaseSelection(InstallerWindow):
 
     @classmethod
     def can_draw(cls, global_config):
-        keys_to_check = ['install_1c_extension', 'publish_1c', 'check_functionality']
+        keys_to_check = ['install_1c_extension', 'publish_1c', 'check_functionality', 'connect_database']
         all_false = not all(not global_config.get(key, True) for key in keys_to_check)
         return all_false
 

@@ -56,3 +56,24 @@ def write_read_json(link_file, key, value):
 
     with open(link_file, 'w') as json_write:
         json.dump(json_r, json_write, indent=4)
+
+
+def re_parser(text, beginning_line, end_line):
+    pattern_re = f'{beginning_line}(.*?){end_line}'
+    matches = re.finditer(pattern_re, text, re.DOTALL)
+
+    link_found = []
+
+    for match in matches:
+        link = match.group(1).strip()
+        link_found.append(link.strip('"'))
+    return link_found
+
+
+def read_the_file(path):
+    try:
+        with open(path, 'r') as file:
+            file_r = file.read()
+        return file_r
+    except FileNotFoundError:
+        return 'Файл не найден'
