@@ -135,6 +135,10 @@ def install_zf(caller_window, global_config):
 
 
 def loading_task(caller_window, global_config):
+    if os.path.exists('C:\\Apache24\\conf\\httpd.conf'):
+        show_error_window('apache не установлен')
+        caller_window.open_next_window()
+
     path = create_file_folder_zf()
 
     file_path = f'{path[0]}\\ZFConnector_settings.xml'
