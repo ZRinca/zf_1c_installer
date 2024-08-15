@@ -136,7 +136,6 @@ def install_zf(caller_window, global_config):
 
 def loading_task(caller_window, global_config):
     link_url = find_publication_apache(global_config)
-
     path = create_file_folder_zf()
 
     write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost/{link_url}')
@@ -146,4 +145,5 @@ def loading_task(caller_window, global_config):
     move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', 'C:\\zf_connector\\' + replacement_text)
     sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {f'{path[0]}\\ZFConnector_settings.xml'}')
     sub_run(f'SCHTASKS /Run /TN \\ZeroFactor\\{replacement_text}')
+
     caller_window.open_next_window()
