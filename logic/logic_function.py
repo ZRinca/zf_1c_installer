@@ -1,14 +1,14 @@
-from Windows.window_error import show_error_window
 from logic.command_line_and_permissions import read_file_content, extract_bases, write_read_json
+from logic.apache_install import copy_apache_and_exp, find_publication_apache
+from logic.the_zf_plug import create_file_folder_zf, replace_text_in_xml
 from logic.installing_file import move_and_rename_deskey_file
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
-from logic.apache_install import copy_apache_and_exp, find_publication_apache
+from Windows.window_error import show_error_window
 from logic.search_1c import find_display_names
 from logic.line_changer import insert_a_line
 from logic.installing_file import copy_file
 from logic.exe_bit_extractor import exe_bit
-from logic.the_zf_plug import create_file_folder_zf, replace_text_in_xml
 from settings import the_path_to_zf
 import os
 
@@ -88,7 +88,6 @@ def install_apache(caller_window, global_config):
 
 
 def publish_one_c(caller_window, global_config):
-
     one_c_user = global_config['One_C_the_user']
     one_c = global_config['One_C']
 
@@ -108,18 +107,27 @@ def publish_one_c(caller_window, global_config):
         else:
             break
 
-    webinst_command = [
-        f'{one_c[one_c_user]}\\bin\\{webinst_t}',
-        '-publish',
-        '-apache24',
-        '-wsdir', f'Base_{i}',
-        '-dir', f'c:\\1c_web\\Base_{i}',
-        '-connstr', base[base_user],
-        '-confpath', r'C:\Apache24\conf\httpd.conf'
-    ]
+    server_pub = ['-apache24', '-iis']
+    publish = False
 
-    print(webinst_command)
-    print(sub_run(webinst_command))
+    for server in server_pub:
+        publish = sub_run([
+            f'{one_c[one_c_user]}\\bin\\{webinst_t}',
+            '-publish',
+            server,
+            '-wsdir', f'Base_{i}',
+            '-dir', f'c:\\1c_web\\Base_{i}',
+            '-connstr', base[base_user],
+            '-confpath', r'C:\Apache24\conf\httpd.conf'
+        ])
+        if 'Публикация выполнена' or 'Публикация обновлена' in publish.replace('\n', ''):
+            publish = True
+            print('Публикация выполненна')
+            break
+
+    if not publish:
+        show_error_window('Публикация не выполненна!')
+        caller_window.open_next_window()
 
     insert_a_line(f'c:\\1c_web\\Base_{i}\\default.vrd')
 
