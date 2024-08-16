@@ -5,7 +5,7 @@ import os
 
 def copy_file(source_dir, target_dir):
     if not os.path.exists(source_dir):
-        return f"Исходная директория {source_dir} не существует."
+        return f'Исходная директория {source_dir} не существует.'
 
     if os.path.exists(target_dir):
         show_error_window(f'{source_dir} \n уже существует')
@@ -13,9 +13,9 @@ def copy_file(source_dir, target_dir):
 
     try:
         shutil.copytree(source_dir, target_dir)
-        return f"Директория {source_dir} успешно скопирована в {target_dir}."
+        return f'Директория {source_dir} успешно скопирована в {target_dir}.'
     except Exception as e:
-        return f"Произошла ошибка: {e}"
+        return f'Произошла ошибка: {e}'
 
 
 def move_and_rename_deskey_file(src_file_path, new_filename, destination_folder):
@@ -33,4 +33,4 @@ def move_and_rename_deskey_file(src_file_path, new_filename, destination_folder)
         shutil.move(src_file_path, new_file_path)
         print(f"Файл успешно перемещен и переименован в '{new_file_path}'.")
     except Exception as e:
-        print(f"Ошибка при перемещении файла: {e}")
+        print(f'Ошибка при перемещении файла: {e}')

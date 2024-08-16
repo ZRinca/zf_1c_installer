@@ -14,8 +14,8 @@ import os
 
 
 def find_full_1c():
-    find_1c = find_display_names(r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall")
-    find_1c_2 = find_display_names(r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall")
+    find_1c = find_display_names(r'SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall')
+    find_1c_2 = find_display_names(r'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall')
 
     found_all_One_C = find_1c.copy()
     found_all_One_C.update(find_1c_2)
@@ -28,7 +28,7 @@ def find_1c_base_list():
     file_path = os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i')
 
     if not os.path.exists(file_path):
-        print(f"File {file_path} not found.")
+        print(f'File {file_path} not found.')
         return {}
 
     content = read_file_content(file_path)
@@ -37,7 +37,7 @@ def find_1c_base_list():
     if bases:
         return bases
     else:
-        print("No bases found.")
+        print('No bases found.')
         return {}
 
 
@@ -45,7 +45,7 @@ def install_extension(caller_window, global_config):
     one_c_user = global_config['One_C_the_user']
     one_c = global_config['One_C']
 
-    if "1cv8t" in one_c[one_c_user]:
+    if '1cv8t' in one_c[one_c_user]:
         cestart_t = r'C:\Program Files (x86)\1cv8\common\1cestartt.exe',
     else:
         cestart_t = r'C:\Program Files\1cv8\common\1cestart.exe'
@@ -71,7 +71,7 @@ def install_apache(caller_window, global_config):
     one_c_user = global_config['One_C_the_user']
     one_c = global_config['One_C']
 
-    if "1cv8t" in one_c[one_c_user]:
+    if '1cv8t' in one_c[one_c_user]:
         bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8t.exe')
     else:
         bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8.exe')
@@ -96,7 +96,7 @@ def publish_one_c(caller_window, global_config):
 
     i = 1
 
-    if "1cv8t" in one_c[one_c_user]:
+    if '1cv8t' in one_c[one_c_user]:
         webinst_t = 'webinstt'
     else:
         webinst_t = 'webinst'

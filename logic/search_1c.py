@@ -1,6 +1,5 @@
-import re
-import os
 import winreg
+import os
 
 
 def find_display_names(reg_path):
@@ -18,9 +17,9 @@ def find_display_names(reg_path):
                 subkey_name = winreg.EnumKey(key, i)
                 subkey = winreg.OpenKey(key, subkey_name)
 
-                display_name, _ = winreg.QueryValueEx(subkey, "DisplayName")
-                install_source, _ = winreg.QueryValueEx(subkey, "InstallSource")
-                install_location, _ = winreg.QueryValueEx(subkey, "InstallLocation")
+                display_name, _ = winreg.QueryValueEx(subkey, 'DisplayName')
+                install_source, _ = winreg.QueryValueEx(subkey, 'InstallSource')
+                install_location, _ = winreg.QueryValueEx(subkey, 'InstallLocation')
 
                 if os.path.exists(f'{install_location}\\bin\\1cv8.exe') or os.path.exists(f'{install_location}\\bin\\1cv8t.exe'):
                     write[display_name] = install_location
@@ -30,6 +29,6 @@ def find_display_names(reg_path):
 
         winreg.CloseKey(key)
     except Exception as e:
-        print("Ошибка при доступе к реестру:", e)
+        print('Ошибка при доступе к реестру:', e)
     return write
 

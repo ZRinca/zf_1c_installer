@@ -34,4 +34,4 @@ def exe_bit(path_to_the_exe):
                 else:
                     return f'Unknown architecture'
     except FileNotFoundError:
-        return "Мы не смогли найти 1с"
+        return 'Мы не смогли найти 1с'

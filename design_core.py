@@ -1,8 +1,7 @@
-import ctypes
-from threading import Thread
-
-import customtkinter as ctk
 import tkinter.messagebox as messagebox
+from threading import Thread
+import customtkinter as ctk
+import ctypes
 import os
 
 ALL_WINDOWS = []

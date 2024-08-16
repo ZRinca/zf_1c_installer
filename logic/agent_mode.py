@@ -1,16 +1,15 @@
-import os
-import threading
-import subprocess
-import time
-from io import StringIO
-from pathlib import Path
-
 from Windows.window_error import show_error_window
+from pathlib import Path
+from io import StringIO
+import subprocess
+import threading
+import time
+import os
 
 
 def await_text(stream, find_string, result=None):
     collected_string = StringIO()
-    build_string = ""
+    build_string = ''
 
     while True:
         char = stream.read(1)
@@ -30,12 +29,11 @@ def enter_commands_agent_mod(user, password):
 
     while True:
         print(os.getcwd())
-        cur_path = Path(os.getcwd()) / "PLINK.EXE"
+        cur_path = Path(os.getcwd()) / 'PLINK.EXE'
         ff = subprocess.Popen(f'cmd /k "echo y | {cur_path} -ssh -P 1543 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         ff.stdout.read(1)
         ff.kill()
 
-        # no_error_text = ff.stdout.read()
         error_text = ff.stderr.read()
         print(error_text)
         if not error_text.startswith(b'FATAL ERROR: Network error: Connection refused'):
@@ -62,10 +60,10 @@ def enter_commands_agent_mod(user, password):
         return True
 
     commands = [
-        "common connect-ib\n",
-        "config load-cfg --file=../InterfaceAPI.cfe --extension=IAPI\n",
-        "config extensions properties set --extension=IAPI --safe-mode=no --unsafe-action-protection=no\n",
-        "config update-db-cfg --extension=IAPI\n"
+        'common connect-ib\n',
+        'config load-cfg --file=../InterfaceAPI.cfe --extension=IAPI\n',
+        'config extensions properties set --extension=IAPI --safe-mode=no --unsafe-action-protection=no\n',
+        'config update-db-cfg --extension=IAPI\n'
     ]
 
     for command in commands:
@@ -82,7 +80,6 @@ def enter_commands_agent_mod(user, password):
         error_msg = result_queue_error[0]
         if error_msg:
             ff.kill()
-            print(f'Произошла ошибка! {error_msg}')
             show_error_window('Не установленно расширение')
             break
         output_msg = result_queue[0]

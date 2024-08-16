@@ -1,36 +1,6 @@
 import re
 
 
-def replace_line_in_file(input_file, output_file, old_line_pattern, new_line):
-    try:
-        with open(input_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-
-        content_new = re.sub(old_line_pattern, new_line, content)
-
-        with open(output_file, 'w', encoding='utf-8') as fout:
-            fout.write(content_new)
-
-        print(f'Строка успешно заменена и записана в файл: {output_file}')
-    except IOError as e:
-        print(f'Ошибка при чтении или записи файла: {e}')
-
-
-def replace_line():
-    input_file_name = r'C:\apache\htdocs\Base\default.vrd'
-    output_file_name = r'C:\apache\htdocs\Base\default.vrd'
-
-    old_line_pattern = r'<ws enable="false"\s*pointEnableCommon="false">'
-    new_line = '<ws publishExtensionsByDefault="true">'
-
-    replace_line_in_file(input_file_name, output_file_name, old_line_pattern, new_line)
-
-    old_line_pattern = r'<httpServices publishByDefault="false">'
-    new_line = '<httpServices publishExtensionsByDefault="true">'
-
-    replace_line_in_file(input_file_name, output_file_name, old_line_pattern, new_line)
-
-
 def insert_new_line_in_file(input_file, output_file, insert_after_pattern, new_line):
     try:
         with open(input_file, 'r', encoding='utf-8') as f:

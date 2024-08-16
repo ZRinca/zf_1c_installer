@@ -1,28 +1,6 @@
 import subprocess
-import ctypes
 import json
 import re
-
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
-
-
-def input_cmd(commands):
-    print('Start run commands', commands)
-    try:
-        if is_admin():
-            result = subprocess.run(commands, check=True, shell=True, text=True, capture_output=True)
-            print(result.stdout)
-        else:
-            full_command = ' && '.join(commands)
-            ctypes.windll.shell32.ShellExecuteW(None, "runas", "cmd.exe", "/K " + full_command, None, 1)
-        print('End run commands', commands)
-    except Exception as e:
-        print("Run commands exception", e)
 
 
 def sub_run(commands):
