@@ -45,10 +45,20 @@ def install_extension(caller_window, global_config):
     one_c_user = global_config['One_C_the_user']
     one_c = global_config['One_C']
 
+    cestart_t = None
+
     if '1cv8t' in one_c[one_c_user]:
-        cestart_t = r'C:\Program Files (x86)\1cv8\common\1cestartt.exe',
+        bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8t.exe')
     else:
-        cestart_t = r'C:\Program Files\1cv8\common\1cestart.exe'
+        bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8.exe')
+
+    if '1cv8t' in one_c[one_c_user]:
+        cestart_t = r'C:\Program Files (x86)\1cv8t\common\1cestartt.exe'
+    else:
+        if bit == 32:
+            cestart_t = r'C:\Program Files (x86)\1cv8\common\1cestart.exe'
+        if bit == 64:
+            cestart_t = r'C:\Program Files\1cv8\common\1cestart.exe'
 
     designer_command = [
         cestart_t,
