@@ -24,15 +24,13 @@ def find_full_1c():
 
 def find_1c_base_list():
     appdata_path = os.getenv('APPDATA')
+    bases = {}
+    file_patch = [os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i'),
+                  os.path.join(appdata_path, '1C', '1CEStartt', 'ibases.v8i')
+                  ]
 
-    file_path = os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i')
-
-    if not os.path.exists(file_path):
-        print(f'File {file_path} not found.')
-        return {}
-
-    content = read_file_content(file_path)
-    bases = extract_bases(content)
+    for file in file_patch:
+        bases.update(extract_bases(read_file_content(file)))
 
     if bases:
         return bases
@@ -67,7 +65,7 @@ def install_extension(caller_window, global_config):
         '/AgentBaseDir', r'C:\Apache24\Api',
         '/IBName', global_config['base_the_One_C'],
         '/AgentSSHHostKeyAuto',
-        # '/Visible'
+        '/Visible'
     ]
     print(sub_run(designer_command))
     to_back = enter_commands_agent_mod(global_config['LOGIN'], global_config['PASSWORD'])
