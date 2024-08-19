@@ -154,7 +154,7 @@ def loading_task(caller_window, global_config):
     link_url = find_publication_apache(global_config)
     path = create_file_folder_zf()
 
-    write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost/{link_url}')
+    write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost{link_url}/')
     replace_text_in_xml(f'{path[0]}\\ZFConnector_settings.xml', 'REPLACETEXT', f'{path[0]}')
     replacement_text = f'Base_{path[1]}'
 
