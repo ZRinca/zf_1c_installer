@@ -23,7 +23,7 @@ class CustomiserWindow(InstallerWindow):
             'publish_1c': ctk.StringVar(value="on" if self.global_config.get('publish_1c', True) else "off"),
             'install_zf': ctk.StringVar(value="on" if self.global_config.get('install_zf', True) else "off"),
             'connect_database': ctk.StringVar(value="on" if self.global_config.get('connect_database', True) else "off"),
-            'check_functionality': ctk.StringVar(value="on" if self.global_config.get('check_functionality', True) else "off"),
+            # 'check_functionality': ctk.StringVar(value="on" if self.global_config.get('check_functionality', True) else "off"),
         }
 
         checkboxes = {
@@ -32,7 +32,7 @@ class CustomiserWindow(InstallerWindow):
             'publish_1c': "Опубликовать 1С",
             'install_zf': "Установка ZF",
             'connect_database': "Подключение базы",
-            'check_functionality': "Проверка работоспособности"
+            # 'check_functionality': "Проверка работоспособности"
         }
 
         checkbox_style = {
