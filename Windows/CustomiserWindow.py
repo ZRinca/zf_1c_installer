@@ -5,7 +5,7 @@ import customtkinter as ctk
 class CustomiserWindow(InstallerWindow):
     header_text = 'Выбор компонентов'
     body_text = None
-    draw_next_button = False
+    draw_next_button = True
 
     @classmethod
     def can_draw(cls, global_config):
@@ -37,8 +37,8 @@ class CustomiserWindow(InstallerWindow):
         }
 
         checkbox_style = {
-            "fg_color": "#6EC756",  # Цвет флажка
-            "hover_color": "#4EB932"  # Цвет при наведении мыши
+            "fg_color": "#6EC756",
+            "hover_color": "#4EB932"
         }
 
         y_offset = 0
@@ -49,7 +49,7 @@ class CustomiserWindow(InstallerWindow):
                 variable=check_vars[key],
                 onvalue="on", offvalue="off",
                 checkbox_width=15, checkbox_height=15,
-                text_color="black",  # Устанавливаем цвет текста флажка
+                text_color="black",
                 **checkbox_style
             )
             checkbox.place(relx=0.05, rely=0.32 + y_offset / 100, anchor='nw')

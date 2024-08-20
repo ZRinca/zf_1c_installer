@@ -1,5 +1,6 @@
-import tkinter.messagebox as messagebox
+from settings import header_text_size, body_text_size, font_text
 from threading import Thread
+import tkinter.messagebox as messagebox
 import customtkinter as ctk
 import ctypes
 import os
@@ -59,7 +60,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
             widget.destroy()
 
         if self.header_text is not None:
-            label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=("Rubik Light", 12), anchor='w',
+            label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=(font_text, header_text_size), anchor='w',
                                   text_color="#6EC756",
                                   justify='left', wraplength=self.main_frame.winfo_width() - 48)
             label1.pack(padx=24, pady=(24, 0), fill='x')
@@ -70,7 +71,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
         if self.body_text is not None:
             label2 = ctk.CTkLabel(self.main_frame,
                                   text=self.body_text,
-                                  font=("Rubik Light", 10), anchor='w', justify='left',
+                                  font=(font_text, body_text_size), anchor='w', justify='left',
                                   wraplength=self.main_frame.winfo_width() - 48)
             label2.pack(padx=24, pady=(24, 0), fill='x')
 
@@ -147,6 +148,7 @@ def run_design(global_config):
     root.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
     root.title("Setup ZF-Connector")
     root.configure(bg="#F8F8F8")
+    root.resizable(False, False)
 
     main_frame = ctk.CTkFrame(root, fg_color="#F8F8F8")
     main_frame.pack(fill='both', expand=True)

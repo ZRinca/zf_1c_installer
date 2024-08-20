@@ -2,6 +2,7 @@ from logic.command_line_and_permissions import read_file_content, extract_bases,
 from logic.apache_install import copy_apache_and_exp, find_publication_apache
 from logic.the_zf_plug import create_file_folder_zf, replace_text_in_xml
 from logic.installing_file import move_and_rename_deskey_file
+from settings import the_path_to_zf, the_path_to_Apache
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
 from Windows.window_error import show_error_window
@@ -9,7 +10,6 @@ from logic.search_1c import find_display_names
 from logic.line_changer import insert_a_line
 from logic.installing_file import copy_file
 from logic.exe_bit_extractor import exe_bit
-from settings import the_path_to_zf
 import os
 
 
@@ -44,6 +44,8 @@ def install_extension(caller_window, global_config):
     one_c = global_config['One_C']
 
     cestart_t = None
+
+    copy_file('extension', f"{the_path_to_Apache}\\Api")
 
     if '1cv8t' in one_c[one_c_user]:
         bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8t.exe')
