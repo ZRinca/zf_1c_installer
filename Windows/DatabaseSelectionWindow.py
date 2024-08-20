@@ -19,7 +19,7 @@ class DataBaseSelection(InstallerWindow):
     def draw(self):
         super().draw()
 
-        databases = find_1c_base_list()
+        databases = find_1c_base_list(self.global_config)
         self.global_config['base'] = databases
 
         self.database_combobox = ctk.CTkComboBox(self.main_frame, values=list(databases.keys()),

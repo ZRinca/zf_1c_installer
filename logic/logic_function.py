@@ -22,15 +22,27 @@ def find_full_1c():
     return found_all_One_C
 
 
-def find_1c_base_list():
+def find_1c_base_list(global_config):
     appdata_path = os.getenv('APPDATA')
     bases = {}
-    file_patch = [os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i'),
-                  os.path.join(appdata_path, '1C', '1CEStartt', 'ibases.v8i')
-                  ]
 
-    for file in file_patch:
-        bases.update(extract_bases(read_file_content(file)))
+    if 'One_C' in global_config:
+        one_c_user = global_config['One_C_the_user']
+        one_c = global_config['One_C']
+
+        if '\\1cv8\\' in one_c[one_c_user]:
+            file = os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i')
+            bases = extract_bases(read_file_content(file))
+        else:
+            file = os.path.join(appdata_path, '1C', '1CEStartt', 'ibases.v8i')
+            bases = extract_bases(read_file_content(file))
+    else:
+        file_patch = [os.path.join(appdata_path, '1C', '1CEStart', 'ibases.v8i'),
+                      os.path.join(appdata_path, '1C', '1CEStartt', 'ibases.v8i')
+                      ]
+
+        for file in file_patch:
+            bases.update(extract_bases(read_file_content(file)))
 
     if bases:
         return bases
