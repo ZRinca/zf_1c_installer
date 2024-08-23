@@ -5,17 +5,25 @@ import os
 
 def copy_file(source_dir, target_dir):
     if not os.path.exists(source_dir):
-        return f'Исходная директория {source_dir} не существует.'
+        return f'Исходная папка {source_dir} не существует.'
 
-    if os.path.exists(target_dir):
-        show_error_window(f'{source_dir} \n уже существует')
-        return
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
 
     try:
-        shutil.copytree(source_dir, target_dir)
-        return f'Директория {source_dir} успешно скопирована в {target_dir}.'
+        for item in os.listdir(source_dir):
+            source_item = os.path.join(source_dir, item)
+            target_item = os.path.join(target_dir, item)
+
+            if os.path.isdir(source_item):
+                shutil.copytree(source_item, target_item, dirs_exist_ok=True)
+            else:
+                shutil.copy2(source_item, target_item)
+
+        return f'Файлы из {source_dir} успешно скопированы в {target_dir}.'
     except Exception as e:
-        return f'Произошла ошибка: {e}'
+        show_error_window(f'Произошла ошибка: {e}')
+        return
 
 
 def move_and_rename_deskey_file(src_file_path, new_filename, destination_folder):
