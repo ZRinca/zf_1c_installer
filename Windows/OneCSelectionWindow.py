@@ -17,7 +17,7 @@ class OneCSelection(InstallerWindow):
         return all_false
 
     def draw(self):
-        self.checking_selected_checkboxes()
+
         super().draw()
 
         found_all_One_C = find_full_1c()
@@ -37,14 +37,6 @@ class OneCSelection(InstallerWindow):
         if found_all_One_C:
             first_key = list(found_all_One_C.keys())[0]
             self.database_combobox.set(first_key)
-
-    def checking_selected_checkboxes(self):
-        checkboxes = ['install_1c_extension', 'install_apache', 'publish_1c', 'install_zf', 'connect_database']
-        tags_to_check = any(self.global_config[tag] for tag in checkboxes)
-        if not tags_to_check:
-            show_error_window('Выберите хотя бы одну галочку.')
-            return self.prev_window_getter
-        return
 
     def write_value(self):
         selected_value = self.database_combobox.get()
