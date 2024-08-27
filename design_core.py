@@ -2,6 +2,7 @@ from settings import header_text_size, body_text_size, font_text
 from threading import Thread
 import tkinter.messagebox as messagebox
 import customtkinter as ctk
+import webbrowser
 import ctypes
 import os
 
@@ -21,6 +22,7 @@ class InstallerWindowBase(type):
 class InstallerWindow(metaclass=InstallerWindowBase):
     header_text = None
     body_text = None
+    site_link = None
     draw_next_button = True
     draw_back_button = True
     technical_function = None
@@ -60,7 +62,8 @@ class InstallerWindow(metaclass=InstallerWindowBase):
             widget.destroy()
 
         if self.header_text is not None:
-            label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=(font_text, header_text_size), anchor='w',
+            label1 = ctk.CTkLabel(self.main_frame, text=self.header_text, font=(font_text, header_text_size),
+                                  anchor='w',
                                   text_color="#6EC756",
                                   justify='left', wraplength=self.main_frame.winfo_width() - 48)
             label1.pack(padx=24, pady=(24, 0), fill='x')
@@ -74,6 +77,13 @@ class InstallerWindow(metaclass=InstallerWindowBase):
                                   font=(font_text, body_text_size), anchor='w', justify='left',
                                   wraplength=self.main_frame.winfo_width() - 48)
             label2.pack(padx=24, pady=(24, 0), fill='x')
+
+        if self.site_link is not None:
+            link_label = ctk.CTkLabel(self.main_frame, text=self.site_link, font=("Arial", 12, "underline"),
+                                      text_color="blue", anchor='w', justify='left',
+                                      wraplength=self.main_frame.winfo_width() - 48)
+            link_label.pack(padx=24, fill='x')
+            link_label.bind("<Button-1>", lambda event: open_web(self.site_link))
 
         prev_win = self.prev_window_getter(self) if self.draw_back_button else None
 
@@ -124,6 +134,10 @@ def check_for_admin(root):
     if not ctypes.windll.shell32.IsUserAnAdmin():
         messagebox.showwarning("Предупреждение", "Запустите установщик от имени администратора!")
         root.destroy()
+
+
+def open_web(link):
+    webbrowser.open_new(link)
 
 
 def run_design(global_config):
