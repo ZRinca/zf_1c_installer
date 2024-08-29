@@ -1,4 +1,4 @@
-from settings import header_text_size, body_text_size, font_text
+from settings import header_text_size, body_text_size, font_text, installer_version
 from threading import Thread
 import tkinter.messagebox as messagebox
 import customtkinter as ctk
@@ -25,6 +25,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
     site_link = None
     draw_next_button = True
     draw_back_button = True
+    installer_version = True
     technical_function = None
 
     def __init__(self, main_frame, global_config, prev_window_getter, next_window_getter):
@@ -86,6 +87,11 @@ class InstallerWindow(metaclass=InstallerWindowBase):
             link_label.bind("<Button-1>", lambda event: open_web(self.site_link))
 
         prev_win = self.prev_window_getter(self) if self.draw_back_button else None
+
+        if self.installer_version:
+            label_version = ctk.CTkLabel(self.main_frame, text=installer_version, font=("Arial", 12),
+                                         text_color="grey", anchor='w', justify='left')
+            label_version.place(relx=0, rely=1.0, anchor='sw', x=24, y=-24)
 
         if prev_win is not None:
             button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_prev_window(),
