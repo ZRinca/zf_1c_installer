@@ -9,6 +9,7 @@ class OneCSelection(InstallerWindow):
     body_text = ("Мастер настройки нашёл на устройстве несколько установленных 1С. \nВ списке ниже указаны все "
                  "установленные версии 1С. \nВыберите одну и нажмите 'Далее'")
     draw_next_button = False
+    installer_version = True
 
     @classmethod
     def can_draw(cls, global_config):

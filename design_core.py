@@ -25,7 +25,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
     site_link = None
     draw_next_button = True
     draw_back_button = True
-    installer_version = True
+    installer_version = False
     technical_function = None
 
     def __init__(self, main_frame, global_config, prev_window_getter, next_window_getter):
@@ -80,10 +80,16 @@ class InstallerWindow(metaclass=InstallerWindowBase):
             label2.pack(padx=24, pady=(24, 0), fill='x')
 
         if self.site_link is not None:
-            link_label = ctk.CTkLabel(self.main_frame, text=self.site_link, font=("Arial", 12, "underline"),
-                                      text_color="blue", anchor='w', justify='left',
-                                      wraplength=self.main_frame.winfo_width() - 48)
-            link_label.pack(padx=24, fill='x')
+            site_frame = ctk.CTkFrame(self.main_frame,
+                                      fg_color="#F8F8F8")
+            site_frame.pack(padx=24, pady=6, fill='x', anchor='w')
+
+            site_label = ctk.CTkLabel(site_frame, text="Наш сайт:", font=(font_text, body_text_size), text_color="black")
+            site_label.pack(side='left')
+
+            link_label = ctk.CTkLabel(site_frame, text=self.site_link, font=(font_text, body_text_size, "underline"),
+                                      text_color="blue", cursor="hand2")
+            link_label.pack(side='left')
             link_label.bind("<Button-1>", lambda event: open_web(self.site_link))
 
         prev_win = self.prev_window_getter(self) if self.draw_back_button else None

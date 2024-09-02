@@ -5,10 +5,10 @@ from . import (
     OneCSelectionWindow,
     DatabaseSelectionWindow,
     OneCAuthorizationWindow,
+    InstallExtension,
     ApacheInstallWindow,
     InstallZFConnector,
     OneCPublishWindow,
-    InstallExtension,
     KeySelection,
     InstallingKeyWindow,
     # ConfigurateConnect

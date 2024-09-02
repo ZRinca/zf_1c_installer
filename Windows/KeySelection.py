@@ -23,6 +23,7 @@ class KSelection(InstallerWindow):
     body_text = ("Пожалуйста, выберите ваш уникальный ключ в формате '.dskey'."
                  "\n\nКлюч Вы можете скачать в вашем личном кабинете ZeroFactor."
                  "")
+    installer_version = True
     draw_next_button = False
     draw_back_button = False
 

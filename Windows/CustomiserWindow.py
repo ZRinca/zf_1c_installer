@@ -5,6 +5,7 @@ import customtkinter as ctk
 class CustomiserWindow(InstallerWindow):
     header_text = 'Выбор компонентов'
     body_text = None
+    installer_version = True
     draw_next_button = True
 
     @classmethod

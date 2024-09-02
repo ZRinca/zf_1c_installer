@@ -3,9 +3,10 @@ import customtkinter as ctk
 
 
 class RegistrationsOneC(InstallerWindow):
-    header_text = 'Введите логин и пароль от вашей информационной базы 1С'
+    header_text = 'Введите логин и пароль от информационной базы 1С'
     body_text = ('Информационная база 1С, которую вы выбрали, требует авторизации. '
                  '\nПожалуйста, введите логин и пароль.')
+    installer_version = True
 
     @classmethod
     def can_draw(cls, global_config):

@@ -5,6 +5,7 @@ import customtkinter as ctk
 class SelectInstallerModeWindow(InstallerWindow):
     header_text = 'Выбор режима установки!'
     body_text = None
+    installer_version = True
     draw_next_button = False
     draw_back_button = False
 
