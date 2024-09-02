@@ -90,8 +90,8 @@ class InstallerWindow(metaclass=InstallerWindowBase):
 
         if self.installer_version:
             label_version = ctk.CTkLabel(self.main_frame, text=installer_version, font=("Arial", 12),
-                                         text_color="grey", anchor='w', justify='left')
-            label_version.place(relx=0, rely=1.0, anchor='sw', x=24, y=-24)
+                                         text_color="grey", anchor='sw', justify='left')
+            label_version.pack(side='bottom', anchor='sw', padx=24, pady=24)
 
         if prev_win is not None:
             button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_prev_window(),

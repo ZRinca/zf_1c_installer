@@ -38,7 +38,7 @@ class DataBaseSelection(InstallerWindow):
 
     def on_next_button_click(self):
         if self.database_combobox.get() == '':
-            show_error_window("Выберите 1с!")
+            show_error_window("Выберите базу!")
         else:
             self.write_value()
             self.open_next_window()

@@ -1,5 +1,5 @@
 """Version"""
-installer_version = '1.0.0'
+installer_version = 'v1.0.0'
 
 """In this file, you can change the path and other settings."""
 the_path_to_zf = 'C:\\zf_connector\\'
