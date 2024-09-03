@@ -12,7 +12,7 @@ class HelloWindow(InstallerWindow):
                  'При продолжении установки и/или использовании продукта '
                  '(в т.ч. его \nкомпонентов) вы соглашаетесь с документами, '
                  'размещёнными \nна сайте.')
-    site_link = ' zerofactor.ru'
+    site_link = ['Наш сайт: ', 'zerofactor.ru']
 
     def draw(self):
         super().draw()

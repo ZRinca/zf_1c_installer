@@ -84,13 +84,13 @@ class InstallerWindow(metaclass=InstallerWindowBase):
                                       fg_color="#F8F8F8")
             site_frame.pack(padx=24, pady=6, fill='x', anchor='w')
 
-            site_label = ctk.CTkLabel(site_frame, text="Наш сайт:", font=(font_text, body_text_size), text_color="black")
+            site_label = ctk.CTkLabel(site_frame, text=self.site_link[0], font=(font_text, body_text_size), text_color="black")
             site_label.pack(side='left')
 
-            link_label = ctk.CTkLabel(site_frame, text=self.site_link, font=(font_text, body_text_size, "underline"),
+            link_label = ctk.CTkLabel(site_frame, text=self.site_link[1], font=(font_text, body_text_size, "underline"),
                                       text_color="blue", cursor="hand2")
             link_label.pack(side='left')
-            link_label.bind("<Button-1>", lambda event: open_web(self.site_link))
+            link_label.bind("<Button-1>", lambda event: open_web(self.site_link[1]))
 
         prev_win = self.prev_window_getter(self) if self.draw_back_button else None
 
