@@ -14,13 +14,13 @@ VSVersionInfo(
          [
          StringTable(
             '040904B0',
-            [StringStruct('CompanyName', 'Kartli-it'),
-             StringStruct('FileDescription', 'zf installer'),
+            [StringStruct('CompanyName', 'Kartli-IT LLC'),
+             StringStruct('FileDescription', 'ZeroFactor Setup Wizard'),
              StringStruct('FileVersion', '1.0.0.0'),
-             StringStruct('InternalName', 'zf_setup'),
-             StringStruct('LegalCopyright', '© Kartli-it'),
+             StringStruct('InternalName', 'zf_setup.exe'),
+             StringStruct('LegalCopyright', 'Copyright 2024 Kartli-IT LLC. All rights reserved.'),
              StringStruct('OriginalFilename', 'zf_setup.exe'),
-             StringStruct('ProductName', 'zf_setup'),
+             StringStruct('ProductName', 'ZeroFactor Setup Wizard'),
              StringStruct('ProductVersion', '1.0.0.0')])
          ]
       ),
