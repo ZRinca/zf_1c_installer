@@ -1,4 +1,5 @@
-from settings import header_text_size, body_text_size, font_text, installer_version
+from settings import header_text_size, body_text_size, font_text
+from logic.line_changer import extract_version_from_rc
 from threading import Thread
 import tkinter.messagebox as messagebox
 import customtkinter as ctk
@@ -95,7 +96,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
         prev_win = self.prev_window_getter(self) if self.draw_back_button else None
 
         if self.installer_version:
-            label_version = ctk.CTkLabel(self.main_frame, text=installer_version, font=("Arial", 12),
+            label_version = ctk.CTkLabel(self.main_frame, text=extract_version_from_rc(), font=("Arial", 12),
                                          text_color="grey", anchor='sw', justify='left')
             label_version.pack(side='bottom', anchor='sw', padx=24, pady=24)
 

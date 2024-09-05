@@ -200,3 +200,19 @@ def insert_a_line(line):
     <analytics enable="true"/>'''
 
     insert_new_line_in_file(line, line, insert_after_pattern, new_line)
+
+
+def extract_version_from_rc(file_path='version_info.rc', version_type='filevers'):
+    try:
+        with open(file_path, 'r') as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"Ошибка: файл {file_path} не найден.")
+        return None
+    except Exception as e:
+        print(f"Ошибка при чтении файла: {e}")
+        return None
+
+    pattern = rf'{version_type}=\((\d+), (\d+), (\d+), (\d+)\)'
+    version_match = re.search(pattern, content)
+    return ".".join(version_match.groups())
