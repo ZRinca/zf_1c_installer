@@ -21,7 +21,7 @@ def insert_new_line_in_file(input_file, output_file, insert_after_pattern, new_l
 
 def insert_a_line(line):
 
-    insert_after_pattern = r'ib="File=&quot;C:\\bases\\buh&quot;;">'
+    insert_after_pattern = r'ib="File=&quot;[^&]+&quot;;">'
     new_line = '''    <ws publishExtensionsByDefault="true">
         <point name="AccHRMDataTransfer"
                 alias="AccHRMDataTransfer.1cws"

@@ -4,15 +4,15 @@ from logic.app_starter import base_path
 base_dir = base_path()
 
 Apache_in_installer = {
-    '32': f'{base_dir}/Apache/Apache_32/Apache24',
+    '32': f'{base_dir}\\Apache\\Apache_32\\Apache24',
     '64': f'{base_dir}/Apache/Apache_64/Apache24'
 }
 
-zf_connector_path = f'{base_dir}/zf_1c_connect_client'
-extension = f'{base_dir}/extension'
-version_info = f'{base_dir}/version_info.rc'
-plink = f'{base_dir}/PLINK.EXE'
-ico_core = f'{base_dir}/ico/ZF_green.ico'
+zf_connector_path = f'{base_dir}\\zf_1c_connect_client'
+extension = f'{base_dir}\\extension'
+plink = f'{base_dir}\\PLINK.EXE'
+version_info = f'{base_dir}\\version_info.rc'
+ico_core = f'{base_dir}\\ico\\ZF_green.ico'
 
 """ Mock VERSION """
 # Apache_in_installer = {'32': 'Apache/Apache_32/Apache24', '64': 'Apache/Apache_64/Apache24'}

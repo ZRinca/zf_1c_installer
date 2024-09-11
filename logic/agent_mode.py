@@ -31,8 +31,8 @@ def enter_commands_agent_mod(user, password):
 
     while True:
         print(os.getcwd())
-        cur_path = Path(os.getcwd()) / plink
-        ff = subprocess.Popen(f'cmd /k "echo y | {cur_path} -ssh -P 1543 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+
+        ff = subprocess.Popen(f'cmd /k "echo y | {plink} -ssh -P 1543 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         ff.stdout.read(1)
         ff.kill()
 
@@ -41,7 +41,7 @@ def enter_commands_agent_mod(user, password):
         if not error_text.startswith(b'FATAL ERROR: Network error: Connection refused'):
             break
 
-    ff = subprocess.Popen(f'plink.exe -ssh -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
+    ff = subprocess.Popen(f'{plink} -ssh -P 1543 127.0.0.1', universal_newlines=True, encoding='utf-8',
                           shell=False,
                           stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
