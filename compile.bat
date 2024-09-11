@@ -6,5 +6,6 @@ xcopy /y /e "zf_1c_connect_client\*.*" "dist\zf_setup\zf_1c_connect_client\*.*"
 xcopy /y /e "extension\*.*" "dist\zf_setup\extension\*.*"
 
 copy "PLINK.EXE" "dist\zf_setup\PLINK.EXE"
+copy "version_info.rc" "dist\zf_setup\version_info.rc"
 
 PAUSE
