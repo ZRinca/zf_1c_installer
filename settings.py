@@ -10,6 +10,7 @@ Apache_in_installer = {
 
 zf_connector_path = f'{base_dir}\\zf_1c_connect_client'
 extension = f'{base_dir}\\extension'
+output = f'{base_dir}\\output'
 plink = f'{base_dir}\\PLINK.EXE'
 version_info = f'{base_dir}\\version_info.rc'
 ico_core = f'{base_dir}\\ico\\ZF_green.ico'

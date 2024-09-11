@@ -1,6 +1,8 @@
 import shutil
 import os
 
+from settings import output
+
 
 def replace_text_in_xml(file_path, target_text, replacement_text):
     try:
@@ -20,7 +22,7 @@ def replace_text_in_xml(file_path, target_text, replacement_text):
 
 def create_file_folder_zf():
     base_path = r'C:\zf_connector\base_'
-    source_dir = r'output'
+    source_dir = output
 
     i = 1
 
