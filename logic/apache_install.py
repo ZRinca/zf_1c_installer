@@ -1,15 +1,16 @@
 from logic.command_line_and_permissions import re_parser, read_the_file
 from logic.installing_file import copy_file
-from settings import the_path_to_Apache
+from settings import the_path_to_Apache, Apache_in_installer
 import os
 
 
 def copy_apache_and_exp(bit):
     source_dir = None
     if bit == 32:
-        source_dir = r'Apache/Apache_32/Apache24'
+        source_dir = Apache_in_installer['32']
     if bit == 64:
-        source_dir = r'Apache/Apache_64/Apache24'
+        source_dir = Apache_in_installer['64']
+    print(source_dir)
     copy_file(source_dir, the_path_to_Apache)
     # copy_file('extension', f"{the_path_to_Apache}\\Api")
     return

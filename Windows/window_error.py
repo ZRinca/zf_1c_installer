@@ -2,6 +2,8 @@ import customtkinter as ctk
 import tkinter as tk
 import os
 
+from settings import ico_core
+
 file_path = None
 error_window = None
 login = ''
@@ -20,7 +22,7 @@ def show_error_window(message):
     error_window = tk.Toplevel()
     error_window.title("Ошибка")
     error_window.configure(bg="#F8F8F8")
-    error_window.iconbitmap(r'ico/ZF_green.ico')
+    error_window.iconbitmap(ico_core)
 
     window_width = 270
     window_height = 160

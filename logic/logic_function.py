@@ -2,7 +2,7 @@ from logic.command_line_and_permissions import read_file_content, extract_bases,
 from logic.apache_install import copy_apache_and_exp, find_publication_apache
 from logic.the_zf_plug import create_file_folder_zf, replace_text_in_xml
 from logic.installing_file import move_and_rename_deskey_file
-from settings import the_path_to_zf, the_path_to_Apache, the_path_to_Extension
+from settings import the_path_to_zf, the_path_to_Apache, the_path_to_Extension, zf_connector_path, extension
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
 from Windows.window_error import show_error_window
@@ -57,7 +57,7 @@ def install_extension(caller_window, global_config):
 
     cestart_t = None
 
-    copy_file('extension', the_path_to_Extension)
+    copy_file(extension, the_path_to_Extension)
 
     if '1cv8t' in one_c[one_c_user]:
         bit = exe_bit(f'{one_c[one_c_user]}\\bin\\1cv8t.exe')
@@ -160,7 +160,7 @@ def publish_one_c(caller_window, global_config):
 
 
 def install_zf(caller_window, global_config):
-    copy_file('zf_1c_connect_client', the_path_to_zf)
+    copy_file(zf_connector_path, the_path_to_zf)
     caller_window.open_next_window()
 
 

@@ -1,4 +1,4 @@
-from settings import header_text_size, body_text_size, font_text
+from settings import header_text_size, body_text_size, font_text, ico_core
 from logic.line_changer import extract_version_from_rc
 from threading import Thread
 import tkinter.messagebox as messagebox
@@ -156,9 +156,9 @@ def open_web(link):
 def run_design(global_config):
     root = ctk.CTk()
     exe_path = os.path.dirname(os.path.abspath(__file__))
-    icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
+    # icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
 
-    root.iconbitmap(icon_path)
+    root.iconbitmap(ico_core)
     check_for_admin(root)
 
     window_width = 522

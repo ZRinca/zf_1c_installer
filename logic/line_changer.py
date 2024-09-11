@@ -1,5 +1,7 @@
 import re
 
+from settings import version_info
+
 
 def insert_new_line_in_file(input_file, output_file, insert_after_pattern, new_line):
     try:
@@ -202,7 +204,7 @@ def insert_a_line(line):
     insert_new_line_in_file(line, line, insert_after_pattern, new_line)
 
 
-def extract_version_from_rc(file_path='version_info.rc', version_type='filevers'):
+def extract_version_from_rc(file_path=version_info, version_type='filevers'):
     try:
         with open(file_path, 'r') as f:
             content = f.read()

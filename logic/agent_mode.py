@@ -6,6 +6,8 @@ import threading
 import time
 import os
 
+from settings import plink
+
 
 def await_text(stream, find_string, result=None):
     collected_string = StringIO()
@@ -29,7 +31,7 @@ def enter_commands_agent_mod(user, password):
 
     while True:
         print(os.getcwd())
-        cur_path = Path(os.getcwd()) / 'PLINK.EXE'
+        cur_path = Path(os.getcwd()) / plink
         ff = subprocess.Popen(f'cmd /k "echo y | {cur_path} -ssh -P 1543 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         ff.stdout.read(1)
         ff.kill()
