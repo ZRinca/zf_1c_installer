@@ -38,7 +38,7 @@ def move_and_rename_deskey_file(src_file_path, new_filename, destination_folder)
 
         new_file_path = os.path.join(destination_folder, new_filename)
 
-        shutil.move(src_file_path, new_file_path)
+        shutil.copy(src_file_path, new_file_path)
         print(f"Файл успешно перемещен и переименован в '{new_file_path}'.")
     except Exception as e:
         print(f'Ошибка при перемещении файла: {e}')

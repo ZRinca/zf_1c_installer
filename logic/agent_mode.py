@@ -30,14 +30,12 @@ def await_text(stream, find_string, result=None):
 def enter_commands_agent_mod(user, password):
 
     while True:
-        print(os.getcwd())
 
         ff = subprocess.Popen(f'cmd /k "echo y | {plink} -ssh -P 1543 127.0.0.1 && exit"', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         ff.stdout.read(1)
         ff.kill()
 
         error_text = ff.stderr.read()
-        print(error_text)
         if not error_text.startswith(b'FATAL ERROR: Network error: Connection refused'):
             break
 
@@ -85,7 +83,6 @@ def enter_commands_agent_mod(user, password):
             show_error_window('Не установленно расширение')
             break
         output_msg = result_queue[0]
-        print(output_msg)
         print('run_command', command)
         ff.stdin.write(command)
         ff.stdin.flush()

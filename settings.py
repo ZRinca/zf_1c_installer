@@ -21,6 +21,7 @@ ico_core = f'{base_dir}\\ico\\ZF_green.ico'
 # extension = 'extension'
 # version_info = 'version_info.rc'
 # plink = 'PLINK.EXE'
+# output = 'output'
 # ico_core = 'ico/ZF_green.ico'
 
 """In this file, you can change the path and other settings."""
