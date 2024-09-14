@@ -1,3 +1,7 @@
+IF EXIST dist (
+    rmdir /S /Q dist
+)
+
 SET activator=env\Scripts\activate
 SET installer=pip install pyinstaller pillow
 
