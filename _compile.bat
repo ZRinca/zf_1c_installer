@@ -2,6 +2,11 @@ IF EXIST dist (
     rmdir /S /Q dist
 )
 
+IF EXIST build (
+    rmdir /S /Q build
+)
+
+@echo off
 SET activator=env\Scripts\activate
 SET installer=pip install pyinstaller pillow
 
@@ -21,6 +26,8 @@ SET comand=%comand% --runtime-tmpdir ./
 SET comand=%comand% --splash splash.png
 SET comand=%comand% main.py
 :: SET comand=%comand% logic/app_starter.py
+
+@echo on
 
 cmd /U /k "%activator%&&%installer%&&%comand%&&exit"
 
