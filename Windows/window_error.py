@@ -1,26 +1,21 @@
+from settings import ico_core
 import customtkinter as ctk
 import tkinter as tk
 import os
 
-from settings import ico_core
-
-file_path = None
 error_window = None
-login = ''
-password = ''
 
 
-def show_error_window(message):
+def notifications_window(message, error=True, user_function=None):
     global error_window
 
     if error_window is not None and error_window.winfo_exists():
         return
 
     exe_path = os.path.dirname(os.path.abspath(__file__))
-    icon_path = os.path.join(exe_path, 'ico', 'ZF_green.ico')
 
     error_window = tk.Toplevel()
-    error_window.title("Ошибка")
+    error_window.title("Уведомление")
     error_window.configure(bg="#F8F8F8")
     error_window.iconbitmap(ico_core)
 
@@ -37,9 +32,22 @@ def show_error_window(message):
     label = ctk.CTkLabel(error_window, text=message, font=("Arial", 12))
     label.pack(pady=(24, 0))
 
-    button = ctk.CTkButton(error_window, text="Закрыть", command=close_error_window, fg_color="#6EC756",
-                           hover_color="#4EB932", width=80, height=30)
-    button.pack(pady=(24, 24))
+    button_frame = tk.Frame(error_window, bg="#F8F8F8")
+    button_frame.pack(pady=(24, 24))
+
+    close_button = ctk.CTkButton(button_frame, text="Закрыть", command=close_error_window,
+                                 fg_color="#6EC756", hover_color="#4EB932", width=80, height=30)
+    close_button.grid(row=0, column=0, padx=10)  # Располагаем в первой колонке
+
+    if not error:
+        def install_and_close():
+            if user_function:
+                user_function()
+            close_error_window()
+
+        install_button = ctk.CTkButton(button_frame, text="Установить", command=install_and_close,
+                                       fg_color="#6EC756", hover_color="#4EB932", width=80, height=30)
+        install_button.grid(row=0, column=1, padx=10)
 
 
 def close_error_window():

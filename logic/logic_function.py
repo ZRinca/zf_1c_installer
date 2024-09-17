@@ -5,7 +5,7 @@ from logic.installing_file import move_and_rename_deskey_file
 from settings import the_path_to_zf, the_path_to_Apache, the_path_to_Extension, zf_connector_path, extension
 from logic.command_line_and_permissions import sub_run
 from logic.agent_mode import enter_commands_agent_mod
-from Windows.window_error import show_error_window
+from Windows.window_error import notifications_window
 from logic.search_1c import find_display_names
 from logic.line_changer import insert_a_line
 from logic.installing_file import copy_file
@@ -101,7 +101,7 @@ def install_apache(caller_window, global_config):
 
     output = sub_run(r'C:\Apache24\bin\httpd.exe -k install')
     if 'Service is already installed' in output:
-        show_error_window('Apache уже установлен!')
+        notifications_window('Apache уже установлен!')
         caller_window.open_next_window()
     else:
         print(sub_run(r'net stop Apache2.4'))
@@ -153,7 +153,7 @@ def publish_one_c(caller_window, global_config):
         break
 
     if not publish:
-        show_error_window('Публикация не выполненна!')
+        notifications_window('Веб-сервисы не обнаружены, \nпубликация не выполнена')
         caller_window.open_next_window()
 
     insert_a_line(f'c:\\1c_web\\Base_{i}\\default.vrd')

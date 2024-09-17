@@ -1,4 +1,4 @@
-from Windows.window_error import show_error_window
+from Windows.window_error import notifications_window
 from pathlib import Path
 from io import StringIO
 import subprocess
@@ -55,7 +55,7 @@ def enter_commands_agent_mod(user, password):
 
     a = ff.stderr.read(8)
     if a.startswith('Access'):
-        show_error_window('Неправильный логин или пароль!')
+        notifications_window('Неправильный логин или пароль!')
         ff.kill()
         return True
 
@@ -80,7 +80,7 @@ def enter_commands_agent_mod(user, password):
         error_msg = result_queue_error[0]
         if error_msg:
             ff.kill()
-            show_error_window('Не установленно расширение')
+            notifications_window('Не установленно расширение')
             break
         output_msg = result_queue[0]
         print('run_command', command)

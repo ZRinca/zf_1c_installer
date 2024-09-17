@@ -1,4 +1,4 @@
-from Windows.window_error import show_error_window
+from Windows.window_error import notifications_window
 from logic.logic_function import find_1c_base_list
 from design_core import InstallerWindow
 import customtkinter as ctk
@@ -39,7 +39,7 @@ class DataBaseSelection(InstallerWindow):
 
     def on_next_button_click(self):
         if self.database_combobox.get() == '':
-            show_error_window("Выберите базу!")
+            notifications_window("Выберите базу!")
         else:
             self.write_value()
             self.open_next_window()

@@ -1,4 +1,4 @@
-from Windows.window_error import show_error_window
+from Windows.window_error import notifications_window
 from logic.logic_function import find_full_1c
 from design_core import InstallerWindow
 import customtkinter as ctk
@@ -23,6 +23,11 @@ class OneCSelection(InstallerWindow):
 
         found_all_One_C = find_full_1c()
 
+        if found_all_One_C is {}:
+           notifications_window("Установщик не нашел на вашеи пк 1с")
+        elif found_all_One_C is '{}':
+            notifications_window('УУУУХХХХХХ')
+
         self.global_config['One_C'] = found_all_One_C
 
         self.database_combobox = ctk.CTkComboBox(self.main_frame, values=list(found_all_One_C.keys()),
@@ -45,7 +50,7 @@ class OneCSelection(InstallerWindow):
 
     def on_next_button_click(self):
         if self.database_combobox.get() == '':
-            show_error_window("Выберите базу!")
+            notifications_window("Выберите базу!")
         else:
             self.write_value()
             self.open_next_window()

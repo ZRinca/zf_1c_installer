@@ -1,4 +1,4 @@
-from Windows.window_error import show_error_window
+from Windows.window_error import notifications_window
 from design_core import InstallerWindow
 from tkinter import filedialog
 import customtkinter as ctk
@@ -57,7 +57,7 @@ class KSelection(InstallerWindow):
     def check_file_and_proceed(self):
         global file_path
         if not file_path:
-            show_error_window("Файл не выбран. \nПожалуйста, выберите файл.")
+            notifications_window("Файл не выбран. \nПожалуйста, выберите файл.")
         else:
             self.global_config['link_key'] = file_path
             self.open_next_window()

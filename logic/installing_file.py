@@ -1,4 +1,4 @@
-from Windows.window_error import show_error_window
+from Windows.window_error import notifications_window
 import shutil
 import os
 
@@ -22,7 +22,7 @@ def copy_file(source_dir, target_dir):
 
         return f'Файлы из {source_dir} успешно скопированы в {target_dir}.'
     except Exception as e:
-        show_error_window(f'Произошла ошибка: {e}')
+        notifications_window(f'Произошла ошибка: {e}')
         return
 
 
