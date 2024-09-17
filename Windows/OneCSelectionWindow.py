@@ -13,7 +13,7 @@ class OneCSelection(InstallerWindow):
 
     @classmethod
     def can_draw(cls, global_config):
-        keys_to_check = ['install_1c_extension', 'publish_1c', 'install_apache']
+        keys_to_check = ['install_1c_extension', 'publish_1c', 'install_apache', 'connect_database']
         all_false = not all(not global_config.get(key, True) for key in keys_to_check)
         return all_false
 
@@ -23,10 +23,9 @@ class OneCSelection(InstallerWindow):
 
         found_all_One_C = find_full_1c()
 
-        if found_all_One_C is {}:
-           notifications_window("Установщик не нашел на вашеи пк 1с")
-        elif found_all_One_C is '{}':
-            notifications_window('УУУУХХХХХХ')
+
+        if not found_all_One_C:
+            notifications_window('Мы не смогли найти \nна вашем пк 1с')
 
         self.global_config['One_C'] = found_all_One_C
 
