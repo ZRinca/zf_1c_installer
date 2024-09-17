@@ -142,10 +142,15 @@ def publish_one_c(caller_window, global_config):
             '-connstr', base[base_user],
             '-confpath', r'C:\Apache24\conf\httpd.conf'
         ])
-        if 'Публикация выполнена' or 'Публикация обновлена' in publish.replace('\n', ''):
+        print(publish)
+        clean_publish = publish.replace('\n', '')
+
+        if 'Публикация выполнена' in clean_publish or 'Публикация обновлена' in clean_publish:
             publish = True
-            print('Публикация выполненна')
-            break
+        elif 'Apache Web-server не обнаружен' in clean_publish:
+            publish = False
+
+        break
 
     if not publish:
         show_error_window('Публикация не выполненна!')
