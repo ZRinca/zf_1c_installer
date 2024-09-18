@@ -47,11 +47,11 @@ class KSelection(InstallerWindow):
         entry_file_path.pack(side="left", fill='x', expand=True, padx=(0, 10))
 
         button_select = ctk.CTkButton(frame_file_selection, text="Выбрать файл", command=select_txt_file, width=120,
-                                      height=30, fg_color="#B3B7B1", hover_color="#8c9289")
+                                      height=30, fg_color="#6EC756", text_color="white", hover_color="#4EB932")
         button_select.pack(side="right")
 
         button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.check_file_and_proceed, width=80,
-                                    height=30, fg_color="#6EC756", hover_color="#4EB932")
+                                    height=30, fg_color="#6EC756", text_color="white", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
     def check_file_and_proceed(self):

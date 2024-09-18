@@ -29,7 +29,7 @@ class DataBaseSelection(InstallerWindow):
         self.database_combobox.pack(padx=24, pady=24, fill='x')
 
         button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.on_next_button_click,
-                                    width=80, height=30,
+                                    width=80, height=30, text_color="white",
                                     fg_color="#6EC756", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 

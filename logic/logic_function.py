@@ -155,6 +155,7 @@ def publish_one_c(caller_window, global_config):
     if not publish:
         notifications_window('Веб-сервисы не обнаружены, \nпубликация не выполнена')
         caller_window.open_next_window()
+        return
 
     insert_a_line(f'c:\\1c_web\\Base_{i}\\default.vrd')
 
@@ -170,15 +171,21 @@ def install_zf(caller_window, global_config):
 
 
 def loading_task(caller_window, global_config):
-    link_url = find_publication_apache(global_config)
-    path = create_file_folder_zf()
+    try:
+        link_url = find_publication_apache(global_config)
+        path = create_file_folder_zf()
 
-    write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost{link_url}/')
-    replace_text_in_xml(f'{path[0]}\\ZFConnector_settings.xml', 'REPLACETEXT', f'{path[0]}')
-    replacement_text = f'Base_{path[1]}'
+        write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost{link_url}/')
+        replace_text_in_xml(f'{path[0]}\\ZFConnector_settings.xml', 'REPLACETEXT', f'{path[0]}')
+        replacement_text = f'Base_{path[1]}'
 
-    move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', 'C:\\zf_connector\\' + replacement_text)
-    sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {f'{path[0]}\\ZFConnector_settings.xml'}')
-    sub_run(f'SCHTASKS /Run /TN \\ZeroFactor\\{replacement_text}')
+        move_and_rename_deskey_file(global_config['link_key'], 'source_key.dskey', 'C:\\zf_connector\\' + replacement_text)
+        sub_run(f'SCHTASKS /Create /TN \\ZeroFactor\\{replacement_text} /XML {f'{path[0]}\\ZFConnector_settings.xml'}')
+        sub_run(f'SCHTASKS /Run /TN \\ZeroFactor\\{replacement_text}')
 
-    caller_window.open_next_window()
+        caller_window.open_next_window()
+    except FileNotFoundError as e:
+        notifications_window(f"ZeroFactor Connector не\nобнаружен! Выполните\nполную установку", error=True)
+        print(f"FileNotFoundError: {e}. Операция не удалась.")
+        caller_window.open_next_window()
+        return

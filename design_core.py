@@ -103,7 +103,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
         if prev_win is not None:
             button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_prev_window(),
                                         width=80,
-                                        height=30,
+                                        height=30, text_color="white",
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_back.place(relx=1.0, rely=1.0, anchor='se', x=-24 - 80 - 13, y=-24)
 
@@ -112,7 +112,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
         if next_win is not None:
             button_next = ctk.CTkButton(self.main_frame, text="Далее", command=lambda: self.open_next_window(),
                                         width=80,
-                                        height=30,
+                                        height=30, text_color="white",
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 

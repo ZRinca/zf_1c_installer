@@ -28,6 +28,7 @@ def notifications_window(message, error=True, user_function=None):
     position_right = int(screen_width / 2 - window_width / 2)
 
     error_window.geometry(f"{window_width}x{window_height}+{position_right}+{position_top}")
+    error_window.resizable(False, False)
 
     label = ctk.CTkLabel(error_window, text=message, font=("Arial", 12))
     label.pack(pady=(24, 0))
@@ -36,8 +37,8 @@ def notifications_window(message, error=True, user_function=None):
     button_frame.pack(pady=(24, 24))
 
     close_button = ctk.CTkButton(button_frame, text="Закрыть", command=close_error_window,
-                                 fg_color="#6EC756", hover_color="#4EB932", width=80, height=30)
-    close_button.grid(row=0, column=0, padx=10)  # Располагаем в первой колонке
+                                 fg_color="#6EC756", hover_color="#4EB932", width=80, text_color="white", height=30)
+    close_button.grid(row=0, column=0, padx=10)
 
     if not error:
         def install_and_close():

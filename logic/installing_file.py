@@ -22,7 +22,7 @@ def copy_file(source_dir, target_dir):
 
         return f'Файлы из {source_dir} успешно скопированы в {target_dir}.'
     except Exception as e:
-        notifications_window(f'Произошла ошибка: {e}')
+        notifications_window(f'Копирование не удалось\nПовторите попытку')
         return
 
 

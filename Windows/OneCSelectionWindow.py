@@ -23,9 +23,10 @@ class OneCSelection(InstallerWindow):
 
         found_all_One_C = find_full_1c()
 
-
         if not found_all_One_C:
-            notifications_window('Мы не смогли найти \nна вашем пк 1с')
+            notifications_window('1C не найдена !')
+            self.open_prev_window()
+            return
 
         self.global_config['One_C'] = found_all_One_C
 
@@ -35,7 +36,7 @@ class OneCSelection(InstallerWindow):
         self.database_combobox.pack(padx=24, pady=24, fill='x')
 
         button_next = ctk.CTkButton(self.main_frame, text="Далее", command=self.on_next_button_click,
-                                    width=80, height=30,
+                                    width=80, height=30,text_color="white",
                                     fg_color="#6EC756", hover_color="#4EB932")
         button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
