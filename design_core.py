@@ -101,10 +101,10 @@ class InstallerWindow(metaclass=InstallerWindowBase):
                                          text_color="grey", anchor='sw', justify='left')
             label_version.pack(side='bottom', anchor='sw', padx=24, pady=24)
 
-        if self.quit_window is not None:
+        if self.quit_window:
             button_next = ctk.CTkButton(self.main_frame, text="Закрыть",
                                         width=80,
-                                        height=30, command=self.main_frame.winfo_toplevel().destroy,
+                                        height=30, text_color="white", command=self.main_frame.winfo_toplevel().destroy,
                                         fg_color="#6EC756", hover_color="#4EB932")
             button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 

@@ -24,7 +24,7 @@ class OneCSelection(InstallerWindow):
         found_all_One_C = find_full_1c()
 
         if not found_all_One_C:
-            notifications_window('1C не найдена !')
+            notifications_window('1C не найдена!')
             self.open_prev_window()
             return
 
