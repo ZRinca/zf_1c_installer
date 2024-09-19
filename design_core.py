@@ -24,6 +24,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
     header_text = None
     body_text = None
     site_link = None
+    quit_window = False
     draw_next_button = True
     draw_back_button = True
     installer_version = False
@@ -99,6 +100,13 @@ class InstallerWindow(metaclass=InstallerWindowBase):
             label_version = ctk.CTkLabel(self.main_frame, text=extract_version_from_rc(), font=("Arial", 12),
                                          text_color="grey", anchor='sw', justify='left')
             label_version.pack(side='bottom', anchor='sw', padx=24, pady=24)
+
+        if self.quit_window is not None:
+            button_next = ctk.CTkButton(self.main_frame, text="Закрыть",
+                                        width=80,
+                                        height=30, command=self.main_frame.winfo_toplevel().destroy,
+                                        fg_color="#6EC756", hover_color="#4EB932")
+            button_next.place(relx=1.0, rely=1.0, anchor='se', x=-24, y=-24)
 
         if prev_win is not None:
             button_back = ctk.CTkButton(self.main_frame, text="Назад", command=lambda: self.open_prev_window(),
