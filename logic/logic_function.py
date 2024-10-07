@@ -178,7 +178,7 @@ def loading_task(caller_window, global_config):
         link_url = None
 
         if link_url is None:
-            notifications_window('Не найдена публикация \nApache')
+            notifications_window('Веб-серверы не обнаружены, \nпубликация не выполнена. \nВыполните полную установку')
             caller_window.open_next_window()
             return
 
