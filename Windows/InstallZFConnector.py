@@ -19,6 +19,6 @@ class InstallZF(InstallerWindow):
     def draw(self):
         super().draw()
         self.loading_indicator = LoadingIndicator(self.main_frame, size=100, speed=50,
-                                                  label_text="Loading ZF...")
+                                                  label_text="Установка ZF...")
         self.loading_indicator.set_parent(self.main_frame)
         self.run_tech_task(False)

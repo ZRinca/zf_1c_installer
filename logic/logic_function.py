@@ -153,7 +153,7 @@ def publish_one_c(caller_window, global_config):
         break
 
     if not publish:
-        notifications_window('Веб-сервисы не обнаружены, \nпубликация не выполнена')
+        notifications_window('Веб-серверы не обнаружены, \nпубликация не выполнена. \nВыполните полную установку')
         caller_window.open_next_window()
         return
 
@@ -172,8 +172,15 @@ def install_zf(caller_window, global_config):
 
 def loading_task(caller_window, global_config):
     try:
-        link_url = find_publication_apache(global_config)
+        # link_url = find_publication_apache(global_config)
         path = create_file_folder_zf()
+
+        link_url = None
+
+        if link_url is None:
+            notifications_window('Не найдена публикация \nApache')
+            caller_window.open_next_window()
+            return
 
         write_read_json(f'{path[0]}\\settings.json', 'data_server_url', f'http://localhost{link_url}/')
         replace_text_in_xml(f'{path[0]}\\ZFConnector_settings.xml', 'REPLACETEXT', f'{path[0]}')
