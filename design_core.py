@@ -76,7 +76,7 @@ class InstallerWindow(metaclass=InstallerWindowBase):
 
         if self.body_text is not None:
             label2 = ctk.CTkLabel(self.main_frame,
-                                  text=self.body_text,
+                                  text=self.body_text, text_color='black',
                                   font=(font_text, body_text_size), anchor='w', justify='left',
                                   wraplength=self.main_frame.winfo_width() - 48)
             label2.pack(padx=24, pady=(24, 0), fill='x')
