@@ -11,7 +11,6 @@ SET activator=env\Scripts\activate
 SET installer=pip install pyinstaller pillow
 
 SET comand=pyinstaller
-SET comand=%comand% --noconsole
 SET comand=%comand% --version-file=version_info.rc
 SET comand=%comand% --name zf_setup
 SET comand=%comand% --icon=ico\ZF_green.ico
